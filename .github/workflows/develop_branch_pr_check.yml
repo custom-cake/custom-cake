@@ -11,6 +11,11 @@ env:
   
 jobs:
   pr-requirements-check:
+    defaults:
+      run:
+        shell: bash
+        working-directory: custom-cake-backend
+        
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,14 +31,6 @@ jobs:
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
           
-  test_and_build_check:
-    needs: pr-requirements-check
-    runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         shell: bash
-#         working-directory: custom-cake-backend
-    steps:
       - name: ls
         shell: bash
         run: ls -al
