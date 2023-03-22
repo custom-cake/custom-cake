@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./custom-cake-backend
+        working-directory: custom-cake-backend/
     steps:
       - name: pwd
         run: pwd
