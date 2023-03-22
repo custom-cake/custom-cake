@@ -1,0 +1,41 @@
+name: Develop Branch PR Check
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'custom-cake-backend/**'
+
+env:
+  BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+
+jobs:
+  pr-requirements-check-main:
+    defaults:
+      run:
+        shell: bash
+        working-directory: custom-cake-backend
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.3.1
+
+      - name: Branch name check
+        if: ${{ !startsWith(env.BRANCH_NAME, 'develop') && env.BRANCH_NAME != 'main' }}
+        run: exit 1
+
+      - name: Insert Dynmaic Configuration to gradle.properties
+        shell: bash
+        run: |
+          mkdir -p ~/.gradle/
+          echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
+      - name: Gradle clean
+        shell: bash
+        run: ./gradlew clean
+
+      - name: Test case check
+        run: ./gradlew test --continue
+
+      - name: Build check (without testcase)
+        run: ./gradlew build -x test
