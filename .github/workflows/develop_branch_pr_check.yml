@@ -31,10 +31,12 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
+#         shell: bash
         working-directory: custom-cake-backend/
     steps:
-      - name: chmod gradlew
-        run: sudo chmod +x ./gradlew
+#       - name: chmod gradlew
+#         shell: bash
+#         run: sudo chmod +x ./gradlew
 
       - name: Gradle clean
         shell: bash
