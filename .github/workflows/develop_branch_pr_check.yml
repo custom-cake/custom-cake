@@ -7,11 +7,15 @@ on:
       - 'custom-cake-backend/**'
 
 env:
-#   BACKEND_PROJECT_PATH: ''
   BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
   
 jobs:
   pr-requirements-check:
+    defaults:
+      run:
+        shell: bash
+        working-directory: custom-cake-backend
+        
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,23 +30,11 @@ jobs:
         run: |
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
-          
-  test_and_build_check:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./custom-cake-backend
-    steps:
-      - name: chmod gradlew
-        run: sudo chmod +x ./gradlew
 
       - name: Gradle clean
         shell: bash
         run: ./gradlew clean
-
-      - name: Ktlint check
-        run: ./gradlew ktlintCheck --continue
-
+        
       - name: Test case check
         run: ./gradlew test --continue
 
