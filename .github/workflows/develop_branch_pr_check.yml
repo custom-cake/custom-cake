@@ -32,7 +32,7 @@ jobs:
     defaults:
       run:
 #         shell: bash
-        working-directory: custom-cake-backend/
+        working-directory: custom-cake-backend
     steps:
 #       - name: chmod gradlew
 #         shell: bash
