@@ -10,7 +10,7 @@ env:
   BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
   
 jobs:
-  pr-requirements-check:
+  pr-requirements-check-main:
     defaults:
       run:
         shell: bash
