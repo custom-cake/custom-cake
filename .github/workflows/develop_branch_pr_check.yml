@@ -31,9 +31,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: custom-cake-backend
+        working-directory: ./custom-cake-backend
     steps:
-      - name: PWD
+      - name: ls
+        run: ls -al
+      - name: pwd
         run: pwd
       - name: chmod gradlew
         run: sudo chmod +x ./gradlew
