@@ -29,10 +29,12 @@ jobs:
           
   test_and_build_check:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./custom-cake-backend
+#     defaults:
+#       run:
+#         working-directory: ./custom-cake-backend
     steps:
+      - name: PWD
+        run: pwd
       - name: chmod gradlew
         run: sudo chmod +x ./gradlew
 
