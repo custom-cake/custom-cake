@@ -27,30 +27,26 @@ jobs:
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
           
   test_and_build_check:
+    needs: pr-requirements-check
     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: custom-cake-backend/
+    defaults:
+      run:
+        working-directory: ./custom-cake-backend
     steps:
       - name: pwd
         run: pwd
       - name: chmod gradlew
-        working-directory: ./custom-cake-backend
         run: sudo chmod +x ./gradlew
 
       - name: Gradle clean
         shell: bash
-        working-directory: ./custom-cake-backend
         run: ./gradlew clean
 
       - name: Ktlint check
-        working-directory: ./custom-cake-backend
         run: ./gradlew ktlintCheck --continue
 
       - name: Test case check
-        working-directory: ./custom-cake-backend
         run: ./gradlew test --continue
 
       - name: Build check (without testcase)
-        working-directory: ./custom-cake-backend
         run: ./gradlew build -x test
