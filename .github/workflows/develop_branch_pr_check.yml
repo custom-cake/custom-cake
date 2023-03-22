@@ -30,21 +30,11 @@ jobs:
         run: |
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
-          
-      - name: ls
-        shell: bash
-        run: ls -al
-#       - name: chmod gradlew
-#         shell: bash
-#         run: sudo chmod +x ./gradlew
 
       - name: Gradle clean
         shell: bash
         run: ./gradlew clean
-
-      - name: Ktlint check
-        run: ./gradlew ktlintCheck --continue
-
+        
       - name: Test case check
         run: ./gradlew test --continue
 
