@@ -27,18 +27,24 @@ jobs:
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
           
+  test_and_build_check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./custom-cake-backend"
+    steps:
       - name: chmod gradlew
-        run: sudo chmod +x ./custom-cake-backend/gradlew
+        run: sudo chmod +x ./gradlew
 
       - name: Gradle clean
         shell: bash
-        run: ./custom-cake-backend/gradlew clean
+        run: ./gradlew clean
 
       - name: Ktlint check
-        run: ./custom-cake-backend/gradlew ktlintCheck --continue
+        run: ./gradlew ktlintCheck --continue
 
       - name: Test case check
-        run: ./custom-cake-backend/gradlew test --continue
+        run: ./gradlew test --continue
 
       - name: Build check (without testcase)
-        run: ./custom-cake-backend/gradlew build -x test
+        run: ./gradlew build -x test
