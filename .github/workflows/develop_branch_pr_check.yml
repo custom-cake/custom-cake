@@ -27,8 +27,8 @@ jobs:
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
           
-      - name: Look for gradlew
-        run: find / -type f -name "gradlew"
+      - name: chmod gradlew
+        run: sudo chmod +x ./custom-cake-backend/gradlew
 
       - name: Gradle clean
         shell: bash
