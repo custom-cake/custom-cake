@@ -26,6 +26,9 @@ jobs:
         run: |
           mkdir -p ~/.gradle/
           echo "${GRADLE_PROPERTIES}" >> ~/.gradle/gradle.properties
+          
+      - name: Look for gradlew
+        run: find / -type f -name "gradlew"
 
       - name: Gradle clean
         shell: bash
