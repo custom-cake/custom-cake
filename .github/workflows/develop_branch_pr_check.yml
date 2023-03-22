@@ -7,7 +7,7 @@ on:
       - 'custom-cake-backend/**'
 
 env:
-  BACKEND_PROJECT_PATH: 'custom-cake-backend'
+#   BACKEND_PROJECT_PATH: ''
   BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
   
 jobs:
@@ -29,13 +29,13 @@ jobs:
 
       - name: Gradle clean
         shell: bash
-        run: ./env.BACKEND_PROJECT_PATH/gradlew clean
+        run: ./custom-cake-backend/gradlew clean
 
       - name: Ktlint check
-        run: ./env.BACKEND_PROJECT_PATH/gradlew ktlintCheck --continue
+        run: ./custom-cake-backend/gradlew ktlintCheck --continue
 
       - name: Test case check
-        run: ./env.BACKEND_PROJECT_PATH/gradlew test --continue
+        run: ./custom-cake-backend/gradlew test --continue
 
       - name: Build check (without testcase)
-        run: ./env.BACKEND_PROJECT_PATH/gradlew build -x test
+        run: ./custom-cake-backend/gradlew build -x test
