@@ -12,7 +12,7 @@ name: CI/CD develop env
 on:
   push:
     branches: [ "develop" ]
-	paths: ['custom-cake-backend/**']
+	paths: ["custom-cake-backend/**"]
 #  pull_request:
 #    branches: [ "develop" ]
 
