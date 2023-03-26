@@ -41,15 +41,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-            
+
       # setup MySQL
       - name: Setup MySQL
         uses: samin/mysql-action@v1
         with:
           character set server: 'utf8'
           mysql database: 'customcake'
-          mysql user: 'root'
-          mysql password: '1234'
+          mysql user: 'admin'
+          mysql password: 'customcake'
 
       # create application-dev.yml
       - name: Make application-dev.yml
@@ -73,11 +73,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-      
+
       # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        
+
       # Docker Build and Push to develop        
       - name: Build and push
         uses: docker/build-push-action@v4
@@ -131,6 +131,3 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CICD }}  # requied env
         # if: always()  # even if the job fails or is canceled.
-
-
-
