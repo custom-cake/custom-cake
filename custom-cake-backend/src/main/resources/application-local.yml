@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #        show_sql: true  # print hibernate SQL execution
+        format_sql: true
+        use_sql_comments: true  # can check JPQL
+
+logging.level:
+  org.hibernate.SQL: debug  # logging hibernate SQL execution
+  org.hibernate.type: trace  # logging SQL execution parameter

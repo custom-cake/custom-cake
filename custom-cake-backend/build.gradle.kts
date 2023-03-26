@@ -13,7 +13,7 @@ plugins {
 
     // kapt
     kotlin("kapt") version kotlinVersion
-    // ✅ Intellij에서 사용할 파일을 생성하는 플러그인입니다
+    // ✅ Intellij에서 사용할 파일을 생성하는 플러그인
     idea
 }
 
@@ -58,6 +58,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation("mysql:mysql-connector-java:8.0.25")
+
     // querydsl library (version 명시 필요 - https://wangtak.tistory.com/m/44)
     kapt("com.querydsl:querydsl-apt:$querydslVersion")
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")
@@ -67,7 +70,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
-// ✅ QClass를 Intellij가 사용할 수 있도록 경로에 추가합니다
+// ✅ QClass를 Intellij가 사용할 수 있도록 경로에 추가
 idea {
     module {
         val kaptMain = file("$buildDir/generated/source/kapt/main")
