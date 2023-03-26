@@ -41,6 +41,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+            
+      # setup MySQL
+      - name: Setup MySQL
+        uses: samin/mysql-action@v1
+        with:
+          character set server: 'utf8'
+          mysql database: 'customcake'
+          mysql user: 'root'
+          mysql password: '1234'
 
       # create application-dev.yml
       - name: Make application-dev.yml

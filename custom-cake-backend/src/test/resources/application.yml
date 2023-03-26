@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3306/customcake
+    username: admin
+    password: customcake
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -14,14 +14,14 @@ spring:
         format_sql: true
         use_sql_comments: true  # can check JPQL
 
-  redis:
-    lettuce:
-      pool:
-        max-active: 5 # max pool connection
-        max-idle: 5 # max idle pool connection
-        min-idle: 2
-    host: localhost
-    port: 6379
+#  redis:
+#    lettuce:
+#      pool:
+#        max-active: 5 # max pool connection
+#        max-idle: 5 # max idle pool connection
+#        min-idle: 2
+#    host: localhost
+#    port: 6379
 
 logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution
