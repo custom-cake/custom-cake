@@ -50,8 +50,6 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
-    runtimeOnly("com.h2database:h2")
-
     // p6spy (운영 환경에서 사용하려면 성능 테스트 필수 !)
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
 
@@ -60,6 +58,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation("mysql:mysql-connector-java:8.0.25")
+
+    // redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     // querydsl library (version 명시 필요 - https://wangtak.tistory.com/m/44)
     kapt("com.querydsl:querydsl-apt:$querydslVersion")
