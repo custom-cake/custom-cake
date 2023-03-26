@@ -42,15 +42,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # setup MySQL
-      - name: Setup MySQL
-        uses: samin/mysql-action@v1
-        with:
-          character set server: 'utf8'
-          mysql database: 'customcake'
-          mysql user: 'admin'
-          mysql password: 'customcake'
-
       # create application-dev.yml
       - name: Make application-dev.yml
         if: contains(github.ref, 'develop')
