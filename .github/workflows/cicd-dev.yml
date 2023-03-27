@@ -21,10 +21,6 @@ permissions:
 
 jobs:
   ci_cd:
-    defaults:
-      run:
-        working-directory: custom-cake-backend
-        
     runs-on: ubuntu-latest
     steps:
       # jdk setting
@@ -50,7 +46,7 @@ jobs:
       - name: Make application-dev.yml
         if: contains(github.ref, 'develop')
         run: |
-          cd ./src/main/resources
+          cd ./custom-cake-backend/src/main/resources
           touch ./application-dev.yml
           echo "{{ secrets.YML_DEV }}" > ./application-dev.yml
         shell: bash
@@ -64,7 +60,6 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
-        # run : ./gradlew clean build
 
       # Docker login
       - name: Login to Docker Hub
