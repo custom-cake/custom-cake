@@ -79,8 +79,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./custom-cake-backend/Dockerfile-dev
+          context: ./custom-cake-backend
+          file: ./Dockerfile-dev
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
 
