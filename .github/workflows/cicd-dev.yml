@@ -13,8 +13,6 @@ on:
   push:
     branches: [ "develop" ]
     paths: ["custom-cake-backend/**"]
-#  pull_request:
-#    branches: [ "develop" ]
 
 permissions:
   contents: read
@@ -57,9 +55,11 @@ jobs:
 
       # gradle build
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
+        working-directory: custom-cake-backend
+        run: ./gradlew build
+        #uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        #with:
+        #  arguments: build
 
       # Docker login
       - name: Login to Docker Hub
