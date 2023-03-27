@@ -24,7 +24,7 @@ jobs:
         with:
           character set server: 'utf8'
           mysql database: 'customcake'
-          mysql user: 'root'
+          mysql user: 'admin'
           mysql root password: '1234'
 
       - name: Checkout code
