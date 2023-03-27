@@ -21,7 +21,11 @@ permissions:
 
 jobs:
   ci_cd:
+    defaults:
+      run:
+        working-directory: custom-cake-backend
     runs-on: ubuntu-latest
+    
     steps:
       # jdk setting
       - uses: actions/checkout@v3
