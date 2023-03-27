@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./custom-cake-backend
-          file: ./Dockerfile-dev
+          file: ./custom-cake-backend/Dockerfile-dev
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
 
