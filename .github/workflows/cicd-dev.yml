@@ -12,7 +12,9 @@ name: CI/CD develop env
 on:
   push:
     branches: [ "develop" ]
-    paths: ["custom-cake-backend/**"]
+    paths: 
+    - "custom-cake-backend/**"
+    - ".github/workflows/**"
 
 permissions:
   contents: read
