@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `name`	                        VARCHAR(50)	            NOT NULL,
     `nickname`	                    VARCHAR(20)	            NOT NULL UNIQUE,       -- DEFAULT cake-{uuid}
     `phone`             	        VARCHAR(20)	            NOT NULL,              -- 인증
-    `is_ authenticated`	            BOOLEAN	                NOT NULL,
+    `is_authenticated`	            BOOLEAN	                NOT NULL,
     `social_type`	                VARCHAR(10)	            NOT NULL,              -- ENUM(KAKAO, NAVER)
     `social_account_id`	            VARCHAR(255)	        NOT NULL,              -- '소셜 계정 Unique 값'
     `last_conn_date`	            DATETIME	            NOT NULL,
@@ -51,7 +51,9 @@ CREATE TABLE IF NOT EXISTS `store` (
 	`view_count`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
 	`rating_sum`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
 	`created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (operator_id) REFERENCES operator (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -62,7 +64,9 @@ CREATE TABLE IF NOT EXISTS `store_image` (
     `url`	                        VARCHAR(255)	        NOT NULL,
     `is_thumbnail`	                BOOLEAN                	NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -80,11 +84,13 @@ CREATE TABLE IF NOT EXISTS `store_image` (
 CREATE TABLE IF NOT EXISTS `dayoff` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
-	`dayoff_type`               	VARCHAR(20)	            NOT NULL,  -- ENUM("FIXED", "DESIGNATED")
-	`dayoff_day`                	VARCHAR(1)	        	NULL, -- ENUM("월"~"일")
+	`dayoff_type`               	VARCHAR(20)	            NOT NULL,       -- ENUM("FIXED", "DESIGNATED")
+	`dayoff_day`                	VARCHAR(1)	        	NULL,           -- ENUM("월"~"일")
 	`dayoff_date`	                DATE	                NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -102,7 +108,9 @@ CREATE TABLE IF NOT EXISTS `cake_item` (
     `view_count`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
 	`order_count`	                INT UNSIGNED        	NOT NULL DEFAULT 0,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -113,7 +121,9 @@ CREATE TABLE IF NOT EXISTS `cake_item_image` (
 	`url`	                        VARCHAR(255)	        NOT NULL,
 	`is_thumbnail`	                BOOLEAN	                NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (cake_item_id) REFERENCES cake_item (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -136,7 +146,9 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
 	`is_answered`	                BOOLEAN	                NOT NULL DEFAULT FALSE,
 	`answer`	                    TEXT	                NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -151,7 +163,9 @@ CREATE TABLE IF NOT EXISTS `cake_option1` (
     `price`	                        INT	UNSIGNED            NOT NULL,
     `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -165,7 +179,9 @@ CREATE TABLE IF NOT EXISTS `cake_option2` (
     `price`	                        INT	UNSIGNED            NOT NULL,
     `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -177,7 +193,9 @@ CREATE TABLE IF NOT EXISTS `cake_option3` (
     `price`	                        INT	UNSIGNED            NOT NULL,
     `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -186,11 +204,13 @@ CREATE TABLE IF NOT EXISTS `option_by_cake` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`cake_item_id`	                BIGINT UNSIGNED	        NOT NULL,
 	`cake_option_type`	            TINYINT	                NOT NULL,
-	`cake_option_id`	            BIGINT UNSIGNED	        NOT NULL,
+	`cake_option_id`	            BIGINT UNSIGNED	        NOT NULL,          -- not foreign_key
     `price`	                        INT	UNSIGNED            NOT NULL,
     `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (cake_item_id) REFERENCES cake_item (id),
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -201,7 +221,9 @@ CREATE TABLE IF NOT EXISTS `store_notification` (
 	`title`	                        VARCHAR(255)	        NOT NULL,
 	`content`	                    TEXT	                NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (store_id) REFERENCES store (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -211,10 +233,14 @@ CREATE TABLE IF NOT EXISTS `chat_room` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id`	                    BIGINT UNSIGNED	        NOT NULL,
     `operator_id`	                BIGINT UNSIGNED	        NOT NULL,
-    `cake_order_sheet_id`	        BIGINT UNSIGNED	        NOT NULL,
+    `cake_custom_order_sheet_id`    BIGINT UNSIGNED	        NOT NULL,
     `order_status`	                VARCHAR(50)	            NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES user (id)
+    FOREIGN KEY (operator_id) REFERENCES operator (id)
+    FOREIGN KEY (cake_custom_order_sheet_id) REFERENCES cake_custom_order_sheet (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -225,7 +251,9 @@ CREATE TABLE IF NOT EXISTS `chat_message` (
     `message`	                    VARCHAR(500)	        NOT NULL,
     `is_read`	                    BOOLEAN	                NOT NULL DEFAULT FALSE,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (chat_room_id) REFERENCES chat_room (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -237,10 +265,16 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     `cake_option1_id`	            BIGINT UNSIGNED	        NOT NULL,
     `cake_option2_id`	            BIGINT UNSIGNED	        NOT NULL,
     `cake_option3_id`	            BIGINT UNSIGNED	        NULL DEFAULT NULL,
-    `cake_custom_image`	            VARCHAR(100)	        NULL,
+    `cake_custom_image`	            VARCHAR(255)	        NULL,           -- url
     `cake_custom_sketch`	        JSON	                NULL,       	-- 'JSON 데이터 구조를 정의해 프론트와 통신 필요'
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (chat_room_id) REFERENCES chat_room (id)
+    FOREIGN KEY (cake_option1_id) REFERENCES cake_option1 (id)
+    FOREIGN KEY (cake_option2_id) REFERENCES cake_option2 (id)
+    FOREIGN KEY (cake_option3_id) REFERENCES cake_option3 (id) NULL
+
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -254,8 +288,11 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
 --  	`cake_option3_id`	            BIGINT UNSIGNED	        NULL DEFAULT NULL,
 --  	`cake_custom_image`	            VARCHAR(100)	        NULL,
 --  	`cake_custom_sketch`	        JSON	                NULL,           -- 'JSON 데이터 구조를 정의해 프론트와 통신 필요',
+    `payment_amount`	            INT	UNSIGNED            NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (cake_custom_order_sheet_id) REFERENCES cake_custom_order_sheet (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -271,7 +308,11 @@ CREATE TABLE IF NOT EXISTS `cake_design_order` (
 	`order_status`	                VARCHAR(10)	            NOT NULL,   -- ENUM("결제완료","주문진행중","픽업완료","주문취소")
 	`purchase_confirmation_date`	DATETIME	            NULL,       -- 구매확정일
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (cake_option1_id) REFERENCES cake_option1 (id)
+    FOREIGN KEY (cake_option2_id) REFERENCES cake_option2 (id)
+    FOREIGN KEY (cake_option3_id) REFERENCES cake_option3 (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
@@ -280,18 +321,24 @@ CREATE TABLE IF NOT EXISTS `review` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`user_id`	                    BIGINT UNSIGNED	        NOT NULL,
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
-	`order_type`                    VARCHAR(50)        	    NOT NULL,
-	`order_id`	                    BIGINT UNSIGNED 	    NOT NULL,
+	`order_type`                    VARCHAR(10)        	    NOT NULL,       -- DESIGN or CUSTOM
+	`order_id`	                    BIGINT UNSIGNED 	    NOT NULL,       -- not foreign_key, just id
 	`content`	                    VARCHAR(255)	        NOT NULL,
 	`score`	                        INT	UNSIGNED            NOT NULL,       -- 1~5
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES user (id)
+    FOREIGN KEY (store_id) REFERENCES store (id) NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `push_notification` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id`                       BIGINT UNSIGNED	        NOT NULL,
+	`order_type`                    VARCHAR(10)        	    NOT NULL,       -- DESIGN or CUSTOM
+	`order_id`	                    BIGINT UNSIGNED 	    NOT NULL,       -- not foreign_key, just id
     `message`	                    VARCHAR(255)	        NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
