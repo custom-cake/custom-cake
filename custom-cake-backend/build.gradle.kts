@@ -52,7 +52,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation("mysql:mysql-connector-java:8.0.25")
-
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    implementation("org.hibernate:hibernate-core:5.6.8.Final")
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
@@ -61,12 +62,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation("mysql:mysql-connector-java:8.0.25")
-
-    // redis
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     // querydsl library (version 명시 필요 - https://wangtak.tistory.com/m/44)
     kapt("com.querydsl:querydsl-apt:$querydslVersion")
