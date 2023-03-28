@@ -11,4 +11,12 @@ class VerificationCodeStorageImpl : VerificationCodeStorage {
     override fun put(key: String, code: String, expireTime: Long) {
         tempStorage[key] = code
     }
+
+    override fun confirm(key: String, code: String): Boolean {
+        if (tempStorage[key] != code)
+            return false
+
+        tempStorage.remove(key)
+        return true
+    }
 }
