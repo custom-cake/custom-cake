@@ -1,15 +1,15 @@
-package com.cake.customcakebackend.ui.admin.controller
+package com.cake.customcakebackend.adapter.`in`.web
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/admin")
-class MainController {
+@RequestMapping("/operator")
+class OperatorLoginController {
 
-    @GetMapping("/main")
-    fun main(): String {
-        return "index"
+    @GetMapping("/login")
+    fun login(): String {
+        return "login"
     }
 }
