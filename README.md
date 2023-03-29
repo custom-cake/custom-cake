@@ -34,6 +34,7 @@
 │               │   └── port/
 │               │       ├── in/      # UseCase
 │               │       └── out/     # Port
+│               │   └── service/     # Service
 │               ├── configuration/
 │               │   └── QuerydslConfiguration.kt
 │               └── domain/
