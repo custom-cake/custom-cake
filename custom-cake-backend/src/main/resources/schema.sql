@@ -7,10 +7,10 @@ SET foreign_key_checks = 1;
 CREATE TABLE IF NOT EXISTS `operator` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `email`	                        VARCHAR(100)	        NOT NULL UNIQUE,
-    `password`	                    VARCHAR(225)	        NOT NULL,
+    `password`	                    VARCHAR(255)	        NOT NULL,
     `name`	                        VARCHAR(50)	            NOT NULL,
     `phone`	                        VARCHAR(20)	            NOT NULL,
-    `is_authenticated`	            BOOLEAN	                NOT NULL,
+    `is_authenticated`	            TINYINT	                NOT NULL,
     `last_conn_date`	            DATETIME	            NOT NULL,           -- 마지막 접속일
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS `user` (
     `name`	                        VARCHAR(50)	            NOT NULL,
     `nickname`	                    VARCHAR(20)	            NOT NULL UNIQUE,       -- DEFAULT cake-{uuid}
     `phone`             	        VARCHAR(20)	            NOT NULL,              -- 인증
-    `is_authenticated`	            BOOLEAN	                NOT NULL,
     `social_type`	                VARCHAR(10)	            NOT NULL,              -- ENUM(KAKAO, NAVER)
     `social_account_id`	            VARCHAR(255)	        NOT NULL,              -- '소셜 계정 Unique 값'
+    `is_authenticated`	            TINYINT	                NOT NULL,
     `last_conn_date`	            DATETIME	            NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
@@ -40,13 +40,13 @@ CREATE TABLE IF NOT EXISTS `store` (
 	`representative_name`	        VARCHAR(50)	            NOT NULL,                       -- 대표자 이름
 	`zip_code`	                    VARCHAR(5)	            NOT NULL,
     `base_address`	                VARCHAR(100)	        NOT NULL,
-    `detail_address`	            VARCHAR(100),
-	`name`                      	VARCHAR(50)     	    NOT NULL,
+    `detail_address`	            VARCHAR(100)            NULL,
 	`phone`	                        VARCHAR(20)     	    NOT NULL,
+	`name`                      	VARCHAR(50)     	    NOT NULL,
+	`description`	                TEXT	                NULL,
 	`openTime`	                    VARCHAR(20)     	    NOT NULL,                       -- 요일 별 open 시간 상이
     `reservation_period`	        INT UNSIGNED            NOT NULL DEFAULT 30,            -- 5,10,15...30
 	`reservation_per_period_count`	VARCHAR(255)	        NOT NULL DEFAULT 1,
-	`description`	                TEXT	                NULL,
 	`thumbnail_image_url`	        VARCHAR(255)	        NOT NULL,
 	`view_count`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
 	`rating_sum`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `store_image` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `store_id`	                    BIGINT UNSIGNED	        NOT NULL,
     `url`	                        VARCHAR(255)	        NOT NULL,
-    `is_thumbnail`	                BOOLEAN                	NOT NULL,
+    `is_thumbnail`	                TINYINT                	NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `dayoff` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
 	`dayoff_type`               	VARCHAR(20)	            NOT NULL,       -- ENUM("FIXED", "DESIGNATED")
-	`dayoff_day`                	VARCHAR(1)	        	NULL,           -- ENUM("월"~"일")
+	`dayoff_day`                	CHAR(1)	        	    NULL,           -- ENUM("MON"~"SUN")
 	`dayoff_date`	                DATE	                NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS `cake_item` (
 	`category`	                    VARCHAR(20)	            NULL,
 	`description`	                TEXT	                NULL,
 	`thumbnail_image_url`	        VARCHAR(255)	        NOT NULL,
-	`is_onsale`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
-	`is_deleted`	                BOOLEAN	                NOT NULL DEFAULT FALSE,
+	`is_onsale`	                    TINYINT	                NOT NULL DEFAULT 1,
+	`is_deleted`	                TINYINT	                NOT NULL DEFAULT 0,
 	`price`	                        INT	UNSIGNED            NOT NULL,
     `view_count`	                INT UNSIGNED	        NOT NULL DEFAULT 0,
 	`order_count`	                INT UNSIGNED        	NOT NULL DEFAULT 0,
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `cake_item_image` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`cake_item_id`	                BIGINT UNSIGNED	        NOT NULL,
 	`url`	                        VARCHAR(255)	        NOT NULL,
-	`is_thumbnail`	                BOOLEAN	                NOT NULL,
+	`is_thumbnail`	                TINYINT	                NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
 	`title`	                        VARCHAR(50)	            NOT NULL,
 	`content`	                    TEXT	                NOT NULL,
-	`is_answered`	                BOOLEAN	                NOT NULL DEFAULT FALSE,
+	`is_answered`	                TINYINT	                NOT NULL DEFAULT 0,
 	`answer`	                    TEXT	                NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `cake_option1` (
     `lettering_limit`	            INT	UNSIGNED            NOT NULL,
     `cake_layer`	                VARCHAR(10)         	NOT NULL,          -- ENUM(1단,2단,3단)
     `price`	                        INT	UNSIGNED            NOT NULL,
-    `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
+    `is_used`	                    TINYINT	                NOT NULL DEFAULT 1,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `cake_option2` (
 	`cake_inner_cream`	            VARCHAR(20)	            NOT NULL,          -- ENUM(CREAMCHEESE, CHOCO,...)
 	`cake_outer_cream`	            VARCHAR(20)	            NOT NULL,          -- ENUM(CREAMCHEESE, CHOCO,...)
     `price`	                        INT	UNSIGNED            NOT NULL,
-    `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
+    `is_used`	                    TINYINT	                NOT NULL DEFAULT 1,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `cake_option3` (
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
 	`name`	                        VARCHAR(20)	            NOT NULL,
     `price`	                        INT	UNSIGNED            NOT NULL,
-    `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
+    `is_used`	                    TINYINT	                NOT NULL DEFAULT 1,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -203,10 +203,10 @@ CREATE TABLE IF NOT EXISTS `cake_option3` (
 CREATE TABLE IF NOT EXISTS `option_by_cake` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`cake_item_id`	                BIGINT UNSIGNED	        NOT NULL,
-	`cake_option_type`	            TINYINT	                NOT NULL,
+	`cake_option_type`	            INT UNSIGNED            NOT NULL,
 	`cake_option_id`	            BIGINT UNSIGNED	        NOT NULL,          -- not foreign_key
     `price`	                        INT	UNSIGNED            NOT NULL,
-    `is_used`	                    BOOLEAN	                NOT NULL DEFAULT TRUE,
+    `is_used`	                    TINYINT	                NOT NULL DEFAULT 1,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `chat_message` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `chat_room_id`	                BIGINT UNSIGNED	        NOT NULL,
     `message`	                    VARCHAR(500)	        NOT NULL,
-    `is_read`	                    BOOLEAN	                NOT NULL DEFAULT FALSE,
+    `is_read`	                    TINYINT	                NOT NULL DEFAULT 0,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
