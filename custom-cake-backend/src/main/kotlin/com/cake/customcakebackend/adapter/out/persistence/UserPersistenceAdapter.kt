@@ -17,7 +17,7 @@ class UserPersistenceAdapter(
 
     override fun save(user: User) {
         TODO("Change domain to entity and save entity.")
-        val userEntity = userMapper.toEntity(user)
-        userJpaRepository.save(userEntity)
+//        val userEntity = userMapper.toEntity(user)
+//        userJpaRepository.save(userEntity)
     }
 }

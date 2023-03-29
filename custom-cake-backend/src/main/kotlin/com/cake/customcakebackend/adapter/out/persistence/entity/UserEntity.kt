@@ -7,13 +7,13 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
-@Entity
-@Table(name = "user")
-@Getter
+//@Entity
+//@Table(name = "user")
+//@Getter
 class UserEntity (
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-
-    val name: String
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    val id: Long = 0,
+//
+//    val name: String
 )
