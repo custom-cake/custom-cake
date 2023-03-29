@@ -1,4 +1,4 @@
-package com.cake.customcakebackend.infrastructure.persistence.database.entity
+package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import lombok.Getter
 import org.springframework.data.annotation.CreatedDate
