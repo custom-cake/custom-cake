@@ -1,9 +1,9 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import lombok.Getter
+import com.cake.customcakebackend.common.DayOfWeekUnit
+import com.cake.customcakebackend.common.JsonColumnConverter
 import javax.persistence.*
 
-@Getter
 @Table(name = "store")
 @Entity
 class StoreEntity(
@@ -28,16 +28,17 @@ class StoreEntity(
     val phone: String,
 
     @Column(columnDefinition = "String", length = 50, nullable = false)
-    val name: String,
+    val name: String,  // 매장 이름
 
     @Column(columnDefinition = "TEXT")
     val description: String? = "",
 
-//    @Column(columnDefinition = "String", length = 50, nullable = false)
-//    val openTime: String,
+    @Convert(converter = JsonColumnConverter.MapConverter::class)
+    @Column(columnDefinition = "JSON", nullable = false)
+    val openTime: Map<DayOfWeekUnit, Any>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 30", nullable = false)
-    val reservationPeriod: Int,  // 예약 주기
+    val reservationPeriod: Int,  // 예약 주기  e.g.  5,10,15,20,30 ...
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 1", nullable = false)
     val reservationPerPeriodCount: Int,  // 예약 주기 별 케이크 예약 건수

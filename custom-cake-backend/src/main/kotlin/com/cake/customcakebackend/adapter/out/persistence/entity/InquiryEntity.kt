@@ -1,16 +1,17 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import lombok.Getter
-import java.time.LocalDate
 import javax.persistence.*
 
-@Getter
 @Table(name = "inquiry")
 @Entity
 class InquiryEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    val user: UserEntity,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "store_id")
@@ -28,4 +29,4 @@ class InquiryEntity (
     @Column(columnDefinition = "TEXT")
     val answer: String? = ""
 
-): BaseEntity()
+) : BaseEntity()

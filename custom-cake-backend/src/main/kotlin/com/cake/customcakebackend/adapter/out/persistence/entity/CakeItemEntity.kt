@@ -1,9 +1,8 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import lombok.Getter
+import com.cake.customcakebackend.common.CakeCategory
 import javax.persistence.*
 
-@Getter
 @Table(name = "cake_item")
 @Entity
 class CakeItemEntity(
@@ -18,8 +17,9 @@ class CakeItemEntity(
     @Column(columnDefinition = "String", length = 20, nullable = false)
     val name: String,
 
+    @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "String", length = 20)
-    val category: String,
+    val category: CakeCategory,
 
     @Column(columnDefinition = "TEXT")
     val description: String? = "",

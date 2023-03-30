@@ -2,21 +2,21 @@ package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import javax.persistence.*
 
-@Table(name = "store_notification")
+@Table(name = "chat_message")
 @Entity
-class StoreNotificationEntity (
+class ChatMessageEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "store_id")
-    val store: StoreEntity,
-
-    @Column(columnDefinition = "String", length = 255, nullable = false)
-    val title: String,
+    @JoinColumn(name = "chat_room_id")
+    val chatRoom: ChatRoomEntity,
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    val content: String,
+    val message: String,
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0", nullable = false)
+    val isRead: Boolean
 
 ) : BaseEntity()

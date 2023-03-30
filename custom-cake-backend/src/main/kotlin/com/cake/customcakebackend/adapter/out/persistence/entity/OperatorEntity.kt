@@ -1,15 +1,8 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import lombok.Getter
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
-@Getter
 @Table(name = "operator")
 @Entity
 class OperatorEntity(
@@ -30,7 +23,7 @@ class OperatorEntity(
     val phone: String,
 
     @Column(columnDefinition = "TINYINT", nullable = false)
-    val isAuthentication: Boolean,
+    val isAuthenticated: Boolean,
 
     @Column(nullable = false)
     val lastConnDate: LocalDateTime

@@ -1,10 +1,8 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import com.cake.customcakebackend.domain.CakeOption1Type
-import lombok.Getter
+import com.cake.customcakebackend.common.CakeOption1Type
 import javax.persistence.*
 
-@Getter
 @Table(name = "cake_option1")
 @Entity
 class CakeOption1Entity(
@@ -33,5 +31,8 @@ class CakeOption1Entity(
 
     @Column(columnDefinition = "TINYINT DEFAULT 1", nullable = false)
     val isUsed: Boolean,
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0", nullable = false)
+    val isDeleted: Boolean
 
 ) : BaseEntity()

@@ -1,4 +1,4 @@
-package com.cake.customcakebackend.domain
+package com.cake.customcakebackend.common
 
 class CakeOption2Type {
     enum class CakeSheet(val type: String) {

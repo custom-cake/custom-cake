@@ -1,9 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import lombok.Getter
 import javax.persistence.*
 
-@Getter
 @Table(name = "store_image")
 @Entity
 class StoreImageEntity(

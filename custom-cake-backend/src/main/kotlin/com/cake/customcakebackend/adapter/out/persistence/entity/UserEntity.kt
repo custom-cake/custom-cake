@@ -1,12 +1,9 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import com.cake.customcakebackend.domain.SocialType
-import lombok.Getter
+import com.cake.customcakebackend.common.SocialType
 import java.time.LocalDateTime
 import javax.persistence.*
-import javax.validation.constraints.Email
 
-@Getter
 @Table(name = "user")
 @Entity
 class UserEntity (
@@ -31,8 +28,9 @@ class UserEntity (
     val socialAccountId: String,
 
     @Column(columnDefinition = "TINYINT", nullable = false)
-    val isAuthentication: Boolean,
+    val isAuthenticated: Boolean,
 
     @Column(nullable = false)
-    val lastConnDate: LocalDateTime
-)
+    val lastConnDatetime: LocalDateTime
+
+) : BaseEntity()

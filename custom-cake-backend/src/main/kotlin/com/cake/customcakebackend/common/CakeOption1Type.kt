@@ -1,4 +1,4 @@
-package com.cake.customcakebackend.domain
+package com.cake.customcakebackend.common
 
 class CakeOption1Type {
     enum class CakeSpace(val type: String) {
