@@ -70,6 +70,9 @@ dependencies {
     // configuration-processor
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    // swagger
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
 }
 
 // ✅ QClass를 Intellij가 사용할 수 있도록 경로에 추가
