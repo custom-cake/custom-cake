@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 data class CakeOption1(
     val id: Long,
     val storeId: Long,
-    val cakeShape: CakeOption1Type.CakeSpace,  // ENUM(CIRCLE,SQUARE,HEART)
+    val cakeShape: CakeOption1Type.CakeShape,  // ENUM(CIRCLE,SQUARE,HEART)
     val cakeSize: CakeOption1Type.CakeSize,  // ENUM(NO_1, ... ,NO_6)
     val letteringLimit: Int,
     val cakeLayer: CakeOption1Type.CakeLayer,  //  ENUM(LAYER_1,LAYER_2,LAYER_3)
