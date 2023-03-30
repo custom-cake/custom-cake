@@ -24,8 +24,8 @@ class StoreEntity(
     @Embedded
     val address: Address,
 
-    @Column(columnDefinition = "String", length = 20, nullable = false)
-    val phone: String,
+    @Column(columnDefinition = "String", length = 20)
+    val phone: String? = "",
 
     @Column(columnDefinition = "String", length = 50, nullable = false)
     val name: String,  // 매장 이름

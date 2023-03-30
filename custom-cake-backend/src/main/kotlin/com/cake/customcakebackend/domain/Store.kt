@@ -11,7 +11,7 @@ data class Store(
     val zipCode: String,
     val baseAddress: String,
     val detailAddress: String? = "",
-    val phone: String,
+    val phone: String? = "",
     val name: String,  // 매장 이름
     val description: String? = "",
     val openTime: Map<DayOfWeekUnit, Any>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")

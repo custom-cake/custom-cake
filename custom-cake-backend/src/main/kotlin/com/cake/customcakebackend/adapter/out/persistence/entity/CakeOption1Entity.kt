@@ -15,7 +15,7 @@ class CakeOption1Entity(
     val store: StoreEntity,
 
     @Column(columnDefinition = "String", length = 10, nullable = false)
-    val cakeShape: CakeOption1Type.CakeSpace,  // ENUM(CIRCLE,SQUARE,HEART)
+    val cakeShape: CakeOption1Type.CakeShape,  // ENUM(CIRCLE,SQUARE,HEART)
 
     @Column(columnDefinition = "String", length = 10, nullable = false)
     val cakeSize: CakeOption1Type.CakeSize,  // ENUM(NO_1, ... ,NO_6)
