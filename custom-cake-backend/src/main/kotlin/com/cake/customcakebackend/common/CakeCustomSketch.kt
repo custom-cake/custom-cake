@@ -1,4 +1,4 @@
-package com.cake.customcakebackend.domain
+package com.cake.customcakebackend.common
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

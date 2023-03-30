@@ -1,7 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import com.cake.customcakebackend.common.JsonColumnConverter
-import com.cake.customcakebackend.domain.CakeCustomSketch
+import com.cake.customcakebackend.common.CakeCustomSketch
 import java.time.LocalDateTime
 import javax.persistence.*
 
