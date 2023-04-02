@@ -2,11 +2,10 @@ package com.cake.customcakebackend.adapter.out.persistence.mapper
 
 import com.cake.customcakebackend.adapter.out.persistence.entity.Address
 import com.cake.customcakebackend.adapter.out.persistence.entity.StoreEntity
-import com.cake.customcakebackend.domain.Operator
 import com.cake.customcakebackend.domain.Store
 
 class StoreMapper {
-    fun toEntity(domain: Store, operator: Operator): StoreEntity =
+    fun toEntity(domain: Store): StoreEntity =
         StoreEntity(
             id = domain.id,
             operatorId = domain.id,
