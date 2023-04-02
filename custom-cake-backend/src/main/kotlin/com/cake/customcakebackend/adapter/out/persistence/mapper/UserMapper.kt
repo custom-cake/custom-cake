@@ -2,7 +2,9 @@ package com.cake.customcakebackend.adapter.out.persistence.mapper
 
 import com.cake.customcakebackend.adapter.out.persistence.entity.UserEntity
 import com.cake.customcakebackend.domain.User
+import org.springframework.stereotype.Component
 
+@Component
 class UserMapper : Mapper<UserEntity, User> {
     override fun toEntity(domain: User): UserEntity =
         UserEntity(

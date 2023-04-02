@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `store` (
                                        `phone`	                        VARCHAR(20)     	    NOT NULL,
                                        `name`                      	VARCHAR(50)     	    NOT NULL,
                                        `description`	                TEXT	                NULL,
-                                       `openTime`	                    JSON             	    NOT NULL,                       -- 요일 별 open 시간 상이
+                                       `open_time`	                    JSON             	    NOT NULL,                       -- 요일 별 open 시간 상이
                                        `reservation_period`	        INT UNSIGNED            NOT NULL DEFAULT 30,            -- 5,10,15...30
                                        `reservation_per_period_count`	INT UNSIGNED	        NOT NULL DEFAULT 1,
                                        `thumbnail_image_url`	        VARCHAR(255)	        NOT NULL,

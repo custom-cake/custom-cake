@@ -2,7 +2,9 @@ package com.cake.customcakebackend.adapter.out.persistence.mapper
 
 import com.cake.customcakebackend.adapter.out.persistence.entity.OperatorEntity
 import com.cake.customcakebackend.domain.Operator
+import org.springframework.stereotype.Component
 
+@Component
 class OperatorMapper : Mapper<OperatorEntity, Operator>  {
     override fun toEntity(domain: Operator): OperatorEntity =
         OperatorEntity(

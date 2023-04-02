@@ -3,7 +3,9 @@ package com.cake.customcakebackend.adapter.out.persistence.mapper
 import com.cake.customcakebackend.adapter.out.persistence.entity.Address
 import com.cake.customcakebackend.adapter.out.persistence.entity.StoreEntity
 import com.cake.customcakebackend.domain.Store
+import org.springframework.stereotype.Component
 
+@Component
 class StoreMapper {
     fun toEntity(domain: Store): StoreEntity =
         StoreEntity(

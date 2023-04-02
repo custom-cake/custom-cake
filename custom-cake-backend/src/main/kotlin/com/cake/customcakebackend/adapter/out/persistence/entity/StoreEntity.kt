@@ -34,7 +34,7 @@ class StoreEntity(
     val description: String? = "",
 
     @Convert(converter = JsonColumnConverter.MapConverter::class)
-    @Column(columnDefinition = "JSON", nullable = false)
+    @Column(name= "open_time", columnDefinition = "JSON", nullable = false)
     val openTime: Map<DayOfWeekUnit, Any>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 30", nullable = false)
