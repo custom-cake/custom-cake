@@ -10,9 +10,9 @@ class CakeItemEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "store_id")
-    val store: StoreEntity,
+    // @ManyToOne
+    @Column(name = "store_id", nullable = false)
+    val storeId: Long,
 
     @Column(columnDefinition = "String", length = 20, nullable = false)
     val name: String,

@@ -11,9 +11,9 @@ class StoreEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "operator_id")
-    val operator: OperatorEntity,
+    // @OneToOne
+    @Column(name = "operator_id")
+    val operatorId: Long,
 
     @Column(columnDefinition = "CHAR(10)", length = 10, nullable = false, unique = true)
     val businessRegistrationNo: String,  // 사업자 등록 번호 10자리 (인증 필수)

@@ -11,21 +11,21 @@ class CakeDesignOrderEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
+    // @ManyToOne
+    @Column(name = "user_id", nullable = false)
+    val userId: Long,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cake_option1_id")
-    val cakeOption1: CakeOption1Entity,
+    // @ManyToOne
+    @Column(name = "cake_option1_id", nullable = false)
+    val cakeOption1Id: Long,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cake_option2_id")
-    val cakeOption2: CakeOption2Entity,
+    // @ManyToOne
+    @Column(name = "cake_option2_id", nullable = false)
+    val cakeOption2Id: Long,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "cake_option3_id")
-    val cakeOption3: CakeOption3Entity? = null,
+    // @ManyToOne
+    @Column(name = "cake_option3_id")
+    val cakeOption3Id: Long? = null,
 
     @Column(columnDefinition = "String", length = 255)
     val requirements: String,
