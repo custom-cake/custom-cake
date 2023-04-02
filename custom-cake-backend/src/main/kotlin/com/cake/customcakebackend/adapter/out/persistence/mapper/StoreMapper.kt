@@ -10,7 +10,7 @@ class StoreMapper : Mapper<StoreEntity, Store>{
     override fun toEntity(domain: Store): StoreEntity =
         StoreEntity(
             id = domain.id,
-            operatorId = domain.id,
+            operatorId = domain.operatorId,
             businessRegistrationNo = domain.businessRegistrationNo,
             representativeName = domain.representativeName,
             address = Address(domain.zipCode, domain.baseAddress, domain.detailAddress),
