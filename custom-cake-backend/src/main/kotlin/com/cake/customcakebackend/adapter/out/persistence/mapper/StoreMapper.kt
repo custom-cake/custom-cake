@@ -3,12 +3,14 @@ package com.cake.customcakebackend.adapter.out.persistence.mapper
 import com.cake.customcakebackend.adapter.out.persistence.entity.Address
 import com.cake.customcakebackend.adapter.out.persistence.entity.StoreEntity
 import com.cake.customcakebackend.domain.Store
+import org.springframework.stereotype.Component
 
-class StoreMapper {
-    fun toEntity(domain: Store): StoreEntity =
+@Component
+class StoreMapper : Mapper<StoreEntity, Store>{
+    override fun toEntity(domain: Store): StoreEntity =
         StoreEntity(
             id = domain.id,
-            operatorId = domain.id,
+            operatorId = domain.operatorId,
             businessRegistrationNo = domain.businessRegistrationNo,
             representativeName = domain.representativeName,
             address = Address(domain.zipCode, domain.baseAddress, domain.detailAddress),
@@ -23,7 +25,7 @@ class StoreMapper {
             ratingSum = domain.ratingSum
         )
 
-    fun toDomain(entity: StoreEntity): Store =
+    override fun toDomain(entity: StoreEntity): Store =
         Store(
             id = entity.id,
             operatorId = entity.id,
