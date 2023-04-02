@@ -9,9 +9,9 @@ class CakeItemImageEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cake_item_id")
-    val cakeItem: CakeItemEntity,
+    // @ManyToOne
+    @Column(name = "cake_item_id", nullable = false)
+    val cakeItemId: Long,
 
     @Column(columnDefinition = "String", length = 255, nullable = false)
     val url: String,  // s3 image url

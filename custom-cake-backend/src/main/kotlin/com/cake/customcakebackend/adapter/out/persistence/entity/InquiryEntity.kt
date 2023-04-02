@@ -9,13 +9,13 @@ class InquiryEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
+    // @ManyToOne
+    @Column(name = "user_id", nullable = false)
+    val userId: Long,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "store_id")
-    val store: StoreEntity,
+    // @ManyToOne
+    @Column(name = "store_id", nullable = false)
+    val storeId: Long,
 
     @Column(columnDefinition = "String", length = 50, nullable = false)
     val title: String,

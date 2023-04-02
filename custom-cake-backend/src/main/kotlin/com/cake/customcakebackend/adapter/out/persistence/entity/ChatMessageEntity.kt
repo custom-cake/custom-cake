@@ -9,9 +9,9 @@ class ChatMessageEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chat_room_id")
-    val chatRoom: ChatRoomEntity,
+    // @ManyToOne
+    @Column(name = "chat_room_id", nullable = false)
+    val chatRoomId: Long,
 
     @Column(columnDefinition = "TEXT", nullable = false)
     val message: String,
