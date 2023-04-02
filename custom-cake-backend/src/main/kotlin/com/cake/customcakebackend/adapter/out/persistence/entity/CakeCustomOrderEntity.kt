@@ -10,13 +10,13 @@ class CakeCustomOrderEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
+    // @ManyToOne
+    @Column(name = "user_id", nullable = false)
+    val userId: Long,
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cake_custom_order_sheet_id")
-    val customCakeOrderSheet: CakeCustomOrderSheetEntity,
+    // @OneToOne
+    @Column(name = "cake_custom_order_sheet_id", nullable = false)
+    val cakeCustomOrderSheetId: Long,
 
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     val paymentAmount: Int,

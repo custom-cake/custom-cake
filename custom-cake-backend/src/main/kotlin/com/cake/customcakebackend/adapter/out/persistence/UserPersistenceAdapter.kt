@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
-import com.cake.customcakebackend.adapter.out.persistence.entity.UserEntity
 import com.cake.customcakebackend.adapter.out.persistence.mapper.UserMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.UserJpaRepository
 import com.cake.customcakebackend.application.port.out.LoadUserPort
@@ -13,6 +12,7 @@ class UserPersistenceAdapter(
 ) : LoadUserPort, SaveUserPort {
     override fun load(id: Long): User {
         TODO("Change entity to domain and return domain.")
+        // toDomain()
     }
 
     override fun save(user: User) {

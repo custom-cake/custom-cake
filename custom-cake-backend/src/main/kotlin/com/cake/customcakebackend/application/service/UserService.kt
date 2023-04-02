@@ -10,8 +10,7 @@ class UserService(
     private val saveUserPort: SaveUserPort
 ) : UserLoginUseCase {
     override fun login(user: User) {
-        TODO("Login logic")
-//        return saveUserPort.save(user)
+        saveUserPort.save(user)
     }
 
 }

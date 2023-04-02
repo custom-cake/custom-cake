@@ -10,19 +10,19 @@ class ReviewEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
+    // @ManyToOne
+    @Column(name = "user_id", nullable = false)
+    val userId: Long,
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "store_id")
-    val store: StoreEntity,
+    // @ManyToOne
+    @Column(name = "store_id", nullable = false)
+    val storeId: Long,
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "String", length = 10, nullable = false)
     val orderType: OrderType,
 
-    @Column(columnDefinition = "BIGINT UNSIGNED")
+    @Column(name = "order_id", nullable = false)
     val orderId: Long,
 
     @Column(columnDefinition = "String", length = 255, nullable = false)
