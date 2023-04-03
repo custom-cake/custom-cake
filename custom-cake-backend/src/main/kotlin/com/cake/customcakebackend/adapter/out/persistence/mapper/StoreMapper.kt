@@ -6,11 +6,11 @@ import com.cake.customcakebackend.domain.Store
 import org.springframework.stereotype.Component
 
 @Component
-class StoreMapper {
-    fun toEntity(domain: Store): StoreEntity =
+class StoreMapper : Mapper<StoreEntity, Store>{
+    override fun toEntity(domain: Store): StoreEntity =
         StoreEntity(
             id = domain.id,
-            operatorId = domain.id,
+            operatorId = domain.operatorId,
             businessRegistrationNo = domain.businessRegistrationNo,
             representativeName = domain.representativeName,
             address = Address(domain.zipCode, domain.baseAddress, domain.detailAddress),
@@ -25,7 +25,7 @@ class StoreMapper {
             ratingSum = domain.ratingSum
         )
 
-    fun toDomain(entity: StoreEntity): Store =
+    override fun toDomain(entity: StoreEntity): Store =
         Store(
             id = entity.id,
             operatorId = entity.id,
