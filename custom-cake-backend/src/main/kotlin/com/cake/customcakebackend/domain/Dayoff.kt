@@ -4,7 +4,6 @@ import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.common.DayoffType
 import java.time.LocalDate
 import java.time.LocalDateTime
-import javax.persistence.*
 
 data class Dayoff (
     val id: Long,
