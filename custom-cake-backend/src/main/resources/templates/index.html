@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/header::fragment-header">
-    <th:block th:fragment="f-title">SB Admin 2 - Dashboard</th:block>
+    <title>
+        INDEX
+    </title>
 </head>
 
 <body id="page-top">
@@ -26,7 +28,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/admin/main}">
+                <a class="nav-link" th:href="@{/operator/main}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -92,7 +94,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" th:href="@{/admin/login}">Login</a>
+                        <a class="collapse-item" th:href="@{/operator/login}">Login</a>
                         <a class="collapse-item" href="register.html">Register</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
@@ -127,7 +129,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" th:src="@{/bootstrap/img/undraw_rocket.svg}" alt="..." />
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
@@ -257,8 +259,8 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                             alt="...">
+                                        <img class="rounded-circle" th:src="@{/bootstrap/img/undraw_profile_1.svg}"
+                                             alt="..." />
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -269,8 +271,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                             alt="...">
+                                        <img class="rounded-circle" th:src="@{/bootstrap/img/undraw_profile_2.svg}"
+                                             alt="..." />
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -281,8 +283,8 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                             alt="...">
+                                        <img class="rounded-circle" th:src="@{/bootstrap/img/undraw_profile_3.svg}"
+                                             alt="..." />
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -315,7 +317,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                     src="img/undraw_profile.svg">
+                                     th:src="@{/bootstrap/img/undraw_profile.svg}" alt="" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -351,7 +353,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a th:href="@{/admin/main}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a th:href="@{/operator/main}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
@@ -454,7 +456,7 @@
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
@@ -645,7 +647,7 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                             src="img/undraw_posting_photo.svg" alt="...">
+                                             th:src="@{/bootstrap/img/undraw_posting_photo.svg}" alt="..." />
                                     </div>
                                     <p>Add some quality, svg illustrations to your project courtesy of <a
                                             target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
@@ -708,28 +710,28 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/admin/login}">Logout</a>
+                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
-    <script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/bootstrap/js/sb-admin-2.min.js"></script>
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
 
     <!-- Page level plugins -->
-    <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
+    <script th:src="@{/bootstrap/vendor/chart.js/Chart.min.js}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="/bootstrap/js/demo/chart-area-demo.js"></script>
-    <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
+    <script th:src="@{/bootstrap/js/demo/chart-area-demo.js}"></script>
+    <script th:src="@{/bootstrap/js/demo/chart-pie-demo.js}"></script>
 
 </body>
 
