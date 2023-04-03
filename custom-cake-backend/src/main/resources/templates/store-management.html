@@ -144,12 +144,17 @@
             <div id="content">
 
                 <!-- storeInfo -->
-                <p th:text="${storeInfo.name}"></p>
-                <p th:text="${storeInfo.description}"></p>
-                <p th:text="${storeInfo.businessRegistrationNo}"></p>
-                <p th:text="${storeInfo.representativeName}"></p>
-                <p th:text="${storeInfo.phone}"></p>
-                <p th:text="${storeInfo.zipCode} + ${storeInfo.baseAddress} + ${storeInfo.detailAddress}"></p>
+                <div th:if="${storeInfo != null}">
+                    <p th:text="${storeInfo.name}"></p>
+                    <p th:text="${storeInfo.description}"></p>
+                    <p th:text="${storeInfo.businessRegistrationNo}"></p>
+                    <p th:text="${storeInfo.representativeName}"></p>
+                    <p th:text="${storeInfo.phone}"></p>
+                    <p th:text="${storeInfo.zipCode} + ${storeInfo.baseAddress} + ${storeInfo.detailAddress}"></p>
+                </div>
+                <div th:unless="${storeInfo != null}">
+                    <p>매장을 등록해주세요 :)</p>
+                </div>
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">

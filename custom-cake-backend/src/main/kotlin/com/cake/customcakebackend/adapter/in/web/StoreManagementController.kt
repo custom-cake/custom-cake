@@ -19,8 +19,8 @@ class StoreManagementController(
 
     @GetMapping("/{operatorId}")
     fun storeInfo(@Valid @PathVariable operatorId: Long, model: Model): String {
-        val storeInfoResponse = storeManagementUseCase.storeInfo(operatorId).toInfoResponse()
-        model.addAttribute("storeInfo", storeInfoResponse)
+        val storeList = storeManagementUseCase.storeInfo(operatorId)
+        model.addAttribute("storeInfo", storeList.firstOrNull())
         return "store-management"
     }
 }

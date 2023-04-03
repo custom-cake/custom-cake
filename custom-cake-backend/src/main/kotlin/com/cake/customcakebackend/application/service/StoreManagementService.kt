@@ -6,10 +6,10 @@ import com.cake.customcakebackend.domain.Store
 import org.springframework.stereotype.Service
 
 @Service
-class StoreService(
+class StoreManagementService(
     private val storePort: StorePort
 ) : StoreManagementUseCase {
-    override fun storeInfo(operatorId: Long): Store {
+    override fun storeInfo(operatorId: Long): List<Store> {
         return storePort.load(operatorId)
     }
 

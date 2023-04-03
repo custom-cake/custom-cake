@@ -13,11 +13,12 @@ class StorePersistenceAdapter(
     private val storeMapper: StoreMapper,
     private val storeRepository: StoreJpaRepository
 ) : StorePort {
-    override fun load(operatorId: Long): Store {
+    override fun load(operatorId: Long): List<Store> {
         val storeEntity = storeRepository.findByIdOrNull(operatorId)
-            ?: throw StoreException.NotFound("등록한 매장이 없습니다.")
 
-        return storeMapper.toDomain(storeEntity)
+        return storeEntity
+            ?.let { listOf(storeMapper.toDomain(it)) }
+            ?: listOf()
     }
 
     override fun save(store: Store) {
