@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/operator")
 class OperatorMainController {
 
-    @GetMapping("/main")
+    @GetMapping("/")
     fun main(): String {
         return "index"
     }
