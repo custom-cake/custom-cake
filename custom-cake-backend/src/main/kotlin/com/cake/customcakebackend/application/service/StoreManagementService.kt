@@ -1,5 +1,6 @@
 package com.cake.customcakebackend.application.service
 
+import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreRegisterRequest
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.application.port.out.StorePort
 import com.cake.customcakebackend.domain.Store
@@ -13,8 +14,8 @@ class StoreManagementService(
         return storePort.load(operatorId)
     }
 
-    override fun registerStore() {
-        TODO("Not yet implemented")
+    override fun registerStore(storeRegisterRequest: StoreRegisterRequest) {
+        TODO("storeRegisterRequest to Store, Dayoff")
     }
 
     override fun modifyStoreInfo() {

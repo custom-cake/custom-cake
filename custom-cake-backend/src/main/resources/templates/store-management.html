@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/header::fragment-header">
     <title th:replace="f-title">
@@ -154,7 +154,7 @@
                 </div>
                 <div th:unless="${storeInfo != null}">
                     <p>매장을 등록해주세요 :)</p>
-                    <button>매장 등록</button>
+                    <button th:onclick="|location.href='@{/operator/store/form(operatorId=${operatorId})}'|">매장 등록</button>
                 </div>
 
                 <!-- Topbar -->
