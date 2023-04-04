@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::fragment-header">
+    <title>
+        REGISTER
+    </title>
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+        <form th:action="@{/operator/store}"  th:object="${storeRegisterRequest}" method="post" >
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>사업자 등록번호</td>
+                        <td>
+                            <input type="text" th:field="*{businessRegistrationNo}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>대표자명</td>
+                        <td>
+                            <input type="text" th:field="*{representativeName}">
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>우편번호</td>
+                        <td>
+                            <input type="text" th:field="*{zipCode}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>주소</td>
+                        <td>
+                            <input type="text" th:field="*{baseAddress}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>상세주소</td>
+                        <td>
+                            <input type="text" th:field="*{detailAddress}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>매장 번호</td>
+                        <td>
+                            <input type="text" th:field="*{phone}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>매장명</td>
+                        <td>
+                            <input type="text" th:field="*{name}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>매장 설명</td>
+                        <td>
+                            <input type="text" style="height: 300px;" th:field="*{description}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>오픈 시간</td>
+                        <td>
+                            <input type="text" th:field="*{openTime}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>고정 휴무일</td>
+                        <td>
+                            <input type="text" th:field="*{dayoffDay}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>예약 주기</td>
+                        <td>
+                            <input type="text" th:field="*{reservationPeriod}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>예약 주기당 케이크 예약 건수</td>
+                        <td>
+                            <input type="text" th:field="*{reservationPerPeriodCount}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- TODO s3 image upload -->
+                        <td>매장 이미지</td>
+                        <td>
+                            <input type="text" th:field="*{thumbnailImageUrl}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" th:value="저장">등록</input>
+        </form>
+
+
+<!--        <div class="card o-hidden border-0 shadow-lg my-5">-->
+<!--            <div class="card-body p-0">-->
+<!--                &lt;!&ndash; Nested Row within Card Body &ndash;&gt;-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>-->
+<!--                    <div class="col-lg-7">-->
+<!--                        <div class="p-5">-->
+<!--                            <div class="text-center">-->
+<!--                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>-->
+<!--                            </div>-->
+<!--                            <form th:action="@{/operator/store}"  th:object="${storeRegisterRequest}" method="post" >-->
+<!--                                <div class="form-group row">-->
+<!--                                    <div class="col-sm-6 mb-3 mb-sm-0">-->
+<!--                                        <label>사업자 등록번호</label>-->
+<!--                                        <input type="text" class="form-control form-control-user" id="businessNo"-->
+<!--                                               th:field="*{businessRegistrationNo}" placeholder="사업자 등록번호">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-6">-->
+<!--                                        <label>대표자명</label>-->
+<!--                                        <input type="text" class="form-control form-control-user"-->
+<!--                                               th:field="*{representativeName}" placeholder="">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>우편번호</label>-->
+<!--                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"-->
+<!--                                        placeholder="Email Address">-->
+<!--                                </div>-->
+<!--                                <div class="form-group row">-->
+<!--                                    <div class="col-sm-6 mb-3 mb-sm-0">-->
+<!--                                        <label></label>-->
+<!--                                        <input type="password" class="form-control form-control-user"-->
+<!--                                            id="exampleInputPassword" placeholder="Password">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-6">-->
+<!--                                        <label></label>-->
+<!--                                        <input type="password" class="form-control form-control-user"-->
+<!--                                            id="exampleRepeatPassword" placeholder="Repeat Password">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <a href="login.html" class="btn btn-primary btn-user btn-block">-->
+<!--                                    Register Account-->
+<!--                                </a>-->
+<!--                                <hr>-->
+<!--                                <a href="index.html" class="btn btn-google btn-user btn-block">-->
+<!--                                    <i class="fab fa-google fa-fw"></i> Register with Google-->
+<!--                                </a>-->
+<!--                                <a href="index.html" class="btn btn-facebook btn-user btn-block">-->
+<!--                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook-->
+<!--                                </a>-->
+<!--                            </form>-->
+<!--                            <hr>-->
+<!--                            <div class="text-center">-->
+<!--                                <a class="small" href="forgot-password.html">Forgot Password?</a>-->
+<!--                            </div>-->
+<!--                            <div class="text-center">-->
+<!--                                <a class="small" href="login.html">Already have an account? Login!</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
+
+</body>
+
+</html>
