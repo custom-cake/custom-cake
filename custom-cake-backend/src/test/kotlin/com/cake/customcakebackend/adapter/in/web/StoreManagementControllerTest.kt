@@ -20,7 +20,10 @@ class StoreManagementControllerTest(
         mockMvc.perform(get("/operator/store/1"))
             .andExpect(status().isOk)
             .andExpect(view().name("store-management"))
+            .andExpect(model().attributeExists("operatorId"))
             .andExpect(model().attributeExists("storeInfo"))
+            .andExpect(model().attributeExists("dayOfWeekList"))
+
     }
 
 }

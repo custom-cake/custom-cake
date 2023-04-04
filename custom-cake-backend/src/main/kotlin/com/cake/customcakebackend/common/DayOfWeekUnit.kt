@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 enum class DayOfWeekUnit(@get:JsonValue val type: String) {
     SUN("SUN"),
     MON("MON"),
-    THU("THU"),
+    TUE("TUE"),
     WED("WED"),
     THR("THR"),
     FRI("FRI"),

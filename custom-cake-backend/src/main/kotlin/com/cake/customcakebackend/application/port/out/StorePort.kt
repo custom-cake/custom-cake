@@ -4,5 +4,5 @@ import com.cake.customcakebackend.domain.Store
 
 interface StorePort {
     fun load(operatorId: Long): List<Store>
-    fun save(store: Store)
+    fun save(store: Store): Long
 }

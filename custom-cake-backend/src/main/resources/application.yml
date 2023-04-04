@@ -30,6 +30,8 @@ spring:
 
   thymeleaf:
     cache: false
+  mvc:
+    static-path-pattern: /resources/**
 
 logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution

@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web.dto.request
 
 import com.cake.customcakebackend.common.DayOfWeekUnit
+import com.cake.customcakebackend.domain.Store
 import lombok.NoArgsConstructor
 import javax.validation.constraints.NotNull
 
@@ -22,7 +23,7 @@ data class StoreRegisterRequest(
     val description: String? = "",
     @NotNull
     val openTime: Map<DayOfWeekUnit, String> = mapOf(),
-    val dayoffDay: DayOfWeekUnit? = null,
+    val dayoffDayList: List<DayOfWeekUnit>? = null,
     @NotNull
     val reservationPeriod: Int = 0,  // 예약 주기  e.g.  5,10,15,20,30 ...
     @NotNull

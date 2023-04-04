@@ -22,8 +22,8 @@ class DayoffEntity (
 
     @Enumerated(EnumType.STRING)  // ENUM("MON"~"SUN")
     @Column(columnDefinition = "CHAR(3)", length = 3)
-    val dayoffDay: DayOfWeekUnit,
+    val dayoffDay: DayOfWeekUnit? = null,
 
-    val dayoffDate: LocalDate
+    val dayoffDate: LocalDate? = null
 
 ) : BaseEntity()

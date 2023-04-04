@@ -4,7 +4,7 @@ import com.cake.customcakebackend.common.DayOfWeekUnit
 import java.time.LocalDateTime
 
 data class Store(
-    val id: Long,
+    val id: Long = 0,
     val operatorId: Long,
     val businessRegistrationNo: String,
     val representativeName: String,
