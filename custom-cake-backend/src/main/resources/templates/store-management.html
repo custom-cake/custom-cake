@@ -2,8 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/header::fragment-header">
-    <title th:replace="f-title">
-        INDEX
+    <title th:replace="fragments/header::f-title">
+        MANAGEMENT
     </title>
 </head>
 
@@ -11,16 +11,15 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
+
                 <!-- Topbar -->
                 <div th:replace="fragments/topbar::fragment-topbar"></div>
                 <!-- End of Topbar -->
@@ -30,151 +29,111 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">매장 관리</h1>
                         <a th:href="@{/}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <!-- Task Card Example -->
+                        <div class="custom-height col-xl-12 col-md-12 mb-5">
+                            <div class="card shadow mb-4 border-left-info shadow h-100">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                             aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                             aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
+                                    <div class="col-xl-8 col-lg-7" th:if="${storeInfo != null}">
+                                        <p th:text="${storeInfo.name}"></p>
+                                        <p th:text="${storeInfo.description}"></p>
+                                        <p th:text="${storeInfo.businessRegistrationNo}"></p>
+                                        <p th:text="${storeInfo.representativeName}"></p>
+                                        <p th:text="${storeInfo.phone}"></p>
+                                        <p th:text="${storeInfo.zipCode} + ${storeInfo.baseAddress} + ${storeInfo.detailAddress}"></p>
+                                        <!--                        <table class="table table-striped">-->
+                                        <!--                            <tr>-->
+                                        <!--                                <th>요일</th>-->
+                                        <!--                                <th>시간</th>-->
+                                        <!--                            </tr>-->
+                                        <!--                            <tr th:each="entry : ${storeInfo.openTime}">-->
+                                        <!--                                <td th:text="${entry.key}"></td>-->
+                                        <!--                                <td th:text="${entry.value}"></td>-->
+                                        <!--                                &lt;!&ndash;<td th:text="${entry}"></td>&ndash;&gt;-->
+                                        <!--                            </tr>-->
+                                        <!--                        </table>-->
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th>요일</th>
+                                                <th>고정 휴뮤일</th>
+                                                <th>운영 시간</th>
+                                            </tr>
+                                            <tr th:each="entry,iter : ${dayOfWeekList}">
+                                                <td th:text="${entry}"></td>
+                                                <td>
+                                                    <input type="checkbox" class="custom-control-input" th:id="${iter.index}"
+                                                           th:checked="!${#strings.contains(storeInfo.openTime.keySet(), entry.toString())}" />
+                                                    <label class="custom-control-label" th:for="${iter.index}"></label>
+                                                </td>
+                                                <td th:text="${storeInfo.openTime.get(entry)}"></td>
+                                            </tr>
+                                        </table>
                                     </div>
+                                    <div th:unless="${storeInfo != null}">
+                                        <p>매장을 등록해주세요 :)</p>
+                                        <button th:onclick="|location.href='@{/operator/store/form(operatorId=${operatorId})}'|">매장 등록</button>
+                                    </div>
+<!--                                    <div class="row no-gutters align-items-center">-->
+<!--                                        <div class="col mr-2">-->
+<!--                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks-->
+<!--                                            </div>-->
+<!--                                            <div class="row no-gutters align-items-center">-->
+<!--                                                <div class="col-auto">-->
+<!--                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="col">-->
+<!--                                                    <div class="progress progress-sm mr-2">-->
+<!--                                                        <div class="progress-bar bg-info" role="progressbar"-->
+<!--                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"-->
+<!--                                                             aria-valuemax="100"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-auto">-->
+<!--                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- storeInfo -->
-                    <div th:if="${storeInfo != null}">
-                        <p th:text="${storeInfo.name}"></p>
-                        <p th:text="${storeInfo.description}"></p>
-                        <p th:text="${storeInfo.businessRegistrationNo}"></p>
-                        <p th:text="${storeInfo.representativeName}"></p>
-                        <p th:text="${storeInfo.phone}"></p>
-                        <p th:text="${storeInfo.zipCode} + ${storeInfo.baseAddress} + ${storeInfo.detailAddress}"></p>
-<!--                        <table class="table table-striped">-->
-<!--                            <tr>-->
-<!--                                <th>요일</th>-->
-<!--                                <th>시간</th>-->
-<!--                            </tr>-->
-<!--                            <tr th:each="entry : ${storeInfo.openTime}">-->
-<!--                                <td th:text="${entry.key}"></td>-->
-<!--                                <td th:text="${entry.value}"></td>-->
-<!--                                &lt;!&ndash;<td th:text="${entry}"></td>&ndash;&gt;-->
-<!--                            </tr>-->
-<!--                        </table>-->
-                        <table class="table table-striped">
-                            <tr>
-                                <th>요일</th>
-                                <th>고정 휴뮤일</th>
-                                <th>운영 시간</th>
-                            </tr>
-                            <tr th:each="entry,iter : ${dayOfWeekList}">
-                                <td th:text="${entry}"></td>
-                                <td>
-                                    <input type="checkbox" class="custom-control-input" th:id="${iter.index}"
-                                           th:checked="!${#strings.contains(storeInfo.openTime.keySet(), entry.toString())}" />
-                                    <label class="custom-control-label" th:for="${iter.index}"></label>
-                                </td>
-                                <td th:text="${storeInfo.openTime.get(entry)}"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div th:unless="${storeInfo != null}">
-                        <p>매장을 등록해주세요 :)</p>
-                        <button th:onclick="|location.href='@{/operator/store/form(operatorId=${operatorId})}'|">매장 등록</button>
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink2"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
@@ -242,10 +201,8 @@
 
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
-
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -356,7 +313,6 @@
                         </div>
 
                         <div class="col-lg-6 mb-4">
-
                             <!-- Illustrations -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -375,7 +331,6 @@
                                         unDraw &rarr;</a>
                                 </div>
                             </div>
-
                             <!-- Approach -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -389,13 +344,11 @@
                                         Bootstrap framework, especially the utility classes.</p>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
