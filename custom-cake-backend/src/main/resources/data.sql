@@ -1,5 +1,6 @@
 INSERT IGNORE INTO operator (id, email, password, name, phone, is_authenticated, last_conn_date)
-VALUES (1, 'jjean0823@gmail.com', 'jjaen0823', '최재은', '010-4663-3422', 1, '2022-03-30 15:01:00');
+VALUES (1, 'jjean0823@gmail.com', 'jjaen0823', '최재은', '010-4663-3422', 1, '2022-03-30 15:01:00'),
+       (2, 'jjean2@gmail.com', 'jjaen2', '최재은2', '010-4663-3423', 1, '2022-04-04 15:01:00');
 
 INSERT IGNORE INTO user (id, name, nickname, phone, social_type, social_account_id, is_authenticated, last_conn_datetime)
 VALUES (1, '김영기', 'kimyoungi99', '010-0000-0000', 'KAKAO', '1', 1, '2022-03-30 15:01:00'),

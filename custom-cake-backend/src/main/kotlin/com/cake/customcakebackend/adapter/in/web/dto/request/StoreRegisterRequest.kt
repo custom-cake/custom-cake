@@ -4,11 +4,13 @@ import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.domain.Store
 import lombok.NoArgsConstructor
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
 
 data class StoreRegisterRequest(
     @NotNull
     val operatorId: Long = 0,
     @NotNull
+    @Pattern(regexp = "[0-9]{3}-[0-9]{2}-[0-9]{5}")
     val businessRegistrationNo: String = "",
     @NotNull
     val representativeName: String = "",
