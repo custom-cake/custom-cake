@@ -57,14 +57,32 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="card-body">
-                                    <div class="col-xl-8 col-lg-7">
-                                        <p th:text="${storeInfo.name}"></p>
-                                        <p th:text="${storeInfo.description}"></p>
-                                        <p th:text="${storeInfo.businessRegistrationNo}"></p>
-                                        <p th:text="${storeInfo.representativeName}"></p>
-                                        <p th:text="${storeInfo.phone}"></p>
-                                        <p th:text="${storeInfo.zipCode} + ${storeInfo.baseAddress} + ${storeInfo.detailAddress}"></p>
+                                    <div class="col-xl-12 col-lg-12">
+                                        <div class="card-img d-lg-flex align-items-center">
+                                            <img class="img-thumbnail mt-1 mb-2 col-6"
+                                                 th:src="${storeInfo.thumbnailImageUrl}"
+                                                 th:alt="${storeInfo.name}" style="max-width: 400px; max-height: 400px;" />
+                                            <div class="ml-3">
+                                                <h2 class="m-4" th:text="${storeInfo.name}"></h2>
+                                                <p class="text-muted m-4" th:text="${storeInfo.description}"></p>
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered m-3">
+                                            <tr>
+                                                <th>사업자등록번호</th>
+                                                <th>대표자명</th>
+                                                <th>전화번호</th>
+                                                <th>주소</th>
+                                            </tr>
+                                            <tr>
+                                                <td th:text="${storeInfo.businessRegistrationNo}"></td>
+                                                <td th:text="${storeInfo.representativeName}"></td>
+                                                <td th:text="${storeInfo.phone}"></td>
+                                                <td th:text="${storeInfo.address}" ></td>
+                                            </tr>
+                                        </table>
             <!--                        <table class="table table-striped">-->
             <!--                            <tr>-->
             <!--                                <th>요일</th>-->
@@ -76,7 +94,7 @@
             <!--                                &lt;!&ndash;<td th:text="${entry}"></td>&ndash;&gt;-->
             <!--                            </tr>-->
             <!--                        </table>-->
-                                        <table class="table table-striped">
+                                        <table class="table table-striped table-bordered m-3">
                                             <tr>
                                                 <th>요일</th>
                                                 <th>고정 휴뮤일</th>
@@ -85,9 +103,11 @@
                                             <tr th:each="entry,iter : ${dayOfWeekList}">
                                                 <td th:text="${entry}"></td>
                                                 <td>
-                                                    <input type="checkbox" class="custom-control-input" th:id="${iter.index}"
-                                                           th:checked="!${#strings.contains(storeInfo.openTime.keySet(), entry.toString())}" />
-                                                    <label class="custom-control-label" th:for="${iter.index}"></label>
+                                                    <div class="form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" th:id="${iter.index}"
+                                                               th:checked="!${#strings.contains(storeInfo.openTime.keySet(), entry.toString())}" disabled/>
+                                                        <label class="form-check-label" th:for="${iter.index}"></label>
+                                                    </div>
                                                 </td>
                                                 <td th:text="${storeInfo.openTime.get(entry)}"></td>
                                             </tr>

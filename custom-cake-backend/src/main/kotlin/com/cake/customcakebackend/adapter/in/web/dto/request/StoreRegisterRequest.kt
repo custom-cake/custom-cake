@@ -24,7 +24,7 @@ data class StoreRegisterRequest(
     val name: String = "",
     val description: String? = "",
     @NotNull
-    val openTime: Map<DayOfWeekUnit, String> = mapOf(),
+    val openTime: Map<DayOfWeekUnit, String> = mapOf(),  // String = "",
     val dayoffDayList: List<DayOfWeekUnit>? = null,
     @NotNull
     val reservationPeriod: Int = 0,  // 예약 주기  e.g.  5,10,15,20,30 ...

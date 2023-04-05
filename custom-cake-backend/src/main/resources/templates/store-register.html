@@ -114,6 +114,22 @@
                                                              th:errors="*{openTime}"></div>
                                                     </td>
                                                 </tr>
+<!--                                                <table class="table table-striped">-->
+<!--                                                    <tr>-->
+<!--                                                        <th>요일</th>-->
+<!--                                                        <th>고정 휴뮤일</th>-->
+<!--                                                        <th>운영 시간</th>-->
+<!--                                                    </tr>-->
+<!--                                                    <tr th:each="entry,iter : ${dayOfWeekList}">-->
+<!--                                                        <td th:text="${entry}"></td>-->
+<!--                                                        <td>-->
+<!--                                                            <input type="checkbox" class="custom-control-input" th:id="${iter.index}"-->
+<!--                                                                   th:checked="!${#strings.contains(storeInfo.openTime.keySet(), entry.toString())}" />-->
+<!--                                                            <label class="custom-control-label" th:for="${iter.index}"></label>-->
+<!--                                                        </td>-->
+<!--                                                        <td th:text="${storeInfo.openTime.get(entry)}"></td>-->
+<!--                                                    </tr>-->
+<!--                                                </table>-->
                                                 <tr>
                                                     <td>고정 휴무일</td>
                                                     <td>

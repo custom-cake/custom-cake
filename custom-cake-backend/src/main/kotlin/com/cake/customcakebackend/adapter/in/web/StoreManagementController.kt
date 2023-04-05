@@ -4,7 +4,6 @@ import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreRegisterRequ
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.toInfoResponse
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.common.DayOfWeekUnit
-import lombok.extern.slf4j.Slf4j
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
