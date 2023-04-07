@@ -28,6 +28,12 @@ spring:
     host: localhost
     port: 6379
 
+  thymeleaf:
+    cache: false
+  mvc:
+    static-path-pattern: /resources/**
+
 logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution
   org.hibernate.type: trace  # logging SQL execution parameter
+

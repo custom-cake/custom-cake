@@ -34,8 +34,8 @@ class StoreEntity(
     val description: String? = "",
 
     @Convert(converter = JsonColumnConverter.MapConverter::class)
-    @Column(columnDefinition = "JSON", nullable = false)
-    val openTime: Map<DayOfWeekUnit, Any>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")
+    @Column(name= "open_time", columnDefinition = "JSON", nullable = false)
+    val openTime: Map<DayOfWeekUnit, String>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 30", nullable = false)
     val reservationPeriod: Int,  // 예약 주기  e.g.  5,10,15,20,30 ...

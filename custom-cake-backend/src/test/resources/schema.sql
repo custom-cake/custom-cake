@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `store` (
                                        `phone`	                        VARCHAR(20)     	    NOT NULL,
                                        `name`                      	VARCHAR(50)     	    NOT NULL,
                                        `description`	                TEXT	                NULL,
-                                       `openTime`	                    JSON             	    NOT NULL,                       -- 요일 별 open 시간 상이
+                                       `open_time`	                    JSON             	    NOT NULL,                       -- 요일 별 open 시간 상이
                                        `reservation_period`	        INT UNSIGNED            NOT NULL DEFAULT 30,            -- 5,10,15...30
                                        `reservation_per_period_count`	INT UNSIGNED	        NOT NULL DEFAULT 1,
                                        `thumbnail_image_url`	        VARCHAR(255)	        NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `dayoff` (
                                         `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                         `store_id`	                    BIGINT UNSIGNED	        NOT NULL,
                                         `dayoff_type`               	VARCHAR(20)	            NOT NULL,       -- ENUM("FIXED", "DESIGNATED")
-                                        `dayoff_day`                	CHAR(1)	        	    NULL,           -- ENUM("MON"~"SUN")
+                                        `dayoff_day`                	CHAR(3)	        	    NULL,           -- ENUM("MON"~"SUN")
                                         `dayoff_date`	                DATE	                NULL,
                                         `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
                                         `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,

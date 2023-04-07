@@ -1,5 +1,6 @@
 INSERT IGNORE INTO operator (id, email, password, name, phone, is_authenticated, last_conn_date)
-VALUES (1, 'jjean0823@gmail.com', 'jjaen0823', '최재은', '010-4663-3422', 1, '2022-03-30 15:01:00');
+VALUES (1, 'jjean0823@gmail.com', 'jjaen0823', '최재은', '010-4663-3422', 1, '2022-03-30 15:01:00'),
+       (2, 'jjean2@gmail.com', 'jjaen2', '최재은2', '010-4663-3423', 1, '2022-04-04 15:01:00');
 
 INSERT IGNORE INTO user (id, name, nickname, phone, social_type, social_account_id, is_authenticated, last_conn_datetime)
 VALUES (1, '김영기', 'kimyoungi99', '010-0000-0000', 'KAKAO', '1', 1, '2022-03-30 15:01:00'),
@@ -7,7 +8,7 @@ VALUES (1, '김영기', 'kimyoungi99', '010-0000-0000', 'KAKAO', '1', 1, '2022-0
 
 INSERT IGNORE INTO store (id, operator_id, business_registration_no, representative_name, zip_code, base_address, detail_address,
     phone, name, description, open_time, reservation_period, reservation_per_period_count, thumbnail_image_url, view_count, rating_sum)
-VALUES (1, 1, '5740901522', '신혜수', '07006', '서울 동작구 사당로 271', '2층', NULL , '레이네 케이크', '레이네 케이크 주문 채널입니다 :)',
+VALUES (1, 1, '5740901522', '신혜수', '07006', '서울 동작구 사당로 271', '2층', NULL , '레이네 케이크', '레이네 케이크 주문 채널입니다 :) \n 디자인 케이크는 물론 도시락 케이크도 판매하고 레터링 케이크 클래스도 운영하고 있습니다.',
         '{\"TUE\": \"13:00~22:00\", \"WED\": \"13:00~22:00\", \"THR\": \"13:00~22:00\", \"FRI\": \"13:00~22:00\", \"SAT\": \"12:00~19:00\"}',
         30, 1, 'https://custom-cake.s3.ap-northeast-2.amazonaws.com/store-image/store_1/reine_cake_thumbnail_image.png', 0, 0);
 

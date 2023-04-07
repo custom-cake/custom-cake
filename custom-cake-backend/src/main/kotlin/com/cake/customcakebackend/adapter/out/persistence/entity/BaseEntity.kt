@@ -9,15 +9,22 @@ import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import javax.persistence.*
 
-@Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseEntity (
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
+open class BaseEntity (
+    @Column
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @LastModifiedDate
-    @Column(nullable = false, updatable = true)
+    @Column
     var modifiedAt: LocalDateTime = LocalDateTime.now()
-)
+) {
+    @PrePersist
+    fun prePersist() {
+        modifiedAt = LocalDateTime.now()
+    }
+
+    @PreUpdate
+    fun preUpdate() {
+        modifiedAt = LocalDateTime.now()
+    }
+}
