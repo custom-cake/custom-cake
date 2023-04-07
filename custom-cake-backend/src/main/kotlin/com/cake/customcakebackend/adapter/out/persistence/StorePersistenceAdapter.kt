@@ -20,6 +20,9 @@ class StorePersistenceAdapter(
             ?: listOf()
     }
 
+    override fun exist(operatorId: Long): Boolean =
+        storeJpaRepository.existsById(operatorId)
+
     override fun save(store: Store): Long {
         val storeEntity = storeMapper.toEntity(store)
         return storeJpaRepository.save(storeEntity).id

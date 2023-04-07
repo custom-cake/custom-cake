@@ -4,6 +4,7 @@ import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreRegisterRequ
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.application.port.out.DayoffPort
 import com.cake.customcakebackend.application.port.out.StorePort
+import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.common.DayoffType
 import com.cake.customcakebackend.domain.Dayoff
 import com.cake.customcakebackend.domain.Store
@@ -19,10 +20,18 @@ class StoreManagementService(
         return storePort.load(operatorId)
     }
 
-    override fun registerStore(request: StoreRegisterRequest) {
+    override fun hasStore(operatorId: Long): Boolean =
+        storePort.exist(operatorId)
+
+    override fun registerStore(operatorId: Long, request: StoreRegisterRequest) {
+        // make openTime
+        val openTime: Map<DayOfWeekUnit, String> = DayOfWeekUnit.values().mapIndexed { idx, dowUnit ->
+            dowUnit to request.openTime[idx]
+        }.toMap()
+
         val storeDomain = Store(
-            operatorId = request.operatorId,
-            businessRegistrationNo = request.businessRegistrationNo,
+            operatorId = operatorId,
+            businessRegistrationNo = request.businessRegistrationNo.replace("-", ""),
             representativeName = request.representativeName,
             zipCode = request.zipCode,
             baseAddress = request.baseAddress,
@@ -30,7 +39,7 @@ class StoreManagementService(
             phone = request.phone,
             name = request.name,
             description = request.description,
-            openTime = request.openTime,
+            openTime = openTime.filter { it.value.isNotEmpty() },
             reservationPeriod = request.reservationPeriod,
             reservationPerPeriodCount = request.reservationPerPeriodCount,
             thumbnailImageUrl = request.thumbnailImageUrl,
@@ -42,7 +51,7 @@ class StoreManagementService(
         val storeId = storePort.save(storeDomain)
 
         // save dayoff
-        val dayoffDomainList = request.dayoffDayList
+        val dayoffDomainList = request.fixedDayOffList
             ?.map {
                 Dayoff(
                     storeId = storeId,

@@ -5,6 +5,7 @@ import com.cake.customcakebackend.domain.Store
 
 interface StoreManagementUseCase {
     fun storeInfo(operatorId: Long): List<Store>
-    fun registerStore(request: StoreRegisterRequest)
+    fun hasStore(operatorId: Long): Boolean
+    fun registerStore(operatorId: Long, request: StoreRegisterRequest)
     fun modifyStoreInfo()
 }

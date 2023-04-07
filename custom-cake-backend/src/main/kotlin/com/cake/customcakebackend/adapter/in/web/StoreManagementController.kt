@@ -37,7 +37,7 @@ class StoreManagementController(
         addOperatorIdToModel(operatorId, model)
         model.addAttribute("storeInfo", storeList.firstOrNull()?.toInfoResponse())
         model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
-        // TODO 지정 휴무일 내려주기
+        // TODO 지정 휴무일 내려주고, 등록할 수 있도록
         return "store-management"
     }
 
@@ -52,8 +52,9 @@ class StoreManagementController(
     @GetMapping("/form")
     fun registerStoreForm(@RequestParam operatorId: Long, model: Model): String {
         addOperatorIdToModel(operatorId, model)
+        model.addAttribute("hasStore", storeManagementUseCase.hasStore(operatorId))
         model.addAttribute("storeRegisterRequest", StoreRegisterRequest())  // 필드 값 참조 위해 기본 값 객체 내려주기
-        model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // 고정 휴무일 리스트
+        model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
         return "store-register"
     }
 
@@ -66,8 +67,9 @@ class StoreManagementController(
      * @version 1.0.0
      * 작성일 2023/04/04
     **/
-    @PostMapping("")
+    @PostMapping("/{operatorId}")
     fun registerStore(
+        @PathVariable operatorId: Long,
         @Valid @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
         result: BindingResult,
         redirectAttributes: RedirectAttributes
@@ -75,11 +77,14 @@ class StoreManagementController(
         if (result.hasErrors()) {
             return "store-register"
         }
-        logger.info("Operator Id: ${storeRegisterRequest.operatorId}")
-//        storeManagementUseCase.registerStore(storeRegisterRequest)
+        // 매장 등록 check
+        if (!storeManagementUseCase.hasStore(operatorId)) {
+            storeManagementUseCase.registerStore(operatorId, storeRegisterRequest)
+        }
 
-        addOperatorIdToModel(storeRegisterRequest.operatorId, redirectAttributes)
-        return "redirect:/operator/store/${storeRegisterRequest.operatorId}"
+        addOperatorIdToModel(operatorId, redirectAttributes)
+        redirectAttributes.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // 고정 휴무일 리스트
+        return "redirect:/operator/store/$operatorId"
     }
 
     private fun addOperatorIdToModel(operatorId: Long, model: Model) =
