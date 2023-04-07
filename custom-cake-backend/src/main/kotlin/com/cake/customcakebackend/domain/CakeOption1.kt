@@ -15,4 +15,4 @@ data class CakeOption1(
     val isDeleted: Boolean,
     val createdAt: LocalDateTime,
     var modifiedAt: LocalDateTime
-)
+) : CakeOption

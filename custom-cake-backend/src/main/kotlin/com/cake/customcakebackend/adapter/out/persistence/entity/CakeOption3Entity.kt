@@ -25,4 +25,4 @@ class CakeOption3Entity(
     @Column(columnDefinition = "TINYINT DEFAULT 0", nullable = false)
     val isDeleted: Boolean
 
-) : BaseEntity()
+) : BaseEntity(), CakeOptionEntity
