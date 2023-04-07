@@ -1,10 +1,14 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import javax.persistence.EntityListeners
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener::class)
-interface CakeOptionEntity {
-}
+open class CakeOptionEntity(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0
+) : BaseEntity()

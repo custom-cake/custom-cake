@@ -6,9 +6,6 @@ import javax.persistence.*
 @Table(name = "cake_option1")
 @Entity
 class CakeOption1Entity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
 
     // @ManyToOne
     @Column(name = "store_id", nullable = false)
@@ -35,4 +32,4 @@ class CakeOption1Entity(
     @Column(columnDefinition = "TINYINT DEFAULT 0", nullable = false)
     val isDeleted: Boolean
 
-) : BaseEntity(), CakeOptionEntity
+) : CakeOptionEntity()
