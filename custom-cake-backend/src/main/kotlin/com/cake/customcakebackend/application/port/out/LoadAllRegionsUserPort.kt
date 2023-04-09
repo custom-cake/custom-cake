@@ -1,5 +1,5 @@
 package com.cake.customcakebackend.application.port.out
 
-interface LoadAllRegionsPort {
+interface LoadAllRegionsUserPort {
     fun load(): List<String>
 }
