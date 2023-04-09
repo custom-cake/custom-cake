@@ -1,26 +1,29 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.request.CakeOption1AddRequest
-import com.cake.customcakebackend.adapter.`in`.web.dto.request.CakeOption2AddRequest
-import com.cake.customcakebackend.adapter.`in`.web.dto.request.CakeOption3AddRequest
+import com.cake.customcakebackend.adapter.`in`.web.dto.request.*
 import com.cake.customcakebackend.application.port.`in`.CakeOptionManagementUseCase
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.common.CakeOption1Type
 import com.cake.customcakebackend.common.CakeOption2Type
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.validation.Valid
 
 @Controller
 @RequestMapping(
-    path = ["/operator/cake-option"]
+    path = ["/operator"]
 )
 class CakeOptionManagementController(
     private val cakeOptionManagementUseCase: CakeOptionManagementUseCase,
     private val storeManagementUseCase: StoreManagementUseCase
 ) {
+    private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     /**
      * cakeOptionList method
@@ -30,7 +33,7 @@ class CakeOptionManagementController(
      * @version 1.0.0
      * 작성일 2023/04/09
     **/
-    @GetMapping("")
+    @GetMapping("/cake-option")
     fun cakeOptionList(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
@@ -48,20 +51,28 @@ class CakeOptionManagementController(
         return "cake-option-management"
     }
 
-    @GetMapping("{cakeOptionId}")
-    fun cakeOptionInfo(
-        @RequestParam operatorId: Long,
-        @RequestParam storeId: Long,
-        @RequestParam cakeOptionType: Int,
-        @PathVariable cakeOptionId: Long,
-        model: Model
-    ): String {
-        addAttributeToModel("operatorId", operatorId, model)
-        addAttributeToModel("storeId", storeId, model)
-        return "cake-option-detail"
-    }
+//    @GetMapping("{cakeOptionId}")
+//    fun cakeOptionInfo(
+//        @RequestParam operatorId: Long,
+//        @RequestParam storeId: Long,
+//        @RequestParam cakeOptionType: Int,
+//        @PathVariable cakeOptionId: Long,
+//        model: Model
+//    ): String {
+//        addAttributeToModel("operatorId", operatorId, model)
+//        addAttributeToModel("storeId", storeId, model)
+//        return "cake-option-detail"
+//    }
 
-    @GetMapping("/form")
+    /**
+     * addCakeOptionForm method
+     * : 케이크 옵션 form
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/04/09
+    **/
+    @GetMapping("/cake-option/form")
     fun addCakeOptionForm(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
@@ -74,7 +85,6 @@ class CakeOptionManagementController(
         addAttributeToModel("operatorId", operatorId, model)
         addAttributeToModel("storeId", storeId, model)
          when (cakeOptionType) {
-//            in 1..3 -> "cake-option$cakeOptionType-add"
             1 -> {
                 model.addAttribute("cakeOption1AddRequest", CakeOption1AddRequest())
                 model.addAttribute("cakeShapeList", CakeOption1Type.CakeShape.toList())
@@ -97,20 +107,67 @@ class CakeOptionManagementController(
         }
     }
 
-    @PostMapping("")
-    fun addCakeOption(
+    /**
+     * addCakeOption method
+     * : 케이크 옵션 등록
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/04/09
+    **/
+    @PostMapping("/cake-option-1")
+    fun addCakeOption1(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
-        @RequestParam cakeOptionType: Int,
-        @Valid @ModelAttribute cakeOption1AddRequest: CakeOption1AddRequest,
+        @ModelAttribute @Valid  cakeOption1AddRequest: CakeOption1AddRequest,
+        errors: Errors,
         redirectAttributes: RedirectAttributes
     ): String {
+        if (errors.hasErrors()) {
+            return "cake-option1-add"
+        }
+//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
         addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"
     }
 
-    @DeleteMapping("{cakeOptionId}")
+    @PostMapping("/cake-option-2")
+    fun addCakeOption2(
+        @RequestParam operatorId: Long,
+        @RequestParam storeId: Long,
+        @ModelAttribute @Valid  cakeOption2AddRequest: CakeOption2AddRequest,
+        redirectAttributes: RedirectAttributes
+    ): String {
+//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
+        addAttributeToModel("operatorId", operatorId, redirectAttributes)
+        addAttributeToModel("storeId", storeId, redirectAttributes)
+        return "redirect:/operator/cake-option"
+    }
+
+    @PostMapping("/cake-option-3")
+    fun addCakeOption3(
+        @RequestParam operatorId: Long,
+        @RequestParam storeId: Long,
+        @ModelAttribute @Valid  cakeOption3AddRequest: CakeOption3AddRequest,
+        redirectAttributes: RedirectAttributes
+    ): String {
+//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
+        addAttributeToModel("operatorId", operatorId, redirectAttributes)
+        addAttributeToModel("storeId", storeId, redirectAttributes)
+        return "redirect:/operator/cake-option"
+    }
+
+
+    /**
+     * deleteCakeOption method
+     * : 케이크 옵션 삭제
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/04/09
+    **/
+    @DeleteMapping("/cake-option/{cakeOptionId}")
     fun deleteCakeOption(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,

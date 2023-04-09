@@ -23,7 +23,7 @@
 
             <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
             <div class="container-fluid" th:if="${hasStore == true}">
-                <form th:action="@{/operator/cake-option(operatorId=${operatorId},storeId=${storeId},cakeOptionType=${3})}" th:object="${cakeOption3AddRequest}" method="post" >
+                <form th:action="@{/operator/cake-option-3(operatorId=${operatorId},storeId=${storeId})}" th:object="${cakeOption3AddRequest}" method="post" >
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>

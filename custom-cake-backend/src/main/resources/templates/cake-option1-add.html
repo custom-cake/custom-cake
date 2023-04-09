@@ -23,7 +23,7 @@
 
                 <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
                 <div class="container-fluid" th:if="${hasStore == true}">
-                    <form th:action="@{/operator/cake-option(operatorId=${operatorId},storeId=${storeId},cakeOptionType=${1})}" th:object="${cakeOption1AddRequest}" method="post" >
+                    <form th:action="@{/operator/cake-option-1(operatorId=${operatorId},storeId=${storeId})}" th:object="${cakeOption1AddRequest}" method="post" >
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>
@@ -47,18 +47,21 @@
                                                     <td>모양, 사이즈, 단</td>
                                                     <td>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeShapeList">
-                                                                <option th:each="cakeShape : ${cakeShapeList}" th:value="${cakeShape}" th:text="${cakeShape}"></option>
+                                                            <select class="form-control" id="cakeShape" th:field="*{cakeShape}" required="required">
+                                                                <option value="">모양 선택</option>
+                                                                <option th:each="shape : ${cakeShapeList}" th:value="${shape}" th:text="${shape}"></option>
                                                             </select>
                                                         </div>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeSizeList">
-                                                                <option th:each="cakeSize : ${cakeSizeList}" th:value="${cakeSize}" th:text="${cakeSize}"></option>
+                                                            <select class="form-control" id="cakeSize" th:field="*{cakeSize}" required="required">
+                                                                <option value="">사이즈 선택</option>
+                                                                <option th:each="size : ${cakeSizeList}" th:value="${size}" th:text="${size}"></option>
                                                             </select>
                                                         </div>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeLayerList">
-                                                                <option th:each="cakeLayer : ${cakeLayerList}" th:value="${cakeLayer}" th:text="${cakeLayer}"></option>
+                                                            <select class="form-control" id="cakeLayer" th:field="*{cakeLayer}" required="required">
+                                                                <option value="">단 선택</option>
+                                                                <option th:each="layer : ${cakeLayerList}" th:value="${layer}" th:text="${layer}"></option>
                                                             </select>
                                                         </div>
                                                     </td>

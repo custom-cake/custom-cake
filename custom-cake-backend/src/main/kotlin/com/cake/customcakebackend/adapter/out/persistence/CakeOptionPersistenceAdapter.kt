@@ -18,7 +18,8 @@ class CakeOptionPersistenceAdapter(
     private val jpaQueryFactory: JPAQueryFactory,
     private val cakeOptionJpaRepository: CakeOptionJpaRepository
 ) : CakeOptionPort {
-    override fun loadInfo(cakeOptionType: Long, cakeOptionId: Long): CakeOption {
+    override fun loadInfo(cakeOptionType: Int, cakeOptionId: Long): CakeOption
+    {
         TODO("Not yet implemented")
     }
 
@@ -42,11 +43,11 @@ class CakeOptionPersistenceAdapter(
             .toMap()
     }
 
-    override fun loadCakeOptionList(storeId: Long, cakeOptionType: Long): List<CakeOption> {
+    override fun loadCakeOptionList(storeId: Long, cakeOptionType: Int): List<CakeOption> {
         TODO("Not yet implemented")
     }
 
-    override fun save(): Pair<Long, Long> {
+    override fun save(storeId: Long, cakeOptionType: Int): Pair<Long, Long> {
         TODO("Not yet implemented")
     }
 
