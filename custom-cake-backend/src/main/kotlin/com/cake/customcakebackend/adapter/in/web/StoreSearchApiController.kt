@@ -18,4 +18,9 @@ class StoreSearchApiController(
     fun searchByName(@RequestParam("query") query: String): List<StoreGetResponse> {
         return storeSearchService.searchByName(query)
     }
+
+    @GetMapping("/region")
+    fun getRegionList(): List<String> {
+        return storeSearchService.getAllRegionsName()
+    }
 }
