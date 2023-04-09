@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping(
-    path = ["/operator/cake-option"],
-) class CakeItemManagementController {
+    path = ["/operator/cake-item"]
+)
+class CakeItemManagementController {
 }

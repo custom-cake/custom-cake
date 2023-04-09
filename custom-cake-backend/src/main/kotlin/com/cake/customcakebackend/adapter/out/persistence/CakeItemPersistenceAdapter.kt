@@ -16,8 +16,8 @@ class CakeItemPersistenceAdapter(
     private val cakeItemJpaRepository: CakeItemJpaRepository
 ) : CakeItemPort {
     override fun loadInfo(cakeItemId: Long): CakeItem {
-        val cakeItemEntity = cakeItemJpaRepository.findByIdOrNull(cakeItemId)
-            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
+//        val cakeItemEntity = cakeItemJpaRepository.findByIdOrNull(cakeItemId)
+//            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
         TODO()
     }
 

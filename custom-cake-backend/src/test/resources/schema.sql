@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `cake_option1` (
 CREATE TABLE IF NOT EXISTS `cake_option2` (
                                               `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                               `store_id`	                    BIGINT UNSIGNED	        NOT NULL,
-                                              `cake_sheet`	                VARCHAR(10)	            NOT NULL,          -- ENUM(CHOCO, BANILA)
+                                              `cake_sheet`	                VARCHAR(20)	            NOT NULL,          -- ENUM(CHOCO, BANILA)
                                               `cake_inner_cream`	            VARCHAR(20)	            NOT NULL,          -- ENUM(CREAMCHEESE, CHOCO,...)
                                               `cake_outer_cream`	            VARCHAR(20)	            NOT NULL,          -- ENUM(CREAMCHEESE, CHOCO,...)
                                               `price`	                        INT	UNSIGNED            NOT NULL,

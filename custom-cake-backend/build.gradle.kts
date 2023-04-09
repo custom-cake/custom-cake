@@ -64,8 +64,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 
     // querydsl library (version 명시 필요 - https://wangtak.tistory.com/m/44)
-    kapt("com.querydsl:querydsl-apt:$querydslVersion")
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+    // "~~:jpa" : for using JPAAnnotationProcessor
+    kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
 
     // configuration-processor
     kapt("org.springframework.boot:spring-boot-configuration-processor")
@@ -78,7 +79,7 @@ dependencies {
 // ✅ QClass를 Intellij가 사용할 수 있도록 경로에 추가
 idea {
     module {
-        val kaptMain = file("$buildDir/generated/source/kapt/main")
+        val kaptMain = file("build/generated/source/kapt/main")
         sourceDirs.add(kaptMain)
         generatedSourceDirs.add(kaptMain)
     }
@@ -94,7 +95,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-//tasks.getByName<Jar>("jar") {
-//    enabled = false
-//}

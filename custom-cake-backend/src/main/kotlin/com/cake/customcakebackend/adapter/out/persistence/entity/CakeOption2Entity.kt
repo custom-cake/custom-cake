@@ -11,13 +11,16 @@ class CakeOption2Entity(
     @Column(name = "store_id", nullable = false)
     val storeId: Long,
 
-    @Column(columnDefinition = "String", length = 10, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     val cakeSheet: CakeOption2Type.CakeSheet,  // ENUM(CHOCO, BANILA)
 
-    @Column(columnDefinition = "String", length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     val cakeInnerCream: CakeOption2Type.CakeInnerCream,  // ENUM(CREAMCHEESE, CHOCO,...)
 
-    @Column(columnDefinition = "String", length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     val cakeOuterCream: CakeOption2Type.CakeOuterCream,  // ENUM(CREAMCHEESE, CHOCO,...)
 
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
@@ -29,4 +32,6 @@ class CakeOption2Entity(
     @Column(columnDefinition = "TINYINT DEFAULT 0", nullable = false)
     val isDeleted: Boolean
 
-) : CakeOptionEntity()
+) : CakeOptionEntity() {
+    override fun getType(): Int = 2
+}

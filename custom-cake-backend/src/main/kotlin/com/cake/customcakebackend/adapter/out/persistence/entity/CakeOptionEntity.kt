@@ -6,9 +6,11 @@ import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-open class CakeOptionEntity(
+abstract class CakeOptionEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-) : BaseEntity()
+) : BaseEntity() {
+    abstract fun getType(): Int
+}
