@@ -35,7 +35,7 @@ class CakeOption1Type {
         }
     }
 
-    enum class CakeLayer(val type: String) {
+    enum class CakeLayer(@JsonValue val type: String) {
         LAYER_1("1단"),
         LAYER_2("2단"),
         LAYER_3("3단");

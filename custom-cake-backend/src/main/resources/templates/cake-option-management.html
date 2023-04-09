@@ -32,19 +32,29 @@
                         <h1 class="h3 mb-0 text-gray-800">케이크 옵션 관리</h1>
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
+                    <!-- 케이크 옵션 1 -->
+                    <div class="row" >
                         <!-- Task Card Example -->
                         <div class="col-xl-12 col-md-12 mb-5">
-
-                            <!-- 케이크 옵션 1 -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">옵션 1 (케이크 모양/사이즈/단)</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 font-weight-bold text-primary">옵션 1 (케이크 모양/사이즈/단)</h6>
+                                        </div>
+                                        <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
+                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                            <button type="button" class="btn btn-info btn-icon-split float-right"
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=1)}'|">
+                                                <span class="text text-white"> 추가 </span>
+                                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
                                                 <th>모양</th>
@@ -54,31 +64,9 @@
                                                 <th>가격</th>
                                                 <th>사용 여부</th>
                                                 <th>삭제</th>
-                                                <th>값 테스트</th>
                                             </tr>
                                             </thead>
-<!--                                            <tfoot>-->
-<!--                                            <tr>-->
-<!--                                                <th>Name</th>-->
-<!--                                                <th>Position</th>-->
-<!--                                                <th>Office</th>-->
-<!--                                                <th>Age</th>-->
-<!--                                                <th>Start date</th>-->
-<!--                                                <th>Salary</th>-->
-<!--                                                <th>Salary</th>-->
-<!--                                            </tr>-->
-<!--                                            </tfoot>-->
                                             <tbody>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                                <td>$86,000</td>
-                                                <td>$86,000</td>
-                                            </tr>
                                             <tr th:each="option1 : ${allCakeOptionMap.get(1)}">
                                                 <td th:switch="${option1.cakeShape.toString()}">
                                                     <p th:case="CIRCLE" th:text="원형"></p>
@@ -111,7 +99,7 @@
                                                         <button class="btn btn-secondary" type="submit">삭제</button>
                                                     </form>
                                                 </td>
-                                                <td><p th:text="${storeId}"></p></td>
+<!--                                                <td><p th:text="${storeId}"></p></td>-->
                                             </tr>
                                             </tbody>
                                         </table>
@@ -204,6 +192,140 @@
 <!--                            </div>-->
                         </div>
                     </div>
+                    <!-- 케이크 옵션 2 -->
+                    <div class="row" >
+                        <!-- Task Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>
+                                        </div>
+                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                            <button type="button" class="btn btn-info btn-icon-split float-right"
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=2)}'|">
+                                                <span class="text text-white"> 추가 </span>
+                                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>시트</th>
+                                                <th>속크림</th>
+                                                <th>겉크림</th>
+                                                <th>가격</th>
+                                                <th>사용 여부</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="option2 : ${allCakeOptionMap.get(2)}">
+                                                <td th:switch="${option2.cakeSheet.toString()}">
+                                                    <p th:case="BANILLA_SHEET" th:text="바닐라시트"></p>
+                                                    <p th:case="CHOCO_SHEET" th:text="초코시트"></p>
+                                                    <p th:case="EARL_GREY_SHEET" th:text="얼그레이시트"></p>
+                                                    <p th:case="MOCHA_SHEET" th:text="모카시트"></p>
+                                                    <p th:case="MATCHA_SHEET" th:text="말차시트"></p>
+                                                </td>
+                                                <td th:switch="${option2.cakeInnerCream.toString()}">
+                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>
+                                                    <p th:case="CHOCO" th:text="초코크림"></p>
+                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>
+                                                    <p th:case="BUTTER" th:text="버터크림"></p>
+                                                    <p th:case="MILK" th:text="우유생크림"></p>
+                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>
+                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>
+                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>
+                                                </td>
+                                                <td th:switch="${option2.cakeOuterCream.toString()}">
+                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>
+                                                    <p th:case="CHOCO" th:text="초코크림"></p>
+                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>
+                                                    <p th:case="BUTTER" th:text="버터크림"></p>
+                                                    <p th:case="MILK" th:text="우유생크림"></p>
+                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>
+                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>
+                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>
+                                                </td>
+                                                <td th:text="|${option2.price}원|" ></td>
+                                                <td>
+                                                    <input type="hidden" th:text="${option2.isUsed} == true ? 'Y': 'N'" />
+                                                    <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
+                                                </td>
+                                                <td>
+                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option2.id},operatorId=${operatorId},storeId=${storeId},cakeOptionType=${2})}"
+                                                          th:method="delete" >
+                                                        <button class="btn btn-secondary" type="submit">삭제</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 케이크 옵션 3 -->
+                    <div class="row" >
+                        <!-- Task Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 font-weight-bold text-primary">옵션 3 (기타 옵션)</h6>
+                                        </div>
+                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                            <button type="button" class="btn btn-info btn-icon-split float-right"
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=3)}'|">
+                                                <span class="text text-white"> 추가 </span>
+                                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>옵션 이름</th>
+                                                <th>가격</th>
+                                                <th>사용 여부</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="option3 : ${allCakeOptionMap.get(3)}">
+                                                <td th:text="${option3.name}"></td>
+                                                <td th:text="|${option3.price}원|" ></td>
+                                                <td>
+                                                    <input type="hidden" th:text="${option3.isUsed} == true ? 'Y': 'N'" />
+                                                    <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
+                                                </td>
+                                                <td>
+                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option3.id},operatorId=${operatorId},storeId=${storeId},cakeOptionType=${3})}"
+                                                          th:method="delete" >
+                                                        <button class="btn btn-secondary" type="submit">삭제</button>
+                                                    </form>
+                                                </td>
+                                                <!--                                                <td><p th:text="${storeId}"></p></td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -231,7 +353,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
