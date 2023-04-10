@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreInfoResponse
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
