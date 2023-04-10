@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
-import com.cake.customcakebackend.adapter.out.persistence.entity.QStoreEntity.storeEntity as store
 import com.cake.customcakebackend.adapter.out.persistence.entity.StoreEntity
 import com.cake.customcakebackend.adapter.out.persistence.mapper.StoreMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.StoreJpaRepository
@@ -11,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityNotFoundException
+import com.cake.customcakebackend.adapter.out.persistence.entity.QDayoffEntity.dayoffEntity as dayoff
+import com.cake.customcakebackend.adapter.out.persistence.entity.QStoreEntity.storeEntity as store
 
 @Repository
 class StorePersistenceAdapter(
@@ -32,7 +33,6 @@ class StorePersistenceAdapter(
     override fun loadByStoreId(storeId: Long): Store {
         val storeEntity = storeJpaRepository.findByIdOrNull(storeId)
             ?: throw EntityNotFoundException("Store id=$storeId not found.")
-
 
         return storeMapper.toDomain(storeEntity)
     }

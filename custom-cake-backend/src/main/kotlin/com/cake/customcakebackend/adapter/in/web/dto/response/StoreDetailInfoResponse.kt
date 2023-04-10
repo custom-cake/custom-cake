@@ -2,6 +2,7 @@ package com.cake.customcakebackend.adapter.`in`.web.dto.response
 
 import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.domain.CakeItem
+import com.cake.customcakebackend.domain.Dayoff
 import com.cake.customcakebackend.domain.Store
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -19,19 +20,22 @@ data class StoreDetailInfoResponse (
     val reviewScore: Float,  // 소수점 한자리수
 
     // 디자인 케이크 상품 리스트
-    val cakeItemList: List<CakeItemResponse>
+    val cakeItemList: List<CakeItemResponse>,
+    val dayoffList: List<DayoffResponse>
 )
 
-fun Store.toResponse(reviewScore: Float, cakeItemList: List<CakeItem>) = StoreDetailInfoResponse (
-    id = this.id,
-    address = "${this.zipCode}, ${this.baseAddress}, ${this.detailAddress}",
-    phone = this.phone,
-    name = this.name,
-    description = this.description,
-    openTime = this.openTime,
-    reservationPeriod = this.reservationPeriod,
-    reservationPerPeriodCount = this.reservationPerPeriodCount,
-    thumbnailImageUrl = this.thumbnailImageUrl,
-    reviewScore = reviewScore,
-    cakeItemList = cakeItemList.map { it.toResponse() }
-)
+fun Store.toResponse(reviewScore: Float, cakeItemList: List<CakeItem>, dayoffList: List<Dayoff>) =
+    StoreDetailInfoResponse (
+        id = this.id,
+        address = "${this.zipCode}, ${this.baseAddress}, ${this.detailAddress}",
+        phone = this.phone,
+        name = this.name,
+        description = this.description,
+        openTime = this.openTime,
+        reservationPeriod = this.reservationPeriod,
+        reservationPerPeriodCount = this.reservationPerPeriodCount,
+        thumbnailImageUrl = this.thumbnailImageUrl,
+        reviewScore = reviewScore,
+        cakeItemList = cakeItemList.map { it.toResponse() },
+        dayoffList = dayoffList.map { it.toResponse() }
+    )
