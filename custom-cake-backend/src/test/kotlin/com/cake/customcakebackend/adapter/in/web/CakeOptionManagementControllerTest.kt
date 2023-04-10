@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -18,10 +17,9 @@ class CakeOptionManagementControllerTest(
 ) {
     @Test
     fun cakeOptionListTest() {
-        mockMvc.perform(MockMvcRequestBuilders.get("/operator/cake-option?storeId=1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/operator/cake-option?storeId=1&operatorId=1"))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.view().name("cake-option-management"))
             .andExpect(MockMvcResultMatchers.model().attributeExists("storeId"))
-//            .andExpect(MockMvcResultMatchers.model().)
     }
 }
