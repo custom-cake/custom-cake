@@ -1,7 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import com.cake.customcakebackend.common.DayOfWeekUnit
-import com.cake.customcakebackend.common.JsonColumnConverter
+import com.cake.customcakebackend.common.converter.JsonColumnConverter
 import javax.persistence.*
 
 @Table(name = "store")
@@ -33,7 +33,7 @@ class StoreEntity(
     @Column(columnDefinition = "TEXT")
     val description: String? = "",
 
-    @Convert(converter = JsonColumnConverter.MapConverter::class)
+    @Convert(converter = JsonColumnConverter.OpenTimeConverter::class)
     @Column(name= "open_time", columnDefinition = "JSON", nullable = false)
     val openTime: Map<DayOfWeekUnit, String>,  // e.g. mapof(MON to "12:00~19:00", THU to "12:00~19:00")
 

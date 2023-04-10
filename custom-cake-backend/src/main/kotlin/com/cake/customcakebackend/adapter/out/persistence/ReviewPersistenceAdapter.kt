@@ -5,6 +5,7 @@ import com.cake.customcakebackend.adapter.out.persistence.repository.ReviewJpaRe
 import com.cake.customcakebackend.application.port.out.ReviewPort
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
+import java.text.DecimalFormat
 import com.cake.customcakebackend.adapter.out.persistence.entity.QReviewEntity.reviewEntity as review
 
 @Repository
@@ -13,15 +14,23 @@ class ReviewPersistenceAdapter(
     private val reviewJpaRepository: ReviewJpaRepository,
     private val jpaQueryFactory: JPAQueryFactory
 ): ReviewPort {
+    private val reviewFormat = DecimalFormat("#.#")
+
     override fun calculateReviewScore(storeId: Long): Float {
-        val result: Pair<Int, Int>? = jpaQueryFactory.select(review.score.sum(), review.count()).from(review)
+        val result: Pair<Long?, Long?>? = jpaQueryFactory
+            .select(review.score.sum(), review.count())
+            .from(review)
             .where(review.storeId.eq(storeId))
             .fetch()
-            .map { it.get(0, Int::class.java)!! to it.get(1, Int::class.java)!! }.firstOrNull()
+            .map { it.get(0, Long::class.java) to it.get(1, Long::class.java) }.firstOrNull()
 
         result
             ?. let {
-                return if (it.second == 0) 0F else it.first.div(it.second).toFloat()
+                val score = it.first ?: 0
+                val count = it.second ?: 0
+                return if (count == 0L) 0F else {
+                    reviewFormat.format(score / count).toFloat()
+                }
             }
             ?: return 0F
     }

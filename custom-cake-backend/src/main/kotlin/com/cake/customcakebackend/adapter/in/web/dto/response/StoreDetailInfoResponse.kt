@@ -3,6 +3,7 @@ package com.cake.customcakebackend.adapter.`in`.web.dto.response
 import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.domain.CakeItem
 import com.cake.customcakebackend.domain.Store
+import com.fasterxml.jackson.annotation.JsonProperty
 
 data class StoreDetailInfoResponse (
     val id: Long,
@@ -10,6 +11,7 @@ data class StoreDetailInfoResponse (
     val phone: String? = "",
     val name: String,  // 매장 이름
     val description: String? = "",
+    @JsonProperty("openTime")
     val openTime: Map<DayOfWeekUnit, String>,
     val reservationPeriod: Int,  // 예약 주기  e.g.  5,10,15,20,30 ...
     val reservationPerPeriodCount: Int,  // 예약 주기 별 케이크 예약 건수
