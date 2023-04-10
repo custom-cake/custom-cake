@@ -22,8 +22,9 @@ class CakeOptionService(
         TODO("Not yet implemented")
     }
 
-    override fun saveCakeOption(storeId: Long, cakeOptionType: Int, cakeOptionRequest: CakeOptionRequest): Pair<Long, Long> {
-        TODO("Not yet implemented")
+    override fun saveCakeOption(storeId: Long, cakeOptionType: Int, cakeOptionRequest: CakeOptionRequest): Pair<Int, Long> {
+        val cakeOptionDomain = cakeOptionRequest.toDomain(storeId)
+        return cakeOptionPort.save(cakeOptionType, cakeOptionDomain)
     }
 
     override fun modifyCakeOption(): Pair<Long, Long> {

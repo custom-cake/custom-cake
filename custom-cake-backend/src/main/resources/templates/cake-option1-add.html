@@ -47,21 +47,21 @@
                                                     <td>모양, 사이즈, 단</td>
                                                     <td>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeShape" th:field="*{cakeShape}" required="required">
-                                                                <option value="">모양 선택</option>
-                                                                <option th:each="shape : ${cakeShapeList}" th:value="${shape}" th:text="${shape}"></option>
+                                                            <select class="form-control" id="cakeShape" th:field="${cakeOption1AddRequest.cakeShape}" required="required">
+                                                                <option value="" >모양 선택</option>
+                                                                <option th:each="cakeShape : ${cakeShapeMap}" th:value="${cakeShape.key}" th:text="${cakeShape.value}"></option>
                                                             </select>
                                                         </div>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeSize" th:field="*{cakeSize}" required="required">
+                                                            <select class="form-control" id="cakeSize" th:field="${cakeOption1AddRequest.cakeSize}" required="required">
                                                                 <option value="">사이즈 선택</option>
-                                                                <option th:each="size : ${cakeSizeList}" th:value="${size}" th:text="${size}"></option>
+                                                                <option th:each="cakeSize : ${cakeSizeMap}" th:value="${cakeSize.key}" th:text="${cakeSize.value}"></option>
                                                             </select>
                                                         </div>
                                                         <div class="list-inline-item">
-                                                            <select class="form-control" id="cakeLayer" th:field="*{cakeLayer}" required="required">
+                                                            <select class="form-control" id="cakeLayer" th:field="${cakeOption1AddRequest.cakeLayer}" required="required">
                                                                 <option value="">단 선택</option>
-                                                                <option th:each="layer : ${cakeLayerList}" th:value="${layer}" th:text="${layer}"></option>
+                                                                <option th:each="cakeLayer : ${cakeLayerMap}" th:value="${cakeLayer.key}" th:text="${cakeLayer.value}"></option>
                                                             </select>
                                                         </div>
                                                     </td>

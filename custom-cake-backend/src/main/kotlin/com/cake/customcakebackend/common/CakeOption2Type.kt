@@ -16,6 +16,7 @@ class CakeOption2Type {
             private val shareTypeMap = CakeSheet.values().associateBy(CakeSheet::type)
             fun find(type: String): CakeSheet? = shareTypeMap[type]
             fun toList(): List<String> = CakeSheet.values().map { it.type }
+            fun toMap(): Map<CakeSheet, String> = CakeSheet.values().associateWith { it.type }
         }
     }
 
@@ -34,6 +35,7 @@ class CakeOption2Type {
             private val shareTypeMap = CakeInnerCream.values().associateBy(CakeInnerCream::type)
             fun find(type: String): CakeInnerCream? = shareTypeMap[type]
             fun toList(): List<String> = CakeInnerCream.values().map { it.type }
+            fun toMap(): Map<CakeInnerCream, String> = values().associateWith { it.type }
         }
     }
 
@@ -52,6 +54,7 @@ class CakeOption2Type {
             private val shareTypeMap = CakeOuterCream.values().associateBy(CakeOuterCream::type)
             fun find(type: String): CakeOuterCream? = shareTypeMap[type]
             fun toList(): List<String> = CakeOuterCream.values().map { it.type }
+            fun toMap(): Map<CakeOuterCream, String> = CakeOuterCream.values().associateWith { it.type }
         }
     }
 }

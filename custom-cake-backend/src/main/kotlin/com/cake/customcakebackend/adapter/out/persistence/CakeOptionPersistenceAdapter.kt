@@ -47,8 +47,10 @@ class CakeOptionPersistenceAdapter(
         TODO("Not yet implemented")
     }
 
-    override fun save(storeId: Long, cakeOptionType: Int): Pair<Long, Long> {
-        TODO("Not yet implemented")
+    override fun save(cakeOptionType: Int, cakeOption: CakeOption): Pair<Int, Long> {
+        val cakeOptionEntity = cakeOptionMapper.toEntity(cakeOption)
+        val savedEntity = cakeOptionJpaRepository.save(cakeOptionEntity)
+        return cakeOptionType to savedEntity.id
     }
 
     override fun modify(): Pair<Long, Long> {

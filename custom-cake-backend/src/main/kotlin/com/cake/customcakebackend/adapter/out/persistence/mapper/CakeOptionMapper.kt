@@ -13,7 +13,38 @@ import org.springframework.stereotype.Component
 @Component
 class CakeOptionMapper : Mapper<CakeOptionEntity, CakeOption> {
     override fun toEntity(domain: CakeOption): CakeOptionEntity {
-        TODO("Not yet implemented")
+        return when {
+            (domain is CakeOption1) ->
+                CakeOption1Entity(
+                    storeId = domain.storeId,
+                    cakeShape = domain.cakeShape,
+                    cakeLayer = domain.cakeLayer,
+                    cakeSize = domain.cakeSize,
+                    letteringLimit = domain.letteringLimit,
+                    price = domain.price,
+                    isUsed = domain.isUsed,
+                    isDeleted = domain.isDeleted,
+                )
+            (domain is CakeOption2) ->
+                CakeOption2Entity(
+                    storeId = domain.storeId,
+                    cakeSheet = domain.cakeSheet,
+                    cakeInnerCream = domain.cakeInnerCream,
+                    cakeOuterCream = domain.cakeOuterCream,
+                    price = domain.price,
+                    isUsed = domain.isUsed,
+                    isDeleted = domain.isDeleted,
+                )
+            (domain is CakeOption3) ->
+                CakeOption3Entity(
+                    storeId = domain.storeId,
+                    name = domain.name,
+                    price = domain.price,
+                    isUsed = domain.isUsed,
+                    isDeleted = domain.isDeleted,
+                )
+            else -> throw Exception("")
+        }
     }
 
     override fun toDomain(entity: CakeOptionEntity): CakeOption {

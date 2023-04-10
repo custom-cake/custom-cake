@@ -87,16 +87,16 @@ class CakeOptionManagementController(
          when (cakeOptionType) {
             1 -> {
                 model.addAttribute("cakeOption1AddRequest", CakeOption1AddRequest())
-                model.addAttribute("cakeShapeList", CakeOption1Type.CakeShape.toList())
-                model.addAttribute("cakeSizeList", CakeOption1Type.CakeSize.toList())
-                model.addAttribute("cakeLayerList", CakeOption1Type.CakeLayer.toList())
+                model.addAttribute("cakeShapeMap", CakeOption1Type.CakeShape.toMap())
+                model.addAttribute("cakeSizeMap", CakeOption1Type.CakeSize.toMap())
+                model.addAttribute("cakeLayerMap", CakeOption1Type.CakeLayer.toMap())
                 return "cake-option1-add"
             }
             2 -> {
                 model.addAttribute("cakeOption2AddRequest", CakeOption2AddRequest())
-                model.addAttribute("cakeSheetList", CakeOption2Type.CakeSheet.toList())
-                model.addAttribute("cakeInnerCreamList", CakeOption2Type.CakeInnerCream.toList())
-                model.addAttribute("cakeOuterCreamList", CakeOption2Type.CakeOuterCream.toList())
+                model.addAttribute("cakeSheetMap", CakeOption2Type.CakeSheet.toMap())
+                model.addAttribute("cakeInnerCreamMap", CakeOption2Type.CakeInnerCream.toMap())
+                model.addAttribute("cakeOuterCreamMap", CakeOption2Type.CakeOuterCream.toMap())
                 return "cake-option2-add"
             }
             3 -> {
@@ -120,13 +120,10 @@ class CakeOptionManagementController(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
         @ModelAttribute @Valid  cakeOption1AddRequest: CakeOption1AddRequest,
-        errors: Errors,
         redirectAttributes: RedirectAttributes
     ): String {
-        if (errors.hasErrors()) {
-            return "cake-option1-add"
-        }
-//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
+        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 1, cakeOption1AddRequest)
+
         addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"
@@ -136,10 +133,11 @@ class CakeOptionManagementController(
     fun addCakeOption2(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
-        @ModelAttribute @Valid  cakeOption2AddRequest: CakeOption2AddRequest,
+        @ModelAttribute @Valid cakeOption2AddRequest: CakeOption2AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
-//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
+        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 2, cakeOption2AddRequest)
+
         addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"
@@ -152,7 +150,7 @@ class CakeOptionManagementController(
         @ModelAttribute @Valid  cakeOption3AddRequest: CakeOption3AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
-//        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, cakeOptionType, cakeOptionRequest)
+        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 3, cakeOption3AddRequest)
         addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"

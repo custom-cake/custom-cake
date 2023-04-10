@@ -49,19 +49,19 @@
                                                 <div class="list-inline-item">
                                                     <select class="form-control" id="cakeSheet" th:field="*{cakeSheet}" required="required">
                                                         <option value="">시트 선택</option>
-                                                        <option th:each="sheet : ${cakeSheetList}" th:value="${sheet}" th:text="${sheet}"></option>
+                                                        <option th:each="sheet : ${cakeSheetMap}" th:value="${sheet.key}" th:text="${sheet.value}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="list-inline-item">
                                                     <select class="form-control" id="cakeInnerCream" th:field="*{cakeInnerCream}" required="required">
                                                         <option value="">속크림 선택</option>
-                                                        <option th:each="innerCream : ${cakeInnerCreamList}" th:value="${innerCream}" th:text="${innerCream}"></option>
+                                                        <option th:each="innerCream : ${cakeInnerCreamMap}" th:value="${innerCream.key}" th:text="${innerCream.value}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="list-inline-item">
                                                     <select class="form-control" id="cakeOuterCream" th:field="*{cakeOuterCream}" required="required">
                                                         <option value="">겉크림 선택</option>
-                                                        <option th:each="cakeOuterCream : ${cakeOuterCreamList}" th:value="${cakeOuterCream}" th:text="${cakeOuterCream}"></option>
+                                                        <option th:each="cakeOuterCream : ${cakeOuterCreamMap}" th:value="${cakeOuterCream.key}" th:text="${cakeOuterCream.value}"></option>
                                                     </select>
                                                 </div>
                                             </td>
