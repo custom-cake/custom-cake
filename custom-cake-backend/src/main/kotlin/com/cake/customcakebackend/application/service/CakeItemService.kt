@@ -2,9 +2,9 @@ package com.cake.customcakebackend.application.service
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.CakeItemInfoResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.CakeItemResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
 import com.cake.customcakebackend.application.port.`in`.CakeItemManagementUseCase
 import com.cake.customcakebackend.application.port.out.CakeItemPort
-import com.cake.customcakebackend.domain.CakeItem
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,18 +17,7 @@ class CakeItemService(
     }
 
     override fun loadCakeItemList(storeId: Long): List<CakeItemResponse> =
-        cakeItemPort.loadList(storeId).map {
-            CakeItemResponse(
-                id = it.id,
-                storeId = it.storeId,
-                name = it.name,
-                description = it.description,
-                category = it.category,
-                image = it.thumbnailImageUrl,
-                price = it.price,
-                isOnsale = it.isOnsale
-            )
-        }
+        cakeItemPort.loadList(storeId).map { it.toResponse() }
 
     @Transactional
     override fun saveCakeItem(): Long {

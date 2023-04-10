@@ -1,6 +1,6 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
-import com.cake.customcakebackend.adapter.out.persistence.entity.QStoreEntity.storeEntity
+import com.cake.customcakebackend.adapter.out.persistence.entity.QStoreEntity.storeEntity as store
 import com.cake.customcakebackend.adapter.out.persistence.entity.StoreEntity
 import com.cake.customcakebackend.adapter.out.persistence.mapper.StoreMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.StoreJpaRepository
@@ -10,6 +10,7 @@ import com.cake.customcakebackend.domain.Store
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import javax.persistence.EntityNotFoundException
 
 @Repository
 class StorePersistenceAdapter(
@@ -17,12 +18,23 @@ class StorePersistenceAdapter(
     private val storeJpaRepository: StoreJpaRepository,
     private val jpaQueryFactory: JPAQueryFactory
 ) : StorePort, LoadStoresByNameUserPort {
-    override fun load(operatorId: Long): List<Store> {
-        val storeEntity = storeJpaRepository.findByIdOrNull(operatorId)
+    override fun loadByOperatorId(operatorId: Long): List<Store> {
+        val storeEntity = jpaQueryFactory
+            .selectFrom(store)
+            .where(store.operatorId.eq(operatorId))
+            .fetchOne()
 
         return storeEntity
             ?.let { listOf(storeMapper.toDomain(it)) }
             ?: listOf()
+    }
+
+    override fun loadByStoreId(storeId: Long): Store {
+        val storeEntity = storeJpaRepository.findByIdOrNull(storeId)
+            ?: throw EntityNotFoundException("Store id=$storeId not found.")
+
+
+        return storeMapper.toDomain(storeEntity)
     }
 
     override fun exist(operatorId: Long): Boolean =
@@ -30,10 +42,10 @@ class StorePersistenceAdapter(
 
     override fun validateStore(storeId: Long, operatorId: Long): Boolean {
         val storeEntity: StoreEntity? = jpaQueryFactory
-            .selectFrom(storeEntity)
+            .selectFrom(store)
             .where(
-                storeEntity.id.eq(storeId),
-                storeEntity.operatorId.eq(operatorId)
+                store.id.eq(storeId),
+                store.operatorId.eq(operatorId)
             )
             .fetchOne()
         return storeEntity ?. let { true } ?: false
