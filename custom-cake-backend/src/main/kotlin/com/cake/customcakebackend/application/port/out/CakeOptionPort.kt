@@ -8,5 +8,5 @@ interface CakeOptionPort {
     fun loadCakeOptionList(storeId: Long, cakeOptionType: Int): List<CakeOption>
     fun save(cakeOptionType: Int, cakeOption: CakeOption): Pair<Int, Long>  // type, id
     fun modify(): Pair<Long, Long>  // type, id
-    fun delete()
+    fun delete(cakeOptionType: Int, optionId: Long)
 }

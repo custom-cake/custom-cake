@@ -51,19 +51,6 @@ class CakeOptionManagementController(
         return "cake-option-management"
     }
 
-//    @GetMapping("{cakeOptionId}")
-//    fun cakeOptionInfo(
-//        @RequestParam operatorId: Long,
-//        @RequestParam storeId: Long,
-//        @RequestParam cakeOptionType: Int,
-//        @PathVariable cakeOptionId: Long,
-//        model: Model
-//    ): String {
-//        addAttributeToModel("operatorId", operatorId, model)
-//        addAttributeToModel("storeId", storeId, model)
-//        return "cake-option-detail"
-//    }
-
     /**
      * addCakeOptionForm method
      * : 케이크 옵션 form
@@ -173,6 +160,8 @@ class CakeOptionManagementController(
         @PathVariable cakeOptionId: Long,
         redirectAttributes: RedirectAttributes
     ): String {
+        cakeOptionManagementUseCase.deleteCakeOption(cakeOptionType, cakeOptionId)
+
         addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"

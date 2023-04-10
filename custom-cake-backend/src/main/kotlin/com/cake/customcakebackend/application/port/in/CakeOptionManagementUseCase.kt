@@ -11,5 +11,5 @@ interface CakeOptionManagementUseCase {
     fun loadCakeOptionList(storeId: Long, cakeOptionType: Int): List<CakeOption>
     fun saveCakeOption(storeId: Long, cakeOptionType: Int, cakeOptionRequest: CakeOptionRequest): Pair<Int, Long>  // type, id
     fun modifyCakeOption(): Pair<Long, Long>  // type, id
-    fun deleteCakeOption()
+    fun deleteCakeOption(cakeOptionType: Int, optionId: Long)
 }
