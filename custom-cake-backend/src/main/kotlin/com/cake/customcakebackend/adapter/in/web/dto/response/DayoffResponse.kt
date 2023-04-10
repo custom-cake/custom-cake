@@ -9,12 +9,12 @@ data class DayoffResponse(
     val id: Long,
     val dayoffType: DayoffType,
     val dayoffDay: DayOfWeekUnit? = null,
-    val dayoffDate: LocalDate?= null,
+    val dayoffDate: String?= null,
 )
 
 fun Dayoff.toResponse(): DayoffResponse = DayoffResponse(
     id = this.id,
     dayoffType = this.dayoffType,
     dayoffDay = this.dayoffDay,
-    dayoffDate = this.dayoffDate
+    dayoffDate = this.dayoffDate.toString()
 )
