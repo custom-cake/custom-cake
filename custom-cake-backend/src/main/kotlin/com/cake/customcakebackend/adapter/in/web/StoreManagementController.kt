@@ -30,8 +30,8 @@ class StoreManagementController(
      * @version 1.0.0
      * 작성일 2023/04/04
     **/
-    @GetMapping("/{operatorId}")
-    fun storeInfo(@PathVariable operatorId: Long, model: Model): String {
+    @GetMapping("")
+    fun storeInfo(@RequestParam operatorId: Long, model: Model): String {
         val storeList = storeManagementUseCase.storeInfo(operatorId)
 
         addOperatorIdToModel(operatorId, model)
@@ -67,9 +67,9 @@ class StoreManagementController(
      * @version 1.0.0
      * 작성일 2023/04/04
     **/
-    @PostMapping("/{operatorId}")
+    @PostMapping("")
     fun registerStore(
-        @PathVariable operatorId: Long,
+        @RequestParam operatorId: Long,
         @Valid @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
         result: BindingResult,
         redirectAttributes: RedirectAttributes
@@ -84,7 +84,7 @@ class StoreManagementController(
 
         addOperatorIdToModel(operatorId, redirectAttributes)
         redirectAttributes.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // 고정 휴무일 리스트
-        return "redirect:/operator/store/$operatorId"
+        return "redirect:/operator/store?operatorId=$operatorId"
     }
 
     private fun addOperatorIdToModel(operatorId: Long, model: Model) =

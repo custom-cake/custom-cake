@@ -41,10 +41,10 @@ INSERT IGNORE INTO inquiry (id, user_id, store_id, title, content, is_answered, 
 VALUES (1, 1, 1, '당일 케이크 문의', '당일 케이크는 언제 구매가 가능한가요?', 1, '목, 금, 토요일에 가능합니다 :)');
 
 INSERT IGNORE INTO cake_option1 (id, store_id, cake_shape, cake_size, lettering_limit, cake_layer, price, is_used, is_deleted)
-VALUES (1, 1, 'CIRCLE', 'NO_0', '10', '1', 0, 1, 0),
-       (2, 1, 'HEART', 'NO_0', '10', '1', 0, 1, 0),
-       (3, 1, 'CIRCLE', 'NO_1', '10', '1', 0, 1, 0),
-       (4, 1, 'CIRCLE', 'NO_2', '15', '1', 10000, 1, 0);
+VALUES (1, 1, 'CIRCLE', 'NO_0', '10', 'LAYER_1', 0, 1, 0),
+       (2, 1, 'HEART', 'NO_0', '10', 'LAYER_1', 0, 1, 0),
+       (3, 1, 'CIRCLE', 'NO_1', '10', 'LAYER_1', 0, 1, 0),
+       (4, 1, 'CIRCLE', 'NO_2', '15', 'LAYER_1', 10000, 1, 0);
 
 INSERT IGNORE INTO cake_option2 (id, store_id, cake_sheet, cake_inner_cream, cake_outer_cream, price, is_used, is_deleted)
 VALUES (1, 1, 'BANILLA_SHEET', 'MILK', 'CREAMCHEESE', 0, 1, 0),

@@ -17,7 +17,7 @@ class StoreManagementControllerTest(
 ) {
     @Test
     fun storeInfoTest() {
-        mockMvc.perform(get("/operator/store/1"))
+        mockMvc.perform(get("/operator/store?operatorId=1"))
             .andExpect(status().isOk)
             .andExpect(view().name("store-management"))
             .andExpect(model().attributeExists("operatorId"))
