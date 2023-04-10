@@ -1,5 +1,6 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
+import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeItemEntity.cakeItemEntity
 import com.cake.customcakebackend.adapter.out.persistence.mapper.CakeItemMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.CakeItemJpaRepository
 import com.cake.customcakebackend.application.port.out.CakeItemPort
@@ -16,16 +17,19 @@ class CakeItemPersistenceAdapter(
     private val cakeItemJpaRepository: CakeItemJpaRepository
 ) : CakeItemPort {
     override fun loadInfo(cakeItemId: Long): CakeItem {
-//        val cakeItemEntity = cakeItemJpaRepository.findByIdOrNull(cakeItemId)
-//            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
-        TODO()
+        val cakeItemEntity = cakeItemJpaRepository.findByIdOrNull(cakeItemId)
+            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
+
+        return cakeItemMapper.toDomain(cakeItemEntity)
     }
 
     override fun loadList(storeId: Long): List<CakeItem> {
-//        val cakeItemEntityList = jpaQueryFactory.select()
+        val cakeItemEntities = jpaQueryFactory
+            .selectFrom(cakeItemEntity)
+            .where(cakeItemEntity.storeId.eq(storeId))
+            .fetch()
 
-//        return cakeItemEntityList.map { cakeItemMapper.toDomain(it) }
-        return listOf()
+        return cakeItemEntities.map { cakeItemMapper.toDomain(it) }
     }
 
     override fun save(): Long {

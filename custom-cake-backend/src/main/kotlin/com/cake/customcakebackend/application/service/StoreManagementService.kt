@@ -16,9 +16,8 @@ class StoreManagementService(
     private val storePort: StorePort,
     private val dayoffPort: DayoffPort
 ) : StoreManagementUseCase {
-    override fun storeInfo(operatorId: Long): List<Store> {
-        return storePort.load(operatorId)
-    }
+    override fun storeInfo(operatorId: Long): List<Store> =
+        storePort.load(operatorId)
 
     override fun hasStore(operatorId: Long): Boolean =
         storePort.exist(operatorId)
