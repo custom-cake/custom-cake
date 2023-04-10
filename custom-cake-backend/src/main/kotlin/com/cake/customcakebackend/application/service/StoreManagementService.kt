@@ -22,6 +22,9 @@ class StoreManagementService(
     override fun hasStore(operatorId: Long): Boolean =
         storePort.exist(operatorId)
 
+    override fun validateStore(storeId: Long, operatorId: Long): Boolean =
+        storePort.validateStore(storeId, operatorId)
+
     override fun registerStore(operatorId: Long, request: StoreRegisterRequest) {
         // make openTime
         val openTime: Map<DayOfWeekUnit, String> = DayOfWeekUnit.values().mapIndexed { idx, dowUnit ->

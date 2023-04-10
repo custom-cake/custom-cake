@@ -40,7 +40,7 @@
                                 <div class="card-header py-3">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h6 class="m-0 font-weight-bold text-primary">옵션 1 (케이크 모양/사이즈/단)</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary">케이크 상품</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
                                         <div class="col-md-6" th:if="${hasStore == true}">
@@ -57,76 +57,44 @@
                                         <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
+                                                <th>상품번호</th>
                                                 <th>사진</th>
-                                                <th>모양</th>
-                                                <th>모양</th>
-                                                <th>옵션 개수</th>
+                                                <th>이름</th>
+                                                <th>설명</th>
+                                                <th>카테고리</th>
                                                 <th>가격</th>
-                                                <th>사용 여부</th>
+                                                <th>판매 여부</th>
                                                 <th>삭제</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="cakeItem : ${cakeItemResponse}">
-<!--                                                <td th:switch="${cakeItem.cakeShape.toString()}">-->
-<!--                                                    <p th:case="CIRCLE" th:text="원형"></p>-->
-<!--                                                    <p th:case="SQUARE" th:text="사각형"></p>-->
-<!--                                                    <p th:case="HEART" th:text="하트"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${cakeItem.cakeSize.toString()}">-->
-<!--                                                    <p th:case="NO_0" th:text="도시락"></p>-->
-<!--                                                    <p th:case="NO_1" th:text="1호"></p>-->
-<!--                                                    <p th:case="NO_2" th:text="2호"></p>-->
-<!--                                                    <p th:case="NO_3" th:text="3호"></p>-->
-<!--                                                    <p th:case="NO_4" th:text="4호"></p>-->
-<!--                                                    <p th:case="NO_5" th:text="5호"></p>-->
-<!--                                                    <p th:case="NO_6" th:text="6호"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${cakeItem.cakeLayer.toString()}">-->
-<!--                                                    <p th:case="LAYER_1" th:text="1단"></p>-->
-<!--                                                    <p th:case="LAYER_2" th:text="2단"></p>-->
-<!--                                                    <p th:case="LAYER_3" th:text="3단"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:text="|${cakeItem.letteringLimit}자|" ></td>-->
-<!--                                                <td th:switch="${cakeItem.cakeSheet.toString()}">-->
-<!--                                                    <p th:case="BANILLA_SHEET" th:text="바닐라시트"></p>-->
-<!--                                                    <p th:case="CHOCO_SHEET" th:text="초코시트"></p>-->
-<!--                                                    <p th:case="EARL_GREY_SHEET" th:text="얼그레이시트"></p>-->
-<!--                                                    <p th:case="MOCHA_SHEET" th:text="모카시트"></p>-->
-<!--                                                    <p th:case="MATCHA_SHEET" th:text="말차시트"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${cakeItem.cakeInnerCream.toString()}">-->
-<!--                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>-->
-<!--                                                    <p th:case="CHOCO" th:text="초코크림"></p>-->
-<!--                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>-->
-<!--                                                    <p th:case="BUTTER" th:text="버터크림"></p>-->
-<!--                                                    <p th:case="MILK" th:text="우유생크림"></p>-->
-<!--                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>-->
-<!--                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>-->
-<!--                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${cakeItem.cakeOuterCream.toString()}">-->
-<!--                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>-->
-<!--                                                    <p th:case="CHOCO" th:text="초코크림"></p>-->
-<!--                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>-->
-<!--                                                    <p th:case="BUTTER" th:text="버터크림"></p>-->
-<!--                                                    <p th:case="MILK" th:text="우유생크림"></p>-->
-<!--                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>-->
-<!--                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>-->
-<!--                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>-->
-<!--                                                </td>-->
+                                            <tr th:each="cakeItem : ${cakeItemResponseList}">
+                                                <td th:text="${cakeItem.id}"></td>
+                                                <td>
+                                                    <img class="img-profile"
+                                                         th:src="${cakeItem.image}"
+                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px;" />
+                                                </td>
+                                                <td th:text="${cakeItem.name}"></td>
+                                                <td th:text="${cakeItem.description}"></td>
+                                                <td th:switch="${cakeItem.category.toString()}">
+                                                    <p th:case="LUNCH_BOX_CAKE" th:text="도시락케이크"></p>
+                                                    <p th:case="DESIGN_CAKE" th:text="디자인케이크"></p>
+                                                    <p th:case="CHARACTER_CAKE" th:text="캐릭터케이크"></p>
+                                                    <p th:case="MACAROON_CAKE" th:text="마카롱케이크"></p>
+                                                    <p th:case="RICE_CAKE" th:text="떡앙금케이크"></p>
+                                                    <p th:case="PET_CAKE" th:text="반려동물케이크"></p>
+                                                </td>
                                                 <td th:text="|${cakeItem.price}원|" ></td>
                                                 <td>
-                                                    <input type="hidden" th:text="${cakeItem.isUsed} == true ? 'Y': 'N'" />
-<!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
+                                                    <input type="hidden" th:text="${cakeItem.isOnsale} == true ? 'Y': 'N'" />
                                                 </td>
                                                 <td>
-                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId})}"
+                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId},operatorId=${operatorId})}"
                                                           th:method="delete" >
                                                         <button class="btn btn-secondary" type="submit">삭제</button>
                                                     </form>
                                                 </td>
-<!--                                                <td><p th:text="${storeId}"></p></td>-->
                                             </tr>
                                             </tbody>
                                         </table>
@@ -135,86 +103,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 케이크 옵션 2 -->
-<!--                    <div class="row" >-->
-<!--                        &lt;!&ndash; Task Card Example &ndash;&gt;-->
-<!--                        <div class="col-xl-12 col-md-12 mb-5">-->
-<!--                            <div class="card shadow mb-4">-->
-<!--                                <div class="card-header py-3">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-md-6">-->
-<!--                                            <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-6" th:if="${hasStore == true}">-->
-<!--                                            <button type="button" class="btn btn-info btn-icon-split float-right"-->
-<!--                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=2)}'|">-->
-<!--                                                <span class="text text-white"> 추가 </span>-->
-<!--                                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="table-responsive">-->
-<!--                                        <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">-->
-<!--                                            <thead>-->
-<!--                                            <tr>-->
-<!--                                                <th>시트</th>-->
-<!--                                                <th>속크림</th>-->
-<!--                                                <th>겉크림</th>-->
-<!--                                                <th>가격</th>-->
-<!--                                                <th>사용 여부</th>-->
-<!--                                                <th>삭제</th>-->
-<!--                                            </tr>-->
-<!--                                            </thead>-->
-<!--                                            <tbody>-->
-<!--                                            <tr th:each="option2 : ${allCakeOptionMap.get(2)}">-->
-<!--                                                <td th:switch="${option2.cakeSheet.toString()}">-->
-<!--                                                    <p th:case="BANILLA_SHEET" th:text="바닐라시트"></p>-->
-<!--                                                    <p th:case="CHOCO_SHEET" th:text="초코시트"></p>-->
-<!--                                                    <p th:case="EARL_GREY_SHEET" th:text="얼그레이시트"></p>-->
-<!--                                                    <p th:case="MOCHA_SHEET" th:text="모카시트"></p>-->
-<!--                                                    <p th:case="MATCHA_SHEET" th:text="말차시트"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${option2.cakeInnerCream.toString()}">-->
-<!--                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>-->
-<!--                                                    <p th:case="CHOCO" th:text="초코크림"></p>-->
-<!--                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>-->
-<!--                                                    <p th:case="BUTTER" th:text="버터크림"></p>-->
-<!--                                                    <p th:case="MILK" th:text="우유생크림"></p>-->
-<!--                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>-->
-<!--                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>-->
-<!--                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:switch="${option2.cakeOuterCream.toString()}">-->
-<!--                                                    <p th:case="CREAMCHEESE" th:text="크림치즈"></p>-->
-<!--                                                    <p th:case="CHOCO" th:text="초코크림"></p>-->
-<!--                                                    <p th:case="COOKIE" th:text="쿠키크림"></p>-->
-<!--                                                    <p th:case="BUTTER" th:text="버터크림"></p>-->
-<!--                                                    <p th:case="MILK" th:text="우유생크림"></p>-->
-<!--                                                    <p th:case="STRAWBERRY" th:text="딸기생크림"></p>-->
-<!--                                                    <p th:case="RASPBERRY" th:text="라즈베리크림"></p>-->
-<!--                                                    <p th:case="BLUEBERRY" th:text="블루베리크림"></p>-->
-<!--                                                </td>-->
-<!--                                                <td th:text="|${option2.price}원|" ></td>-->
-<!--                                                <td>-->
-<!--                                                    <input type="hidden" th:text="${option2.isUsed} == true ? 'Y': 'N'" />-->
-<!--                                                    &lt;!&ndash;                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />&ndash;&gt;-->
-<!--                                                </td>-->
-<!--                                                <td>-->
-<!--                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option2.id},operatorId=${operatorId},storeId=${storeId},cakeOptionType=${2})}"-->
-<!--                                                          th:method="delete" >-->
-<!--                                                        <button class="btn btn-secondary" type="submit">삭제</button>-->
-<!--                                                    </form>-->
-<!--                                                </td>-->
-<!--                                            </tr>-->
-<!--                                            </tbody>-->
-<!--                                        </table>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <!-- /.container-fluid -->
 

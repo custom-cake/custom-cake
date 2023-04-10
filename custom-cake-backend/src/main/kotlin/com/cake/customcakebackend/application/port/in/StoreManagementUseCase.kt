@@ -6,6 +6,7 @@ import com.cake.customcakebackend.domain.Store
 interface StoreManagementUseCase {
     fun storeInfo(operatorId: Long): List<Store>
     fun hasStore(operatorId: Long): Boolean
+    fun validateStore(storeId: Long, operatorId: Long): Boolean
     fun registerStore(operatorId: Long, request: StoreRegisterRequest)
     fun modifyStoreInfo()
 }

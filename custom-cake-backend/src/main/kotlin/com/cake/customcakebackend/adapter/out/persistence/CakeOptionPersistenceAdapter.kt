@@ -24,15 +24,21 @@ class CakeOptionPersistenceAdapter(
     override fun loadAllCakeOptionList(storeId: Long): Map<Int, List<CakeOption>> {
         val cakeOption1Entities = jpaQueryFactory
             .selectFrom(cakeOption1Entity)
-            .where(cakeOption1Entity.storeId.eq(storeId))
+            .where(
+                cakeOption1Entity.storeId.eq(storeId),
+                cakeOption1Entity.isDeleted.isFalse)
             .fetch()
         val cakeOption2Entities = jpaQueryFactory
             .selectFrom(cakeOption2Entity)
-            .where(cakeOption2Entity.storeId.eq(storeId))
+            .where(
+                cakeOption2Entity.storeId.eq(storeId),
+                cakeOption2Entity.isDeleted.isFalse)
             .fetch()
         val cakeOption3Entities = jpaQueryFactory
             .selectFrom(cakeOption3Entity)
-            .where(cakeOption3Entity.storeId.eq(storeId))
+            .where(
+                cakeOption3Entity.storeId.eq(storeId),
+                cakeOption3Entity.isDeleted.isFalse)
             .fetch()
         val cakeOptionEntities = cakeOption1Entities.plus(cakeOption2Entities).plus(cakeOption3Entities)
 
@@ -57,9 +63,27 @@ class CakeOptionPersistenceAdapter(
 
     override fun delete(cakeOptionType: Int, optionId: Long) {
         when (cakeOptionType) {
-            1 -> jpaQueryFactory.delete(cakeOption1Entity).where(cakeOption1Entity.id.eq(optionId)).execute()
-            2 -> jpaQueryFactory.delete(cakeOption2Entity).where(cakeOption2Entity.id.eq(optionId)).execute()
-            3 -> jpaQueryFactory.delete(cakeOption3Entity).where(cakeOption3Entity.id.eq(optionId)).execute()
+            1 -> {
+                jpaQueryFactory
+                    .update(cakeOption1Entity)
+                    .set(cakeOption1Entity.isDeleted, true)
+                    .where(cakeOption1Entity.id.eq(optionId))
+                    .execute()
+            }
+            2 -> {
+                jpaQueryFactory
+                    .update(cakeOption2Entity)
+                    .set(cakeOption2Entity.isDeleted, true)
+                    .where(cakeOption2Entity.id.eq(optionId))
+                    .execute()
+            }
+            3 -> {
+                jpaQueryFactory
+                    .update(cakeOption3Entity)
+                    .set(cakeOption3Entity.isDeleted, true)
+                    .where(cakeOption3Entity.id.eq(optionId))
+                    .execute()
+            }
             else -> {}
         }
     }
