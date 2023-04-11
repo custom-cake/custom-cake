@@ -69,23 +69,4 @@ class JsonColumnConverter {
             }
         }
     }
-
-    @Converter
-    class OpenTimeConverter : AttributeConverter<Map<DayOfWeekUnit, String>, String> {
-        override fun convertToDatabaseColumn(attribute: Map<DayOfWeekUnit, String>): String {
-            try {
-                return mapper.writeValueAsString(attribute)
-            } catch (e: JsonProcessingException) {
-                throw IllegalArgumentException()
-            }
-        }
-
-        override fun convertToEntityAttribute(dbData: String): Map<DayOfWeekUnit, String> {
-            try {
-                return mapper.readValue(dbData, object : TypeReference<Map<DayOfWeekUnit, String>>() {})
-            } catch (e: IOException) {
-                throw IllegalArgumentException()
-            }
-        }
-    }
 }
