@@ -39,7 +39,7 @@ class StorePersistenceAdapter(
     }
 
     override fun loadByOption(request: StoreOptionSearchRequest): List<Store> {
-        return storeQueryJpaRepository.searchByOption()
+        return storeQueryJpaRepository.searchByOption(request)
             .map(storeMapper::toDomain)
     }
 }
