@@ -16,12 +16,14 @@ class StoreManagementService(
     private val storePort: StorePort,
     private val dayoffPort: DayoffPort
 ) : StoreManagementUseCase {
-    override fun storeInfo(operatorId: Long): List<Store> {
-        return storePort.load(operatorId)
-    }
+    override fun storeInfo(operatorId: Long): List<Store> =
+        storePort.loadByOperatorId(operatorId)
 
     override fun hasStore(operatorId: Long): Boolean =
         storePort.exist(operatorId)
+
+    override fun validateStore(storeId: Long, operatorId: Long): Boolean =
+        storePort.validateStore(storeId, operatorId)
 
     override fun registerStore(operatorId: Long, request: StoreRegisterRequest) {
         // make openTime

@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreInfoResponse
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -17,7 +16,7 @@ class StoreManagementControllerTest(
 ) {
     @Test
     fun storeInfoTest() {
-        mockMvc.perform(get("/operator/store/1"))
+        mockMvc.perform(get("/operator/store?operatorId=1"))
             .andExpect(status().isOk)
             .andExpect(view().name("store-management"))
             .andExpect(model().attributeExists("operatorId"))

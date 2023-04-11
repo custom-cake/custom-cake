@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::fragment-header">
+    <title th:replace="fragments/header::f-title">
+        MANAGEMENT
+    </title>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div th:replace="fragments/sidebar::fragment-sidebar"></div>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div th:replace="fragments/topbar::fragment-topbar"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">케이크 상품 관리</h1>
+                    </div>
+
+                    <!-- 케이크 옵션 1 -->
+                    <div class="row" >
+                        <!-- Task Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 font-weight-bold text-primary">케이크 상품</h6>
+                                        </div>
+                                        <!-- 매장이 있어야 케이크 상품 등록 가능 -->
+                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                            <button type="button" class="btn btn-info btn-icon-split float-right"
+                                                    th:onclick="|location.href='@{/operator/cake-item/form(operatorId=${operatorId},storeId=${storeId})}'|">
+                                                <span class="text text-white"> 추가 </span>
+                                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>상품번호</th>
+                                                <th>사진</th>
+                                                <th>이름</th>
+                                                <th>설명</th>
+                                                <th>카테고리</th>
+                                                <th>가격</th>
+                                                <th>판매 여부</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="cakeItem : ${cakeItemResponseList}">
+                                                <td th:text="${cakeItem.id}"></td>
+                                                <td>
+                                                    <img class="img-profile"
+                                                         th:src="${cakeItem.image}"
+                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px;" />
+                                                </td>
+                                                <td th:text="${cakeItem.name}"></td>
+                                                <td th:text="${cakeItem.description}"></td>
+                                                <td th:switch="${cakeItem.category.toString()}">
+                                                    <p th:case="LUNCH_BOX_CAKE" th:text="도시락케이크"></p>
+                                                    <p th:case="DESIGN_CAKE" th:text="디자인케이크"></p>
+                                                    <p th:case="CHARACTER_CAKE" th:text="캐릭터케이크"></p>
+                                                    <p th:case="MACAROON_CAKE" th:text="마카롱케이크"></p>
+                                                    <p th:case="RICE_CAKE" th:text="떡앙금케이크"></p>
+                                                    <p th:case="PET_CAKE" th:text="반려동물케이크"></p>
+                                                </td>
+                                                <td th:text="|${cakeItem.price}원|" ></td>
+                                                <td>
+                                                    <input type="hidden" th:text="${cakeItem.isOnsale} == true ? 'Y': 'N'" />
+                                                </td>
+                                                <td>
+                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId},operatorId=${operatorId})}"
+                                                          th:method="delete" >
+                                                        <button class="btn btn-secondary" type="submit">삭제</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <div th:replace="fragments/footer::fragment-footer"></div>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{/bootstrap/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
+
+</body>
+
+</html>

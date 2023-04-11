@@ -4,7 +4,7 @@ import com.cake.customcakebackend.common.CakeOption2Type
 import java.time.LocalDateTime
 
 data class CakeOption2(
-    val id: Long,
+    val id: Long = 0,
     val storeId: Long,
     val cakeSheet: CakeOption2Type.CakeSheet,  // ENUM(CHOCO, BANILA)
     val cakeInnerCream: CakeOption2Type.CakeInnerCream,  // ENUM(CREAMCHEESE, CHOCO,...)
@@ -14,4 +14,4 @@ data class CakeOption2(
     val isDeleted: Boolean,
     val createdAt: LocalDateTime,
     var modifiedAt: LocalDateTime
-)
+) : CakeOption()

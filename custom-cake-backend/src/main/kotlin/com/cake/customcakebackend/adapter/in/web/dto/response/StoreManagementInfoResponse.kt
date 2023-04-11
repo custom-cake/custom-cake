@@ -3,7 +3,7 @@ package com.cake.customcakebackend.adapter.`in`.web.dto.response
 import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.domain.Store
 
-data class StoreInfoResponse(
+data class StoreManagementInfoResponse(
     val id: Long,
     val operatorId: Long,
     val businessRegistrationNo: String,
@@ -20,7 +20,7 @@ data class StoreInfoResponse(
     val ratingSum: Int
 )
 
-fun Store.toInfoResponse() = StoreInfoResponse (
+fun Store.toInfoResponse() = StoreManagementInfoResponse (
     id = this.id,
     operatorId = this.id,
     businessRegistrationNo = this.businessRegistrationNo,

@@ -9,7 +9,9 @@ class OperatorMainController {
 
     @GetMapping("/")
     fun main(model: Model): String {
+        // TODO
         model.addAttribute("operatorId", 1)
+        model.addAttribute("storeId", 1)
         return "index"
     }
 

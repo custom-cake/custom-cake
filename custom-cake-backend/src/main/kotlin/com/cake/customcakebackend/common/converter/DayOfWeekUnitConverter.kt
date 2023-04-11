@@ -1,5 +1,6 @@
-package com.cake.customcakebackend.common
+package com.cake.customcakebackend.common.converter
 
+import com.cake.customcakebackend.common.DayOfWeekUnit
 import javax.persistence.AttributeConverter
 import javax.persistence.Converter
 

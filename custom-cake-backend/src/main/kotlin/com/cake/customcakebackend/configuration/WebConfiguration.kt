@@ -1,8 +1,9 @@
 package com.cake.customcakebackend.configuration
 
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.filter.HiddenHttpMethodFilter
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
-
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
@@ -12,5 +13,11 @@ class WebConfiguration : WebMvcConfigurer {
         registry.addResourceHandler("/**")
             .addResourceLocations("classpath:/static/")
     }
+
+    @Bean
+    fun hiddenHttpMethodFilter(): HiddenHttpMethodFilter? {
+        return HiddenHttpMethodFilter()
+    }
+
 }
 

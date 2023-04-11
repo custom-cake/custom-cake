@@ -32,6 +32,9 @@ spring:
     cache: false
   mvc:
     static-path-pattern: /resources/**
+    hiddenmethod:
+      filter:
+        enabled: true
 
 logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution
