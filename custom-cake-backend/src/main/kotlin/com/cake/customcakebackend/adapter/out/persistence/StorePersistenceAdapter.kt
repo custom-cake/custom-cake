@@ -9,6 +9,7 @@ import com.cake.customcakebackend.application.port.out.LoadStoresByNameUserPort
 import com.cake.customcakebackend.application.port.out.LoadStoresByOptionUserPort
 import com.cake.customcakebackend.application.port.out.StorePort
 import com.cake.customcakebackend.domain.Store
+import com.cake.customcakebackend.domain.StoreNotification
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
@@ -22,6 +23,7 @@ class StorePersistenceAdapter(
     private val storeQueryJpaRepository: StoreQueryJpaRepository,
     private val jpaQueryFactory: JPAQueryFactory
 ) : StorePort, LoadStoresByNameUserPort, LoadStoresByOptionUserPort {
+    // StorePort
     override fun loadByOperatorId(operatorId: Long): List<Store> {
         val storeEntity = jpaQueryFactory
             .selectFrom(store)
@@ -59,11 +61,13 @@ class StorePersistenceAdapter(
         return storeJpaRepository.save(storeEntity).id
     }
 
+    // LoadStoresByNameUserPort
     override fun loadByName(query: String): List<Store> {
         return storeJpaRepository.findByNameContaining(query)
             .map(storeMapper::toDomain)
     }
 
+    // LoadStoresByOptionUserPort
     override fun loadByOption(request: StoreOptionSearchRequest): List<Store> {
         return storeQueryJpaRepository.searchByOption(request)
             .map(storeMapper::toDomain)
