@@ -1,17 +1,17 @@
 package com.cake.customcakebackend.application.service
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationIdListResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
-import com.cake.customcakebackend.application.port.out.CakeItemPort
-import com.cake.customcakebackend.application.port.out.DayoffPort
-import com.cake.customcakebackend.application.port.out.ReviewPort
-import com.cake.customcakebackend.application.port.out.StorePort
+import com.cake.customcakebackend.application.port.out.*
 import org.springframework.stereotype.Service
 
 @Service
 class StoreDetailService(
     private val storePort: StorePort,
+    private val storeNotificationPort: StoreNotificationPort,
     private val dayOffPort: DayoffPort,
     private val cakeItemPort: CakeItemPort,
     private val reviewPort: ReviewPort,
@@ -26,6 +26,21 @@ class StoreDetailService(
         // 리뷰 평점 계산
         val reviewScore = reviewPort.calculateReviewScore(storeId)
 
-        return storePort.loadByStoreId(storeId).toResponse(reviewScore, cakeItemList, dayoffList)
+        return storePort.loadByStoreId(storeId)
+            .toResponse(
+                reviewScore = reviewScore,
+                cakeItemList = cakeItemList,
+                dayoffList = dayoffList
+            )
     }
+
+    override fun storeNotificationIdList(storeId: Long): StoreNotificationIdListResponse =
+        StoreNotificationIdListResponse(
+            storeId = storeId,
+            notificationIdList = storeNotificationPort.loadNotificationIdList(storeId)
+        )
+
+    override fun storeNotificationDetailInfo(notificationId: Long): StoreNotificationResponse =
+        storeNotificationPort.loadNotification(notificationId).toResponse()
+
 }
