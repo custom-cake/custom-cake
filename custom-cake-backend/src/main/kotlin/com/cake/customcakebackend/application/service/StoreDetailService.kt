@@ -1,7 +1,7 @@
 package com.cake.customcakebackend.application.service
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationIdListResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationListResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
@@ -34,10 +34,10 @@ class StoreDetailService(
             )
     }
 
-    override fun storeNotificationIdList(storeId: Long): StoreNotificationIdListResponse =
-        StoreNotificationIdListResponse(
+    override fun storeNotificationList(storeId: Long): StoreNotificationListResponse =
+        StoreNotificationListResponse(
             storeId = storeId,
-            notificationIdList = storeNotificationPort.loadNotificationIdList(storeId)
+            notificationList = storeNotificationPort.loadNotificationList(storeId).map { it.toResponse() }
         )
 
     override fun storeNotificationDetailInfo(notificationId: Long): StoreNotificationResponse =

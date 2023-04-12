@@ -4,6 +4,6 @@ import com.cake.customcakebackend.domain.StoreNotification
 
 interface StoreNotificationPort {
 
-    fun loadNotificationIdList(storeId: Long): List<Long>
+    fun loadNotificationList(storeId: Long): List<StoreNotification>
     fun loadNotification(notificationId: Long): StoreNotification
 }

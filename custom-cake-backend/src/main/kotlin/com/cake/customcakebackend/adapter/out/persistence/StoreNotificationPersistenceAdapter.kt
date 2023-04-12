@@ -16,11 +16,13 @@ class StoreNotificationPersistenceAdapter(
     private val storeNotificationJpaRepository: StoreNotificationJpaRepository,
     private val jpaQueryFactory: JPAQueryFactory
 ): StoreNotificationPort {
-    override fun loadNotificationIdList(storeId: Long): List<Long> =
-         jpaQueryFactory
-            .select(notification.id).from(notification)
+    override fun loadNotificationList(storeId: Long): List<StoreNotification> =
+        jpaQueryFactory
+            .selectFrom(notification)
             .where(notification.storeId.eq(storeId))
             .fetch()
+            .map { storeNotificationMapper.toDomain(it) }
+
 
 
     override fun loadNotification(notificationId: Long): StoreNotification =

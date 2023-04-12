@@ -1,7 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationIdListResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationListResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,7 +31,7 @@ class StoreDetailController(
 
     /**
      * getNotificationList method
-     * : 매장 공지 리스트 조회 (공지 id 값만)
+     * : 매장 공지 리스트 조회
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/04/12
@@ -39,9 +39,16 @@ class StoreDetailController(
     @GetMapping("/{storeId}/notifications")
     fun getNotificationList(
         @PathVariable storeId: Long
-    ): StoreNotificationIdListResponse =
-        storeDetailUseCase.storeNotificationIdList(storeId)
+    ): StoreNotificationListResponse =
+        storeDetailUseCase.storeNotificationList(storeId)
 
+    /**
+     * getNotificationDetailInfo method
+     * : 매장 공지 디테일 조회
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/04/12
+    **/
     @GetMapping("/notifications/{notificationId}")
     fun getNotificationDetailInfo(
         @PathVariable notificationId: Long
