@@ -3,8 +3,8 @@ package com.cake.customcakebackend.domain
 import com.cake.customcakebackend.common.OrderType
 import java.time.LocalDateTime
 
-class Review (
-    val id: Long,
+data class Review (
+    val id: Long = 0,
     val userId: Long,
     val storeId: Long,
     val orderType: OrderType,

@@ -1,17 +1,16 @@
 package com.cake.customcakebackend.application.service
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationListResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.*
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
 import com.cake.customcakebackend.application.port.out.*
+import com.cake.customcakebackend.domain.Review
 import org.springframework.stereotype.Service
 
 @Service
 class StoreDetailService(
     private val storePort: StorePort,
     private val storeNotificationPort: StoreNotificationPort,
+    private val storeReviewPort: ReviewPort,
     private val dayOffPort: DayoffPort,
     private val cakeItemPort: CakeItemPort,
     private val reviewPort: ReviewPort,
@@ -42,5 +41,17 @@ class StoreDetailService(
 
     override fun storeNotificationDetailInfo(notificationId: Long): StoreNotificationResponse =
         storeNotificationPort.loadNotification(notificationId).toResponse()
+
+    override fun storeReviewList(storeId: Long): ReviewListResponse {
+        TODO()
+//        val reviewResponseList = reviewPort.loadList(storeId)
+//            .map {
+//                it.toResponse(
+//
+//                )
+//            }
+        // 리뷰
+        // 주문 정보
+    }
 
 }

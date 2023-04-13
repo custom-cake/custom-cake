@@ -3,6 +3,7 @@ package com.cake.customcakebackend.adapter.out.persistence
 import com.cake.customcakebackend.adapter.out.persistence.mapper.ReviewMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.ReviewJpaRepository
 import com.cake.customcakebackend.application.port.out.ReviewPort
+import com.cake.customcakebackend.domain.Review
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 import java.text.DecimalFormat
@@ -15,6 +16,12 @@ class ReviewPersistenceAdapter(
     private val jpaQueryFactory: JPAQueryFactory
 ): ReviewPort {
     private val reviewFormat = DecimalFormat("#.#")
+    override fun loadList(storeId: Long): List<Review> =
+        jpaQueryFactory
+            .selectFrom(review)
+            .where(review.storeId.eq(storeId))
+            .fetch()
+            .map { reviewMapper.toDomain(it) }
 
     override fun calculateReviewScore(storeId: Long): Float {
         val result: Pair<Long?, Long?>? = jpaQueryFactory
