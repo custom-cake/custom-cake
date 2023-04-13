@@ -305,6 +305,7 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
 CREATE TABLE IF NOT EXISTS `cake_design_order` (
 	`id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`user_id`	                    BIGINT UNSIGNED     	NOT NULL,
+	`cake_item_id`	                BIGINT UNSIGNED     	NOT NULL,
 	`cake_option1_id`	            BIGINT UNSIGNED	        NOT NULL,
 	`cake_option2_id`	            BIGINT UNSIGNED	        NOT NULL,
 	`cake_option3_id`	            BIGINT UNSIGNED	        NULL DEFAULT NULL,
