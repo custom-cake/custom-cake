@@ -61,15 +61,16 @@ VALUES (1, 1, '판 문구(15자 이내)', 1000, 1, 0),
        (6, 1, '오레오', 1000, 1, 0),
        (7, 1, '아이스팩', 3000, 1, 0);
 
-INSERT IGNORE INTO option_by_cake (id, cake_item_id, cake_option_type, cake_option_id, price, is_used)
-VALUES (1, 1, 1, 3, 0, 1),
-       (2, 1, 1, 4, 11000, 1),
-       (3, 1, 2, 1, 0, 1),
-       (4, 1, 2, 2, 2000, 1),
-       (5, 2, 1, 3, 0, 1),
-       (6, 2, 1, 4, 11000, 1),
-       (7, 1, 2, 3, 3000, 1),
-       (8, 1, 2, 4, 3000, 1);
+INSERT IGNORE INTO option_by_cake (id, cake_item_id, cake_option_type, cake_option_id, cake_option_value, price, is_used)
+VALUES (1, 1, 1, 3, '원형, 1호, 1단, 레터링 10글자 제한', 0, 1),
+       (2, 1, 1, 4, '원형, 2호, 1단, 레터링 15글자 제한', 11000, 1),
+       (3, 1, 2, 1, '바닐라시트, 우유생크림, 크림치즈', 0, 1),
+       (4, 1, 2, 2, '초코시트, 우유생크림, 크림치즈', 2000, 1),
+       (5, 2, 1, 3, '원형, 1호, 1단, 레터링 10글자 제한', 0, 1),
+       (6, 2, 1, 4, '원형, 2호, 1단, 레터링 15글자 제한', 11000, 1),
+       (7, 1, 2, 3, '바닐라시트, 초코크림, 크림치즈', 3000, 1),
+       (8, 1, 2, 4, '바닐라시트, 딸기생크림, 크림치즈', 3000, 1),
+       (9, 1, 3, 7, '아이스팩', 3000, 1);
 
 INSERT IGNORE INTO store_notification (id, store_id, title, content)
 VALUES (1, 1, '레이네 케이크 공지', '[4~5월 디자인케이크 클래스]
@@ -86,12 +87,12 @@ VALUES (1, 1, '레이네 케이크 공지', '[4~5월 디자인케이크 클래�
 📌.레이네케이크 유화케이크 클래스는
   정형화된 케이크 기법이 아닌 다양한 요소와 그림들을 케이크 위에 자유롭게 표현하는 수업입니다.
   특히 자연물의 형태를 분석하고 그에 맞는 기법을 배워보는 수업입니다.');
-
-INSERT IGNORE INTO cake_design_order (id, user_id, cake_item_id, cake_option1_id, cake_option2_id, cake_option3_id,
+# 3, 2, 7
+INSERT IGNORE INTO cake_design_order (id, user_id, cake_item_id, option_by_cake_id_list,
                                       requirements, order_status, payment_amount, purchase_confirmation_date)
-VALUES (1, 1, 1, 3, 2, 7, '레터링 문구 Happy Birthday!로 부탁드립니다.', 'PICK_UP', 55000, '2023-04-11 15:02:00');
+VALUES (1, 1, 1, '[1,4,9]','레터링 문구 Happy Birthday!로 부탁드립니다.', 'PICK_UP', 55000, '2023-04-11 15:02:00');
 
 
 INSERT IGNORE INTO review (id, user_id, store_id, order_type, order_id, order_options_info, content, score)
-VALUES (1, 1, 1, 'DESIGN', 1, '{\"option1\":\"CIRCLE, 1호, 1단\",\"option2\":\"초코시트, 우유생크림, 크림치즈\",\"option3\":\"아이스팩\"}',
+VALUES (1, 1, 1, 'DESIGN', 1, '{\"option1\":\"원형, 1호, 1단, 레터링 10글자 제한\",\"option2\":\"초코시트, 우유생크림, 크림치즈\",\"option3\":\"아이스팩\"}',
         '사장님 너무 친절하시고 좋아요!', 5)

@@ -15,6 +15,25 @@ private val mapper: ObjectMapper = ObjectMapper()
 class JsonColumnConverter {
 
     @Converter
+    class ListConverter<T> : AttributeConverter<List<T>, String> {
+        override fun convertToDatabaseColumn(attribute: List<T>): String {
+            try {
+                return mapper.writeValueAsString(attribute)
+            } catch (e: JsonProcessingException) {
+                throw IllegalArgumentException(e.message)
+            }
+        }
+
+        override fun convertToEntityAttribute(dbData: String): List<T>? {
+            try {
+                return mapper.readValue(dbData)
+            } catch (e: IOException) {
+                throw IllegalArgumentException(e.message)
+            }
+        }
+    }
+
+    @Converter
     class MapConverter<K, V> : AttributeConverter<Map<K, V>, String> {
         override fun convertToDatabaseColumn(attribute: Map<K, V>): String {
             try {

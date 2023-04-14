@@ -1,6 +1,5 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
-import com.cake.customcakebackend.adapter.out.persistence.entity.QUserEntity.userEntity as USER
 import com.cake.customcakebackend.adapter.out.persistence.mapper.UserMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.UserJpaRepository
 import com.cake.customcakebackend.application.port.out.LoadUserPort
@@ -8,7 +7,6 @@ import com.cake.customcakebackend.application.port.out.SaveUserPort
 import com.cake.customcakebackend.domain.User
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
-import javax.persistence.EntityNotFoundException
 
 @Repository
 class UserPersistenceAdapter(
