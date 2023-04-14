@@ -2,6 +2,7 @@ package com.cake.customcakebackend.common.converter
 
 import com.cake.customcakebackend.common.CakeCustomSketch
 import com.cake.customcakebackend.common.DayOfWeekUnit
+import com.cake.customcakebackend.common.OrderOptionsInfo
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -68,5 +69,25 @@ class JsonColumnConverter {
                 throw IllegalArgumentException()
             }
         }
+    }
+
+    @Converter
+    class OrderOptionsInfoConverter : AttributeConverter<OrderOptionsInfo, String> {
+        override fun convertToDatabaseColumn(attribute: OrderOptionsInfo): String {
+            try {
+                return mapper.writeValueAsString(attribute)
+            } catch (e: JsonProcessingException) {
+                throw IllegalArgumentException()
+            }
+        }
+
+        override fun convertToEntityAttribute(dbData: String): OrderOptionsInfo {
+            try {
+                return mapper.readValue(dbData, OrderOptionsInfo::class.java)
+            } catch (e: IOException) {
+                throw IllegalArgumentException()
+            }
+        }
+
     }
 }

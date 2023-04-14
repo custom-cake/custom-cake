@@ -3,11 +3,11 @@ package com.cake.customcakebackend.application.service
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.*
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
 import com.cake.customcakebackend.application.port.out.*
-import com.cake.customcakebackend.domain.Review
 import org.springframework.stereotype.Service
 
 @Service
 class StoreDetailService(
+    private val userPort: LoadUserPort,
     private val storePort: StorePort,
     private val storeNotificationPort: StoreNotificationPort,
     private val storeReviewPort: ReviewPort,
@@ -43,15 +43,9 @@ class StoreDetailService(
         storeNotificationPort.loadNotification(notificationId).toResponse()
 
     override fun storeReviewList(storeId: Long): ReviewListResponse {
-        TODO()
-//        val reviewResponseList = reviewPort.loadList(storeId)
-//            .map {
-//                it.toResponse(
-//
-//                )
-//            }
-        // 리뷰
-        // 주문 정보
+        val nickNameAndReviewList = reviewPort.loadNickNameAndReviewList(storeId)
+
+        return ReviewListResponse(storeId, nickNameAndReviewList.map { it.value.toResponse(it.key) })
     }
 
 }

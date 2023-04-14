@@ -92,5 +92,6 @@ INSERT IGNORE INTO cake_design_order (id, user_id, cake_item_id, cake_option1_id
 VALUES (1, 1, 1, 3, 2, 7, '레터링 문구 Happy Birthday!로 부탁드립니다.', 'PICK_UP', 55000, '2023-04-11 15:02:00');
 
 
-INSERT IGNORE INTO review (id, user_id, store_id, order_type, order_id, content, score)
-VALUES (1, 1, 1, 'DESIGN', 1, '사장님 너무 친절하시고 좋아요!', 5)
+INSERT IGNORE INTO review (id, user_id, store_id, order_type, order_id, order_options_info, content, score)
+VALUES (1, 1, 1, 'DESIGN', 1, '{\"option1\":\"CIRCLE, 1호, 1단\",\"option2\":\"초코시트, 우유생크림, 크림치즈\",\"option3\":\"아이스팩\"}',
+        '사장님 너무 친절하시고 좋아요!', 5)

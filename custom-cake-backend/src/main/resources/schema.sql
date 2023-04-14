@@ -329,6 +329,7 @@ CREATE TABLE IF NOT EXISTS `review` (
 	`store_id`	                    BIGINT UNSIGNED	        NOT NULL,
 	`order_type`                    VARCHAR(10)        	    NOT NULL,       -- DESIGN or CUSTOM
 	`order_id`	                    BIGINT UNSIGNED 	    NOT NULL,       -- not foreign_key, just id
+	`order_options_info`            JSON            	    NOT NULL,       -- order options info
 	`content`	                    VARCHAR(255)	        NOT NULL,
 	`score`	                        INT	UNSIGNED            NOT NULL,       -- 1~5
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
