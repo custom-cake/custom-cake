@@ -19,6 +19,9 @@ class OptionByCakeEntity (
     @Column(columnDefinition = "BIGINT UNSIGNED", nullable = false)
     val cakeOptionId: Long,  // CakeOption's id
 
+    @Column(nullable = false)
+    val cakeOptionValue: String,
+
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     val price: Int,
 

@@ -25,7 +25,7 @@ class ReviewEntity (
     val orderType: OrderType,
 
     @Convert(converter = JsonColumnConverter.OrderOptionsInfoConverter::class)
-    @Column(name = "order_options_info", length = 50, nullable = false)
+    @Column(name = "order_options_info", columnDefinition = "JSON", nullable = false)
     val orderOptionsInfo:  OrderOptionsInfo,
 
     @Column(name = "order_id", nullable = false)

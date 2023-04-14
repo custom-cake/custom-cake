@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import com.cake.customcakebackend.common.OrderStatus
+import com.cake.customcakebackend.common.converter.JsonColumnConverter
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -18,17 +19,9 @@ class CakeDesignOrderEntity (
     @Column(name = "cake_item_id", nullable = false)
     val cakeItemId: Long,
 
-    // @ManyToOne
-    @Column(name = "cake_option1_id", nullable = false)
-    val cakeOption1Id: Long,
-
-    // @ManyToOne
-    @Column(name = "cake_option2_id", nullable = false)
-    val cakeOption2Id: Long,
-
-    // @ManyToOne
-    @Column(name = "cake_option3_id")
-    val cakeOption3Id: Long? = null,
+    @Convert(converter = JsonColumnConverter.ListConverter::class)
+    @Column(name = "option_by_cake_id_list", columnDefinition = "JSON", nullable = false)
+    val optionByCakeIdList: List<Long>,
 
     @Column(columnDefinition = "String", length = 255)
     val requirements: String,

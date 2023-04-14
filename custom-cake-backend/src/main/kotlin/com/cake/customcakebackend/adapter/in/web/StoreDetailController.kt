@@ -27,6 +27,12 @@ class StoreDetailController(
     ): StoreDetailInfoResponse =
         storeDetailUseCase.storeDetailInfo(storeId)
 
+    @GetMapping("/cake-items/{cakeItemId}")
+    fun getCakeItemDetailInfo(
+        @PathVariable cakeItemId: Long
+    ): OptionByCakeListResponse =
+        storeDetailUseCase.storeCakeItemDetailInfo(cakeItemId)
+
     /**
      * getNotificationList method
      * : 매장 공지 리스트 조회

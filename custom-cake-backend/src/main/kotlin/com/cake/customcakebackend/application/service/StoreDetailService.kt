@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class StoreDetailService(
-    private val userPort: LoadUserPort,
     private val storePort: StorePort,
     private val storeNotificationPort: StoreNotificationPort,
-    private val storeReviewPort: ReviewPort,
     private val dayOffPort: DayoffPort,
     private val cakeItemPort: CakeItemPort,
+    private val optionByCakePort: OptionByCakePort,
     private val reviewPort: ReviewPort,
 ) : StoreDetailUseCase {
     override fun storeDetailInfo(storeId: Long): StoreDetailInfoResponse {
@@ -32,6 +31,12 @@ class StoreDetailService(
                 dayoffList = dayoffList
             )
     }
+
+    override fun storeCakeItemDetailInfo(cakeItemId: Long): OptionByCakeListResponse =
+        OptionByCakeListResponse(
+            cakeItemId = cakeItemId,
+            options = optionByCakePort.loadList(cakeItemId).map { it.toResponse() }
+        )
 
     override fun storeNotificationList(storeId: Long): StoreNotificationListResponse =
         StoreNotificationListResponse(
