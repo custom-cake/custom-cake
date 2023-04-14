@@ -12,6 +12,7 @@ class ReviewMapper : Mapper<ReviewEntity, Review> {
             userId = domain.userId,
             storeId = domain.storeId,
             orderType = domain.orderType,
+            orderOptionsInfo = domain.orderOptionsInfo,
             orderId = domain.orderId,
             content = domain.content,
             score = domain.score
@@ -24,6 +25,7 @@ class ReviewMapper : Mapper<ReviewEntity, Review> {
             storeId = entity.storeId,
             orderType = entity.orderType,
             orderId = entity.orderId,
+            orderOptionsInfo = entity.orderOptionsInfo,
             content = entity.content,
             score = entity.score,
             createdAt = entity.createdAt,

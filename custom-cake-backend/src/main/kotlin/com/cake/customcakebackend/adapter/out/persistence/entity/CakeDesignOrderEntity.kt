@@ -15,6 +15,9 @@ class CakeDesignOrderEntity (
     @Column(name = "user_id", nullable = false)
     val userId: Long,
 
+    @Column(name = "cake_item_id", nullable = false)
+    val cakeItemId: Long,
+
     // @ManyToOne
     @Column(name = "cake_option1_id", nullable = false)
     val cakeOption1Id: Long,

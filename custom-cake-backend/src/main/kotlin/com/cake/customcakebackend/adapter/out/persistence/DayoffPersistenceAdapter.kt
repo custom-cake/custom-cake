@@ -17,7 +17,8 @@ class DayoffPersistenceAdapter(
 ) : DayoffPort
 {
     override fun loadDayOff(storeId: Long): List<Dayoff> =
-        jpaQueryFactory.selectFrom(QDayoffEntity.dayoffEntity)
+        jpaQueryFactory
+            .selectFrom(QDayoffEntity.dayoffEntity)
             .where(QDayoffEntity.dayoffEntity.storeId.eq(storeId))
             .fetch()
             .map { dayoffMapper.toDomain(it) }
