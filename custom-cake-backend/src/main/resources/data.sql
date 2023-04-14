@@ -29,7 +29,7 @@ VALUES (1, 1, '카모마일 & 작약 케이크', 'DESIGN_CAKE', NULL, 'https://c
     1, 0, 50000, 0, 0),
     (2, 1, '블루 계란꽃 케이크', 'DESIGN_CAKE', NULL, 'https://custom-cake.s3.ap-northeast-2.amazonaws.com/cake-item-image/store_1/cake_item_1/reine_cake_item_image_2.jpeg',
     1, 0, 50000, 0, 0),
-    (2, 1, '도시락 케이크', 'LUNCH_BOX_CAKE', NULL, 'https://custom-cake.s3.ap-northeast-2.amazonaws.com/cake-item-image/store_1/cake_item_1/reine_cake_item_image_3.jpeg',
+    (3, 1, '도시락 케이크', 'LUNCH_BOX_CAKE', NULL, 'https://custom-cake.s3.ap-northeast-2.amazonaws.com/cake-item-image/store_1/cake_item_1/reine_cake_item_image_3.jpeg',
     1, 0, 22000, 0, 0);
 
 INSERT IGNORE INTO cake_item_image (id, cake_item_id, url, is_thumbnail)
@@ -61,6 +61,7 @@ VALUES (1, 1, '판 문구(15자 이내)', 1000, 1, 0),
        (6, 1, '오레오', 1000, 1, 0),
        (7, 1, '아이스팩', 3000, 1, 0);
 
+# TODO data 추가 필요
 INSERT IGNORE INTO option_by_cake (id, cake_item_id, cake_option_type, cake_option_id, cake_option_value, price, is_used)
 VALUES (1, 1, 1, 3, '원형, 1호, 1단, 레터링 10글자 제한', 0, 1),
        (2, 1, 1, 4, '원형, 2호, 1단, 레터링 15글자 제한', 11000, 1),
