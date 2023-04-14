@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `cake_design_order` (
                                                    `id`	                            BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                                    `user_id`	                        BIGINT UNSIGNED     	NOT NULL,
                                                    `cake_item_id`	                    BIGINT UNSIGNED     	NOT NULL,
-                                                   `option_by_cake_type_and_id_map`    JSON                    NOT NULL,
+                                                   `option_by_cake_id_list`            JSON                    NOT NULL,
                                                    `requirements`	                    VARCHAR(255)	        NULL,
                                                    `order_status`	                    VARCHAR(20)	            NOT NULL,   -- ENUM("신규주문","주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
                                                    `payment_amount`	                INT	UNSIGNED            NOT NULL,
