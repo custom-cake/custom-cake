@@ -209,6 +209,7 @@ CREATE TABLE IF NOT EXISTS `option_by_cake` (
                                                 `cake_item_id`	                BIGINT UNSIGNED	        NOT NULL,
                                                 `cake_option_type`	            INT UNSIGNED            NOT NULL,
                                                 `cake_option_id`	            BIGINT UNSIGNED	        NOT NULL,          -- not foreign_key
+                                                `cake_option_value`	            VARCHAR(50)	            NOT NULL,
                                                 `price`	                        INT	UNSIGNED            NOT NULL,
                                                 `is_used`	                    TINYINT	                NOT NULL DEFAULT 1,
                                                 `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
@@ -303,22 +304,17 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
   COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `cake_design_order` (
-                                                   `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                                   `user_id`	                    BIGINT UNSIGNED     	NOT NULL,
-                                                   `cake_item_id`	                BIGINT UNSIGNED     	NOT NULL,
-                                                   `cake_option1_id`	            BIGINT UNSIGNED	        NOT NULL,
-                                                   `cake_option2_id`	            BIGINT UNSIGNED	        NOT NULL,
-                                                   `cake_option3_id`	            BIGINT UNSIGNED	        NULL DEFAULT NULL,
-                                                   `requirements`	                VARCHAR(255)	        NULL,
-                                                   `order_status`	                VARCHAR(20)	            NOT NULL,   -- ENUM("신규주문","주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
-                                                   `payment_amount`	            INT	UNSIGNED            NOT NULL,
-                                                   `purchase_confirmation_date`	DATETIME	            NULL,       -- 구매확정일
-                                                   `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-                                                   `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+                                                   `id`	                            BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                                   `user_id`	                        BIGINT UNSIGNED     	NOT NULL,
+                                                   `cake_item_id`	                    BIGINT UNSIGNED     	NOT NULL,
+                                                   `option_by_cake_type_and_id_map`    JSON                    NOT NULL,
+                                                   `requirements`	                    VARCHAR(255)	        NULL,
+                                                   `order_status`	                    VARCHAR(20)	            NOT NULL,   -- ENUM("신규주문","주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
+                                                   `payment_amount`	                INT	UNSIGNED            NOT NULL,
+                                                   `purchase_confirmation_date`	    DATETIME	            NULL,       -- 구매확정일
+                                                   `created_at`	                    TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
+                                                   `modified_at`                       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
 
-                                                   FOREIGN KEY (cake_option1_id) REFERENCES cake_option1 (id),
-                                                   FOREIGN KEY (cake_option2_id) REFERENCES cake_option2 (id),
-                                                   FOREIGN KEY (cake_option3_id) REFERENCES cake_option3 (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
