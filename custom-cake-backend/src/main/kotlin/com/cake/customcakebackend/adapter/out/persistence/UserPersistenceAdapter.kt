@@ -21,17 +21,6 @@ class UserPersistenceAdapter(
         // toDomain()
     }
 
-    override fun loadNickName(userId: Long): String {
-        val userNickName = jpaQueryFactory
-            .select(USER.nickname)
-            .from(USER)
-            .where(USER.id.eq(userId))
-            .fetchOne()
-
-        return userNickName
-            ?: throw EntityNotFoundException("User id=$userId not found.")
-    }
-
     override fun save(user: User) {
         TODO("Change domain to entity and save entity.")
 //        val userEntity = userMapper.toEntity(user)
