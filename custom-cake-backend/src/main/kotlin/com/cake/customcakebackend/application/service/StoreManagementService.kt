@@ -38,6 +38,7 @@ class StoreManagementService(
             zipCode = request.zipCode,
             baseAddress = request.baseAddress,
             detailAddress = request.detailAddress,
+            region = request.region,
             phone = request.phone,
             name = request.name,
             description = request.description,

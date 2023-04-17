@@ -1,6 +1,9 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
+import com.cake.customcakebackend.common.TempStoreRegion
+import com.cake.customcakebackend.common.converter.TempStoreRegionConverter
 import javax.persistence.Column
+import javax.persistence.Convert
 import javax.persistence.Embeddable
 
 
@@ -12,4 +15,7 @@ class Address(
     val baseAddress: String,
     @Column(columnDefinition = "String", length = 100)
     val detailAddress: String? = "",
+    @Convert(converter = TempStoreRegionConverter::class)
+    @Column(columnDefinition = "String", length = 20, nullable = false)
+    val region: TempStoreRegion
 )

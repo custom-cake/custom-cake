@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web.dto.request
 
 import com.cake.customcakebackend.common.DayOfWeekUnit
+import com.cake.customcakebackend.common.TempStoreRegion
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
@@ -20,6 +21,9 @@ data class StoreRegisterRequest(
     val baseAddress: String = "",
 
     val detailAddress: String? = "",
+
+    @NotEmpty
+    val region: TempStoreRegion = TempStoreRegion.SEOUNGBUK, // temp
 
     val phone: String? = "",
 
