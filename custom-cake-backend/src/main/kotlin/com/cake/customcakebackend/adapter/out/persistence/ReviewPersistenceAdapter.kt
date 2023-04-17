@@ -1,12 +1,17 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.ReviewResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
 import com.cake.customcakebackend.adapter.out.persistence.mapper.ReviewMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.ReviewJpaRepository
 import com.cake.customcakebackend.application.port.out.ReviewPort
+import com.cake.customcakebackend.domain.Review
+import com.querydsl.core.Tuple
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 import java.text.DecimalFormat
-import com.cake.customcakebackend.adapter.out.persistence.entity.QReviewEntity.reviewEntity as review
+import com.cake.customcakebackend.adapter.out.persistence.entity.QReviewEntity.reviewEntity as REVIEW
+import com.cake.customcakebackend.adapter.out.persistence.entity.QUserEntity.userEntity as USER
 
 @Repository
 class ReviewPersistenceAdapter(
@@ -15,19 +20,31 @@ class ReviewPersistenceAdapter(
     private val jpaQueryFactory: JPAQueryFactory
 ): ReviewPort {
     private val reviewFormat = DecimalFormat("#.#")
+    override fun loadNickNameAndReviewList(storeId: Long): Map<String, Review> {
+        val results: List<Tuple> = jpaQueryFactory
+            .select(USER.nickname, REVIEW)
+            .from(REVIEW)
+            .join(USER).on(REVIEW.userId.eq(USER.id))
+            .where(REVIEW.storeId.eq(storeId))
+            .fetch()
+
+        return results.associate {
+            it.get(USER.nickname)!! to reviewMapper.toDomain(it.get(REVIEW)!!)
+        }
+    }
 
     override fun calculateReviewScore(storeId: Long): Float {
-        val result: Pair<Long?, Long?>? = jpaQueryFactory
-            .select(review.score.sum(), review.count())
-            .from(review)
-            .where(review.storeId.eq(storeId))
+        val result: Pair<Int?, Long?>? = jpaQueryFactory
+            .select(REVIEW.score.sum(), REVIEW.count())
+            .from(REVIEW)
+            .where(REVIEW.storeId.eq(storeId))
             .fetch()
-            .map { it.get(0, Long::class.java) to it.get(1, Long::class.java) }.firstOrNull()
+            .map { it.get(0, Int::class.java) to it.get(1, Long::class.java) }.firstOrNull()
 
         result
             ?. let {
                 val score = it.first ?: 0
-                val count = it.second ?: 0
+                val count = it.second ?: 0L
                 return if (count == 0L) 0F else {
                     reviewFormat.format(score / count).toFloat()
                 }

@@ -1,8 +1,6 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationListResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.*
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -29,9 +27,16 @@ class StoreDetailController(
     ): StoreDetailInfoResponse =
         storeDetailUseCase.storeDetailInfo(storeId)
 
+    @GetMapping("/cake-items/{cakeItemId}")
+    fun getCakeItemDetailInfo(
+        @PathVariable cakeItemId: Long
+    ): OptionByCakeListResponse =
+        storeDetailUseCase.storeCakeItemDetailInfo(cakeItemId)
+
     /**
      * getNotificationList method
      * : 매장 공지 리스트 조회
+     *
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/04/12
@@ -45,6 +50,7 @@ class StoreDetailController(
     /**
      * getNotificationDetailInfo method
      * : 매장 공지 디테일 조회
+     *
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/04/12
@@ -55,4 +61,17 @@ class StoreDetailController(
     ): StoreNotificationResponse =
         storeDetailUseCase.storeNotificationDetailInfo(notificationId)
 
+    /**
+     * getReviewList method
+     * : 매장 리뷰 리스트 조회
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/04/13
+    **/
+    @GetMapping("/{storeId}/reviews")
+    fun getReviewList(
+        @PathVariable storeId: Long
+    ): ReviewListResponse =
+        storeDetailUseCase.storeReviewList(storeId)
 }

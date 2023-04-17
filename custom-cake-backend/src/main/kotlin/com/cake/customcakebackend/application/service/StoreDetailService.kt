@@ -1,9 +1,6 @@
 package com.cake.customcakebackend.application.service
 
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreDetailInfoResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationListResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreNotificationResponse
-import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.*
 import com.cake.customcakebackend.application.port.`in`.StoreDetailUseCase
 import com.cake.customcakebackend.application.port.out.*
 import org.springframework.stereotype.Service
@@ -14,6 +11,7 @@ class StoreDetailService(
     private val storeNotificationPort: StoreNotificationPort,
     private val dayOffPort: DayoffPort,
     private val cakeItemPort: CakeItemPort,
+    private val optionByCakePort: OptionByCakePort,
     private val reviewPort: ReviewPort,
 ) : StoreDetailUseCase {
     override fun storeDetailInfo(storeId: Long): StoreDetailInfoResponse {
@@ -34,6 +32,12 @@ class StoreDetailService(
             )
     }
 
+    override fun storeCakeItemDetailInfo(cakeItemId: Long): OptionByCakeListResponse =
+        OptionByCakeListResponse(
+            cakeItemId = cakeItemId,
+            options = optionByCakePort.loadList(cakeItemId).map { it.toResponse() }
+        )
+
     override fun storeNotificationList(storeId: Long): StoreNotificationListResponse =
         StoreNotificationListResponse(
             storeId = storeId,
@@ -42,5 +46,11 @@ class StoreDetailService(
 
     override fun storeNotificationDetailInfo(notificationId: Long): StoreNotificationResponse =
         storeNotificationPort.loadNotification(notificationId).toResponse()
+
+    override fun storeReviewList(storeId: Long): ReviewListResponse {
+        val nickNameAndReviewList = reviewPort.loadNickNameAndReviewList(storeId)
+
+        return ReviewListResponse(storeId, nickNameAndReviewList.map { it.value.toResponse(it.key) })
+    }
 
 }

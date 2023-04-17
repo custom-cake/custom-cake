@@ -1,6 +1,8 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
+import com.cake.customcakebackend.common.OrderOptionsInfo
 import com.cake.customcakebackend.common.OrderType
+import com.cake.customcakebackend.common.converter.JsonColumnConverter
 import javax.persistence.*
 
 @Table(name = "review")
@@ -21,6 +23,10 @@ class ReviewEntity (
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "String", length = 10, nullable = false)
     val orderType: OrderType,
+
+    @Convert(converter = JsonColumnConverter.OrderOptionsInfoConverter::class)
+    @Column(name = "order_options_info", columnDefinition = "JSON", nullable = false)
+    val orderOptionsInfo:  OrderOptionsInfo,
 
     @Column(name = "order_id", nullable = false)
     val orderId: Long,

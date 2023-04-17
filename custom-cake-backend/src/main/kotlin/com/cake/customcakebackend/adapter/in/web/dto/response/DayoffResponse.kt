@@ -3,7 +3,6 @@ package com.cake.customcakebackend.adapter.`in`.web.dto.response
 import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.common.DayoffType
 import com.cake.customcakebackend.domain.Dayoff
-import java.time.LocalDate
 
 data class DayoffResponse(
     val id: Long,
