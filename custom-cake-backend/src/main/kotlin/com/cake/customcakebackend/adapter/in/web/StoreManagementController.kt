@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.validation.Valid
@@ -70,7 +71,7 @@ class StoreManagementController(
     @PostMapping("")
     fun registerStore(
         @RequestParam operatorId: Long,
-        @Valid @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
+        @Validated @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
         result: BindingResult,
         redirectAttributes: RedirectAttributes
     ): String {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::fragment-header">
+    <title>
+        LOGIN
+    </title>
+</head>
+
+<body class="bg-gradient-white">
+<div style="height: 100vh; display: flex; align-items: center; background-color: #ffdcdb;">
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center ">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden shadow-lg my-5"
+                     style="background-color: #D5B4B4; border: 2px solid #694E4E; border-radius: 1rem; ">
+                    <div class="card-body p-0 ">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row ">
+                            <div class="col-lg-6 d-none d-lg-block "></div>
+                            <div class="col-lg-6" style="border-left: 2px solid #694E4E;">
+                                <div class="p-5" >
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Custom Cake 시작하기</h1>
+                                    </div>
+                                    <form class="user" th:action="@{/operator/login}" th:object="${operatorLoginRequest}" method="post">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                   id="email" th:field="*{email}" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password" th:field="*{password}" placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">Remember
+                                                    Me</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block border-0" style="background-color: #694E4E">
+                                            <span class="text text-white"> 로그인 </span>
+                                        </button>
+                                    </form>
+                                    <hr>
+                                    <!-- TODO 회원가입 -->
+                                    <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
+
+</body>
+
+</html>

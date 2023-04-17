@@ -9947,6 +9947,18 @@ a:focus {
   background-size: cover;
 }
 
+.bg-gradient-white {
+  background-color:#ffffff;
+  background-image:linear-gradient(180deg, #f8f9fc 10%, #c2cbe5 100%);
+  background-size:cover;
+}
+
+.bg-gradient-pink {
+  color:#ffdcdb;
+  background-image:linear-gradient(180deg, #f7cac9 10%, #FFD4D4 100%);
+  background-size:cover;
+}
+
 .bg-gray-100 {
   background-color: #f8f9fc !important;
 }

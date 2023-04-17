@@ -9,6 +9,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.validation.Valid
@@ -109,7 +110,7 @@ class CakeOptionManagementController(
     fun addCakeOption1(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
-        @ModelAttribute @Valid  cakeOption1AddRequest: CakeOption1AddRequest,
+        @ModelAttribute @Validated cakeOption1AddRequest: CakeOption1AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 1, cakeOption1AddRequest)
@@ -123,7 +124,7 @@ class CakeOptionManagementController(
     fun addCakeOption2(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
-        @ModelAttribute @Valid cakeOption2AddRequest: CakeOption2AddRequest,
+        @ModelAttribute @Validated cakeOption2AddRequest: CakeOption2AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 2, cakeOption2AddRequest)
@@ -137,7 +138,7 @@ class CakeOptionManagementController(
     fun addCakeOption3(
         @RequestParam operatorId: Long,
         @RequestParam storeId: Long,
-        @ModelAttribute @Valid  cakeOption3AddRequest: CakeOption3AddRequest,
+        @ModelAttribute @Validated  cakeOption3AddRequest: CakeOption3AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 3, cakeOption3AddRequest)
