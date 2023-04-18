@@ -8,16 +8,16 @@ data class OperatorLoginResponse(
     val email: String,
     val phone: String,
     val isAuthenticated: Boolean,
-    var hasStore: Boolean,
+    var storeId: Long? = null,
     val lastConnDate: String
 )
 
-fun Operator.toResponse(hasStore: Boolean): OperatorLoginResponse = OperatorLoginResponse(
+fun Operator.toResponse(storeId: Long?): OperatorLoginResponse = OperatorLoginResponse(
     id = this.id,
     name = this.name,
     email = this.email,
     phone = this.phone,
     isAuthenticated = this.isAuthenticated,
-    hasStore = hasStore,
+    storeId = storeId,
     lastConnDate = this.lastConnDate.toString()
 )

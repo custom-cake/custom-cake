@@ -3,7 +3,6 @@ package com.cake.customcakebackend.adapter.`in`.web
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.*
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcakebackend.application.port.`in`.CakeOptionManagementUseCase
-import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.common.CakeOption1Type
 import com.cake.customcakebackend.common.CakeOption2Type
 import org.slf4j.Logger
@@ -14,7 +13,6 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.servlet.http.HttpServletRequest
-import javax.validation.Valid
 
 @Controller
 @RequestMapping(
@@ -22,7 +20,6 @@ import javax.validation.Valid
 )
 class CakeOptionManagementController(
     private val cakeOptionManagementUseCase: CakeOptionManagementUseCase,
-    private val storeManagementUseCase: StoreManagementUseCase
 ) {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
@@ -38,14 +35,20 @@ class CakeOptionManagementController(
     fun cakeOptionList(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         model: Model
     ): String {
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("케이크 옵션 리스트 정보 로드 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
         // TODO check (operatorId.storeId == storeID)
-        val allCakeOptionMap = cakeOptionManagementUseCase.loadAllCakeOptionList(storeId)
+        operatorLoginResponse.storeId
+            ?.let {
+                val allCakeOptionMap = cakeOptionManagementUseCase.loadAllCakeOptionList(it)
+                model.addAttribute("allCakeOptionMap", allCakeOptionMap)
+            }
 
-        addAttributeToModel("storeId", storeId, model)
-        model.addAttribute("allCakeOptionMap", allCakeOptionMap)
         return "cake-option-management"
     }
 
@@ -61,7 +64,6 @@ class CakeOptionManagementController(
     fun addCakeOptionForm(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @RequestParam cakeOptionType: Int,
         model: Model
     ): String {
@@ -100,18 +102,20 @@ class CakeOptionManagementController(
     fun addCakeOption1(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @ModelAttribute @Validated cakeOption1AddRequest: CakeOption1AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 옵션1 정보 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
-        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 1, cakeOption1AddRequest)
 
-        addAttributeToModel("storeId", storeId, redirectAttributes)
+        operatorLoginResponse.storeId
+            ?.let {
+                cakeOptionManagementUseCase.saveCakeOption(it, 1, cakeOption1AddRequest)
+            }
+
         return "redirect:/operator/cake-option"
     }
 
@@ -119,18 +123,20 @@ class CakeOptionManagementController(
     fun addCakeOption2(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @ModelAttribute @Validated cakeOption2AddRequest: CakeOption2AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 옵션1 정보 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
-        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 2, cakeOption2AddRequest)
 
-        addAttributeToModel("storeId", storeId, redirectAttributes)
+        operatorLoginResponse.storeId
+            ?.let {
+                cakeOptionManagementUseCase.saveCakeOption(it, 1, cakeOption2AddRequest)
+            }
+
         return "redirect:/operator/cake-option"
     }
 
@@ -138,18 +144,20 @@ class CakeOptionManagementController(
     fun addCakeOption3(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @ModelAttribute @Validated  cakeOption3AddRequest: CakeOption3AddRequest,
         redirectAttributes: RedirectAttributes
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 옵션1 정보 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
-        val (type, optionId) = cakeOptionManagementUseCase.saveCakeOption(storeId, 3, cakeOption3AddRequest)
 
-        addAttributeToModel("storeId", storeId, redirectAttributes)
+        operatorLoginResponse.storeId
+            ?.let {
+                cakeOptionManagementUseCase.saveCakeOption(it, 1, cakeOption3AddRequest)
+            }
+
         return "redirect:/operator/cake-option"
     }
 
@@ -166,7 +174,6 @@ class CakeOptionManagementController(
     fun deleteCakeOption(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @RequestParam cakeOptionType: Int,
         @PathVariable cakeOptionId: Long,
         redirectAttributes: RedirectAttributes
@@ -174,14 +181,10 @@ class CakeOptionManagementController(
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 옵션1 삭제 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
         cakeOptionManagementUseCase.deleteCakeOption(cakeOptionType, cakeOptionId)
 
-        addAttributeToModel("storeId", storeId, redirectAttributes)
         return "redirect:/operator/cake-option"
     }
-
-    private fun addAttributeToModel(attributeName: String, id: Long, model: Model) =
-        model.addAttribute(attributeName, id)
 }

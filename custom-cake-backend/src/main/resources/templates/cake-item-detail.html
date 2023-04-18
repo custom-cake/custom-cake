@@ -43,7 +43,7 @@
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 1 (케이크 모양/사이즈/단)</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
-                                        <div class="col-md-6" th:if="${session.operator.hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
                                                     th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=1)}'|">
                                                 <span class="text text-white"> 추가 </span>
@@ -202,7 +202,7 @@
                                         <div class="col-md-6">
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>
                                         </div>
-                                        <div class="col-md-6" th:if="${session.operator.hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
                                                     th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=2)}'|">
                                                 <span class="text text-white"> 추가 </span>
@@ -283,7 +283,7 @@
                                         <div class="col-md-6">
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 3 (기타 옵션)</h6>
                                         </div>
-                                        <div class="col-md-6" th:if="${session.operator.hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
                                                     th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=3)}'|">
                                                 <span class="text text-white"> 추가 </span>

@@ -69,12 +69,13 @@ class StoreManagementController(
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("매장 정보 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
         model.addAttribute("storeRegisterRequest", StoreRegisterRequest())  // 필드 값 참조 위해 기본 값 객체 내려주기
         model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
         return "store-register"
     }
+
     /**
      * registerStore method
      * : 신규 매장 정보 입력 후, 저장 버튼을 눌렀을 때
@@ -103,10 +104,13 @@ class StoreManagementController(
             }
 
         // 매장 등록 check
-        if (!operatorLoginResponse.hasStore) {
-            storeManagementUseCase.registerStore(operatorLoginResponse.id, storeRegisterRequest)
-            operatorLoginResponse.hasStore = true
-        }
+        operatorLoginResponse.storeId
+            ?. let {
+                logger.info("매장 등록 실패: 매장이 이미 존재함")
+            }
+            ?: let{
+                storeManagementUseCase.registerStore(operatorLoginResponse.id, storeRegisterRequest)
+            }
 
         redirectAttributes.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // 고정 휴무일 리스트
         return "redirect:/operator/store"

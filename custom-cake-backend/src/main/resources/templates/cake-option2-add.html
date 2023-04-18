@@ -22,7 +22,7 @@
             <!-- End of Topbar -->
 
             <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
-            <div class="container-fluid" th:if="${session.operator.hasStore == true}">
+            <div class="container-fluid" th:if="${session.operator.storeId != null}">
                 <form th:action="@{/operator/cake-option-2(storeId=${storeId})}" th:object="${cakeOption2AddRequest}" method="post" >
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -84,7 +84,7 @@
             <!-- /.container-fluid -->
 
             <!-- Store is exist -->
-            <div class="container-fluid" th:unless="${session.operator.hasStore == true}">
+            <div class="container-fluid" th:unless="${session.operator.storeId != null}">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>

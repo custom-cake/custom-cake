@@ -1,5 +1,6 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
+import com.cake.customcakebackend.adapter.out.persistence.entity.QStoreEntity.storeEntity as STORE
 import com.cake.customcakebackend.adapter.out.persistence.mapper.OperatorMapper
 import com.cake.customcakebackend.application.port.out.OperatorPort
 import com.cake.customcakebackend.domain.Operator
@@ -12,14 +13,22 @@ class OperatorPersistenceAdapter(
     private val operatorMapper: OperatorMapper,
     private val jpaQueryFactory: JPAQueryFactory
 ): OperatorPort {
-    override fun loadByEmailAndPassword(email: String, password: String): List<Operator> =
-        jpaQueryFactory
+    override fun loadByEmailAndPassword(email: String, password: String): Pair<Operator?, Long?> {
+        val operatorEntity = jpaQueryFactory
             .selectFrom(OPERATOR)
             .where(
                 OPERATOR.email.eq(email),
                 OPERATOR.password.eq(password)
-            ).fetch()
-            .map { operatorMapper.toDomain(it) }
+            ).fetchOne()
+
+        operatorEntity
+            ?. let {
+                // store id
+                val storeId = jpaQueryFactory.select(STORE.id).from(STORE).where(STORE.operatorId.eq(it.id)).fetchOne()
+                return (operatorMapper.toDomain(it) to storeId)
+            }
+            ?: return (null to null)
+    }
 
     override fun save(): Long {
         TODO("Not yet implemented")

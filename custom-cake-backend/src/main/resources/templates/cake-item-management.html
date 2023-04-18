@@ -43,7 +43,7 @@
                                             <h6 class="m-0 font-weight-bold text-primary">케이크 상품</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
-                                        <div class="col-md-6" th:if="${session.operator.hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
                                                     th:onclick="|location.href='@{/operator/cake-item/form(storeId=${storeId})}'|">
                                                 <span class="text text-white"> 추가 </span>

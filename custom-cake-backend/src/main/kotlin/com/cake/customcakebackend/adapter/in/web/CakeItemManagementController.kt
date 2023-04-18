@@ -2,7 +2,6 @@ package com.cake.customcakebackend.adapter.`in`.web
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcakebackend.application.port.`in`.CakeItemManagementUseCase
-import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest
 )
 class CakeItemManagementController(
     private val cakeItemManagementUseCase: CakeItemManagementUseCase,
-    private val storeManagementUseCase: StoreManagementUseCase
 
 ) {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
@@ -26,14 +24,13 @@ class CakeItemManagementController(
     fun cakeItemInfo(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @PathVariable cakeItemId: Long,
         model: Model
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 상품 정보 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
         // TODO
         return "cake-item-detail"
@@ -43,19 +40,21 @@ class CakeItemManagementController(
     fun cakeItemList(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,  // TODO session
         model: Model
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 상품 리스트 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
 
-        addAttributeToModel("storeId", storeId, model)
+        operatorLoginResponse.storeId
+            ?.let {
+                val cakeItemResponseList = cakeItemManagementUseCase.loadCakeItemList(it)
+                model.addAttribute("cakeItemResponseList", cakeItemResponseList)
+            }
+
         // TODO check (operatorId.storeId == storeID)
-        val cakeItemResponseList = cakeItemManagementUseCase.loadCakeItemList(storeId)
-        model.addAttribute("cakeItemResponseList", cakeItemResponseList)
 
         return "cake-item-management"
     }
@@ -64,16 +63,14 @@ class CakeItemManagementController(
     fun addCakeItemForm(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         model: Model
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 상품 추가 form 로드 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
 
-        addAttributeToModel("storeId", storeId, model)
         return "cake-item-add"
     }
 
@@ -89,21 +86,16 @@ class CakeItemManagementController(
     fun deleteCakeItem(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam storeId: Long,
         @PathVariable cakeItemId: Long,
         redirectAttributes: RedirectAttributes
     ): String {
         operatorLoginResponse
             ?: let {  // Session 에 Operator 정보가 없는 경우
                 logger.info("케이크 상품 삭제 실패: 운영자 정보 없음")
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
         cakeItemManagementUseCase.deleteCakeItem(cakeItemId)
-        addAttributeToModel("storeId", storeId, redirectAttributes)
 
         return "redirect:/operator/cake-item"
     }
-
-    private fun addAttributeToModel(attributeName: String, id: Long, model: Model) =
-        model.addAttribute(attributeName, id)
 }

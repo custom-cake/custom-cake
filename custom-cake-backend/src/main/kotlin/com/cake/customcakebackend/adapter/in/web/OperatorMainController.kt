@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
+import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.SessionAttribute
 import javax.servlet.http.HttpServletRequest
 
 @Controller
-class OperatorMainController {
+class OperatorMainController(
+    private val storeManagementUseCase: StoreManagementUseCase
+) {
 
     @GetMapping("/")
     fun main(
@@ -16,8 +19,6 @@ class OperatorMainController {
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
         model: Model
     ): String {
-        // TODO
-        model.addAttribute("storeId", 1)
         return "index"
     }
 
