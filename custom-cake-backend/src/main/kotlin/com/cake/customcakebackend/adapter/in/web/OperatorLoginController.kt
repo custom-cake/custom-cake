@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpSession
 
 @Controller
 @RequestMapping("/operator")
@@ -54,21 +53,19 @@ class OperatorLoginController(
         val operator = operatorLoginUseCase.login(operatorLoginRequest)
         val session = httpServletRequest.session
 
-        return operator
-            ?. let {// 로그인 성공
-                session.setAttribute("operatorLoginResponse", operator)
-                logger.info(operator.toString())
-                "redirect:/"
-            }
+        operator
             ?: let {// 로그인 실패
-                "redirect:/operator/login"
+                return "redirect:/operator/login"
             }
+            session.setAttribute("operator", operator)
+            logger.info(operator.toString())
+            return "redirect:/"
     }
 
     @GetMapping("/logout")
     fun operatorLogout(
         httpServletRequest: HttpServletRequest,
-        @SessionAttribute("operatorLoginResponse") operatorLoginResponse: OperatorLoginResponse?,  // TODO attribute name -> CONST
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,  // TODO attribute name -> CONST
     ): String =
         operatorLoginResponse
             ?. let {

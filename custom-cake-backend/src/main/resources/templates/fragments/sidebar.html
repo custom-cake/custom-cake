@@ -34,7 +34,7 @@
             <!-- Nav Item - 매장 관리 -->
             <li class="nav-item">
                 <!-- PathVariable -->
-                <a class="nav-link" th:href="@{/operator/store(operatorId=${operatorId})}">
+                <a class="nav-link" th:href="@{/operator/store}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>매장 관리</span></a>
             </li>
@@ -49,8 +49,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" th:href="@{/operator/cake-item(operatorId=${operatorId},storeId=${storeId})}">케이크 상품</a>
-                        <a class="collapse-item" th:href="@{/operator/cake-option(operatorId=${operatorId},storeId=${storeId})}">케이크 옵션</a>
+                        <a class="collapse-item" th:href="@{/operator/cake-item(storeId=${storeId})}">케이크 상품</a>
+                        <a class="collapse-item" th:href="@{/operator/cake-option(storeId=${storeId})}">케이크 옵션</a>
                     </div>
                 </div>
             </li>

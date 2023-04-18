@@ -1,11 +1,15 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcakebackend.application.port.`in`.CakeItemManagementUseCase
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping(
@@ -16,50 +20,60 @@ class CakeItemManagementController(
     private val storeManagementUseCase: StoreManagementUseCase
 
 ) {
+    private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/cake-item/{cakeItemId}")
     fun cakeItemInfo(
-        @RequestParam operatorId: Long,
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
         @RequestParam storeId: Long,
         @PathVariable cakeItemId: Long,
         model: Model
     ): String {
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("케이크 상품 정보 로드 실패: 운영자 정보 없음")
+                "redirect:/operator/login"
+            }
+        // TODO
         return "cake-item-detail"
     }
 
     @GetMapping("/cake-item")
     fun cakeItemList(
-        @RequestParam operatorId: Long,
-        @RequestParam storeId: Long,
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
+        @RequestParam storeId: Long,  // TODO session
         model: Model
     ): String {
-        addAttributeToModel("operatorId", operatorId, model)
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("케이크 상품 리스트 로드 실패: 운영자 정보 없음")
+                "redirect:/operator/login"
+            }
+
         addAttributeToModel("storeId", storeId, model)
-
         // TODO check (operatorId.storeId == storeID)
+        val cakeItemResponseList = cakeItemManagementUseCase.loadCakeItemList(storeId)
+        model.addAttribute("cakeItemResponseList", cakeItemResponseList)
 
-        // 매장 check
-        val hasStore = storeManagementUseCase.hasStore(operatorId)
-        model.addAttribute("hasStore", hasStore)
-        if (hasStore) {
-            val cakeItemResponseList = cakeItemManagementUseCase.loadCakeItemList(storeId)
-            model.addAttribute("cakeItemResponseList", cakeItemResponseList)
-        }
         return "cake-item-management"
     }
 
     @GetMapping("/cake-item/form")
     fun addCakeItemForm(
-        @RequestParam operatorId: Long,
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
         @RequestParam storeId: Long,
         model: Model
     ): String {
-        addAttributeToModel("operatorId", operatorId, model)
-        addAttributeToModel("storeId", storeId, model)
-        // 매장 check
-        val hasStore = storeManagementUseCase.hasStore(operatorId)
-        model.addAttribute("hasStore", hasStore)
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("케이크 상품 추가 form 로드 실패: 운영자 정보 없음")
+                "redirect:/operator/login"
+            }
 
+        addAttributeToModel("storeId", storeId, model)
         return "cake-item-add"
     }
 
@@ -73,14 +87,18 @@ class CakeItemManagementController(
      **/
     @DeleteMapping("/cake-item/{cakeItemId}")
     fun deleteCakeItem(
-        @RequestParam operatorId: Long,
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
         @RequestParam storeId: Long,
         @PathVariable cakeItemId: Long,
         redirectAttributes: RedirectAttributes
     ): String {
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("케이크 상품 삭제 실패: 운영자 정보 없음")
+                "redirect:/operator/login"
+            }
         cakeItemManagementUseCase.deleteCakeItem(cakeItemId)
-
-        addAttributeToModel("operatorId", operatorId, redirectAttributes)
         addAttributeToModel("storeId", storeId, redirectAttributes)
 
         return "redirect:/operator/cake-item"

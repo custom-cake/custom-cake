@@ -43,9 +43,9 @@
                                             <h6 class="m-0 font-weight-bold text-primary">케이크 상품</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
-                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.hasStore == true}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-item/form(operatorId=${operatorId},storeId=${storeId})}'|">
+                                                    th:onclick="|location.href='@{/operator/cake-item/form(storeId=${storeId})}'|">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -90,7 +90,7 @@
                                                     <input type="hidden" th:text="${cakeItem.isOnsale} == true ? 'Y': 'N'" />
                                                 </td>
                                                 <td>
-                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId},operatorId=${operatorId})}"
+                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId})}"
                                                           th:method="delete" >
                                                         <button class="btn btn-secondary" type="submit">삭제</button>
                                                     </form>

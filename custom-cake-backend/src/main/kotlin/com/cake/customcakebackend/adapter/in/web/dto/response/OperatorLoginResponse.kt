@@ -8,7 +8,7 @@ data class OperatorLoginResponse(
     val email: String,
     val phone: String,
     val isAuthenticated: Boolean,
-    val hasStore: Boolean,
+    var hasStore: Boolean,
     val lastConnDate: String
 )
 
