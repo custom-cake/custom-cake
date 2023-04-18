@@ -17,6 +17,7 @@ class StoreQueryJpaRepository(
         val result: List<StoreEntity> = queryFactory
             .select(storeEntity)
             .from(storeEntity)
+            .where(storeEntity.address.region.`in`(request.regions))
             .fetch()
 
         return result.filter { isOpen(request.days, it.openTime) }
