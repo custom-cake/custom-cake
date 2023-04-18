@@ -43,9 +43,9 @@
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 1 (케이크 모양/사이즈/단)</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
-                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=1)}'|">
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=1)}'|">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -183,7 +183,7 @@
 <!--                                        <p><b>매장을 등록해주세요 :)</b></p>-->
 <!--                                        &lt;!&ndash; RequestParam &ndash;&gt;-->
 <!--                                        <button class="btn btn-info btn-icon-split"-->
-<!--                                                th:onclick="|location.href='@{/operator/store/form(operatorId=${operatorId})}'|">-->
+<!--                                                th:onclick="|location.href='@{/operator/store/form}'|">-->
 <!--                                            <span class="text text-white">매장 등록</span>-->
 <!--                                            <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>-->
 <!--                                        </button>-->
@@ -202,9 +202,9 @@
                                         <div class="col-md-6">
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>
                                         </div>
-                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=2)}'|">
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=2)}'|">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -259,7 +259,7 @@
                                                     <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
                                                 </td>
                                                 <td>
-                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option2.id},operatorId=${operatorId},storeId=${storeId},cakeOptionType=${2})}"
+                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option2.id},storeId=${storeId},cakeOptionType=${2})}"
                                                           th:method="delete" >
                                                         <button class="btn btn-secondary" type="submit">삭제</button>
                                                     </form>
@@ -283,9 +283,9 @@
                                         <div class="col-md-6">
                                             <h6 class="m-0 font-weight-bold text-primary">옵션 3 (기타 옵션)</h6>
                                         </div>
-                                        <div class="col-md-6" th:if="${hasStore == true}">
+                                        <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-info btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-option/form(operatorId=${operatorId},storeId=${storeId},cakeOptionType=3)}'|">
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=3)}'|">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -312,7 +312,7 @@
                                                     <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
                                                 </td>
                                                 <td>
-                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option3.id},operatorId=${operatorId},storeId=${storeId},cakeOptionType=${3})}"
+                                                    <form th:action="@{/operator/cake-option/{cakeOptionId}(cakeOptionId=${option3.id},storeId=${storeId},cakeOptionType=${3})}"
                                                           th:method="delete" >
                                                         <button class="btn btn-secondary" type="submit">삭제</button>
                                                     </form>

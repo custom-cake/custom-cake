@@ -16,6 +16,6 @@ class Address(
     @Column(columnDefinition = "String", length = 100)
     val detailAddress: String? = "",
     @Convert(converter = TempStoreRegionConverter::class)
-    @Column(columnDefinition = "String", length = 20, nullable = false)
+    @Column(columnDefinition = "String", length = 10, nullable = false)
     val region: TempStoreRegion
 )

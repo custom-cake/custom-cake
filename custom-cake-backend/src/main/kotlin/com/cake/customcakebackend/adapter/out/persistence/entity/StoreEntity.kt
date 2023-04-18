@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import com.cake.customcakebackend.common.DayOfWeekUnit
+import com.cake.customcakebackend.common.TempStoreRegion
 import com.cake.customcakebackend.common.converter.JsonColumnConverter
 import javax.persistence.*
 

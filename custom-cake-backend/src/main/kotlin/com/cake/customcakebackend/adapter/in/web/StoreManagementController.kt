@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreRegisterRequest
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.toInfoResponse
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.common.DayOfWeekUnit
@@ -9,9 +10,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
-import javax.validation.Valid
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping(
@@ -29,12 +31,20 @@ class StoreManagementController(
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/04/04
-    **/
+     **/
     @GetMapping("")
-    fun storeInfo(@RequestParam operatorId: Long, model: Model): String {
-        val storeList = storeManagementUseCase.storeInfo(operatorId)
+    fun storeInfo(
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
+        model: Model
+    ): String {
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("매장 정보 로드 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
+        val storeList = storeManagementUseCase.storeInfo(operatorLoginResponse.id)
 
-        addOperatorIdToModel(operatorId, model)
         model.addAttribute("storeInfo", storeList.firstOrNull()?.toInfoResponse())
         model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
         // TODO 지정 휴무일 내려주고, 등록할 수 있도록
@@ -48,11 +58,18 @@ class StoreManagementController(
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/04/04
-    **/
+     **/
     @GetMapping("/form")
-    fun registerStoreForm(@RequestParam operatorId: Long, model: Model): String {
-        addOperatorIdToModel(operatorId, model)
-        model.addAttribute("hasStore", storeManagementUseCase.hasStore(operatorId))
+    fun registerStoreForm(
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
+        model: Model
+    ): String {
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("매장 정보 로드 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
         model.addAttribute("storeRegisterRequest", StoreRegisterRequest())  // 필드 값 참조 위해 기본 값 객체 내려주기
         model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
         return "store-register"
@@ -69,22 +86,33 @@ class StoreManagementController(
     **/
     @PostMapping("")
     fun registerStore(
-        @RequestParam operatorId: Long,
-        @Valid @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
+        @Validated @ModelAttribute storeRegisterRequest: StoreRegisterRequest,
         result: BindingResult,
         redirectAttributes: RedirectAttributes
     ): String {
         if (result.hasErrors()) {
             return "store-register"
         }
-        // 매장 등록 check
-        if (!storeManagementUseCase.hasStore(operatorId)) {
-            storeManagementUseCase.registerStore(operatorId, storeRegisterRequest)
-        }
 
-        addOperatorIdToModel(operatorId, redirectAttributes)
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("매장 정보 로드 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
+
+        // 매장 등록 check
+        operatorLoginResponse.storeId
+            ?. let {
+                logger.info("매장 등록 실패: 매장이 이미 존재함")
+            }
+            ?: let{
+                storeManagementUseCase.registerStore(operatorLoginResponse.id, storeRegisterRequest)
+            }
+
         redirectAttributes.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // 고정 휴무일 리스트
-        return "redirect:/operator/store?operatorId=$operatorId"
+        return "redirect:/operator/store"
     }
 
     private fun addOperatorIdToModel(operatorId: Long, model: Model) =
