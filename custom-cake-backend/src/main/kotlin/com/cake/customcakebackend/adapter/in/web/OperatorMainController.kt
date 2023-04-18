@@ -1,7 +1,6 @@
 package com.cake.customcakebackend.adapter.`in`.web
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
-import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest
 
 @Controller
 class OperatorMainController(
-    private val storeManagementUseCase: StoreManagementUseCase
 ) {
 
     @GetMapping("/")
