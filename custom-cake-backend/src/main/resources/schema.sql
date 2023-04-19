@@ -254,6 +254,9 @@ CREATE TABLE IF NOT EXISTS `chat_room` (
 CREATE TABLE IF NOT EXISTS `chat_message` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `chat_room_id`	                BIGINT UNSIGNED	        NOT NULL,
+    `senderType`                    VARCHAR(10)            NOT NULL,
+    `send_email`                    VARCHAR(100)            NOT NULL,
+    `recv_email`                    VARCHAR(100)            NOT NULL,
     `message`	                    TEXT        	        NOT NULL,
     `is_read`	                    TINYINT	                NOT NULL DEFAULT 0,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,

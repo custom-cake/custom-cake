@@ -1,5 +1,6 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
+import com.cake.customcakebackend.common.MessageSenderType
 import javax.persistence.*
 
 @Table(name = "chat_message")
@@ -9,9 +10,19 @@ class ChatMessageEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    // @ManyToOne
-    @Column(name = "chat_room_id", nullable = false)
-    val chatRoomId: Long,
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "chat_room_id")
+    val chatRoom: ChatRoomEntity,
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "String", length = 10, nullable = false)
+    val senderType: MessageSenderType,
+
+    @Column(length = 100, nullable = false)
+    val sender: String,
+
+    @Column(length = 100, nullable = false)
+    val receiver: String,
 
     @Column(columnDefinition = "TEXT", nullable = false)
     val message: String,
