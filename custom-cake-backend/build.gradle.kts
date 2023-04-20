@@ -57,6 +57,12 @@ dependencies {
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
+    // firebase messaging (for FCM)
+    implementation("com.google.firebase:firebase-messaging:22.0.0")
+    implementation("com.google.firebase:firebase-core:20.0.0")
+    // https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+    runtimeOnly("com.google.firebase:firebase-admin:8.1.0")
+
     // p6spy (운영 환경에서 사용하려면 성능 테스트 필수 !)
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
 

@@ -6,6 +6,7 @@ SET foreign_key_checks = 1;
 
 CREATE TABLE IF NOT EXISTS `operator` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+#     `member_uid`                    VARCHAR(255),
     `email`	                        VARCHAR(100)	        NOT NULL UNIQUE,
     `password`	                    VARCHAR(255)	        NOT NULL,
     `name`	                        VARCHAR(50)	            NOT NULL,
@@ -20,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `operator` (
 
 CREATE TABLE IF NOT EXISTS `user` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+#     `member_uid`                    VARCHAR(255),
     `name`	                        VARCHAR(50)	            NOT NULL,
     `nickname`	                    VARCHAR(20)	            NOT NULL UNIQUE,       -- DEFAULT cake-{uuid}
     `phone`             	        VARCHAR(20)	            NOT NULL,              -- 인증
