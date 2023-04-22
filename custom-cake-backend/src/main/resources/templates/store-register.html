@@ -22,8 +22,8 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content, Store is not exist -->
-                <div class="container-fluid" th:if="${hasStore == false}">
-                    <form th:action="@{/operator/store(operatorId=${operatorId})}" th:object="${storeRegisterRequest}" method="post" >
+                <div class="container-fluid" th:if="${session.operator.storeId == null}">
+                    <form th:action="@{/operator/store}" th:object="${storeRegisterRequest}" method="post" >
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">매장 등록</h1>
@@ -160,7 +160,7 @@
                 <!-- /.container-fluid -->
 
                 <!-- Store is exist -->
-                <div class="container-fluid" th:unless="${hasStore == false}">
+                <div class="container-fluid" th:unless="${session.operator.storeId == null}">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">매장 등록</h1>
