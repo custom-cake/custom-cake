@@ -43,6 +43,9 @@ dependencies {
     testImplementation("org.springframework.batch:spring-batch-test")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.webjars:bootstrap:5.1.3")
+    implementation("org.webjars:jquery:3.6.2")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -59,6 +62,7 @@ dependencies {
 
     // firebase messaging (for FCM)
     implementation("com.google.firebase:firebase-messaging:22.0.0")
+    implementation("com.google.firebase:firebase-database:20.2.0")
     implementation("com.google.firebase:firebase-core:20.0.0")
     // https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
     runtimeOnly("com.google.firebase:firebase-admin:8.1.0")

@@ -1,16 +1,7 @@
 
 // <!-- firebase -->
 import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-messaging.js";
-import {database} from "./init";
-
-let FirebaseChat = function (obj) {
-    this.database = database;
-    this.messagesRef = database.ref("Messages");
-    this.usersRef = database.ref("Users");
-    this.operatorsRef = database.ref("Operators");
-    this.memberRoomsRef = database.ref("MemberRooms");
-
-};
+import { database, FirebaseChat } from "./init.js";
 
 FirebaseChat.prototype.init = function() {
     this.ulChatRoomList = document.getElementById('ulChatRoomList');
@@ -20,6 +11,7 @@ FirebaseChat.prototype.init = function() {
 FirebaseChat.prototype.setLogin = function(user){
     //...생략
     this.loadChatRoomList();
+    this.loadOperatorList();
     this.tabMessageList = document.getElementById('tabMessageList');
     this.aBackBtn = document.getElementById('aBackBtn');
     this.aInvite = document.getElementById('aInvite');
@@ -33,7 +25,7 @@ FirebaseChat.prototype.setLogin = function(user){
 FirebaseChat.prototype.loadChatRoomList = function(operatorId, chatStatus) {
     this.chatroomTemplate = document.getElementById('templateChatRoomList').innerHTML;
     // Database ref 에 대해 off() method를 호출하면 callback이 삭제된다.
-    this.database.ref(`MemberRooms/OPERATOR-${operatorId}`).off();
+    ref(database,`MemberRooms/OPERATOR-${operatorId}`).off();
     this.memberRoomsRef.orderByChild("timestamp").once('value', this.getChatRoomList.bind(this))
 }
 
@@ -58,7 +50,6 @@ FirebaseChat.prototype.getChatRoomList  =  function(snapshot) {
     this.ulChatRoomList.innerHTML = chatRoomList;
 }
 
-<!-- template 유저리스트 영역 -->
 // <script type="text/template" id="templateUserList">
 //     <li id="li<%=targetUserUid %>" data-targetUserUid="<%=targetUserUid %>" data-username="<%=userName %>" class="collection-item avatar list">
 //         <img src="<%=profileImg ? profileImg : 'img/noprofile.png'  %>" alt="" class="circle">
