@@ -40,12 +40,12 @@
                                 <div class="card-header py-3">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h6 class="m-0 font-weight-bold text-primary">케이크 상품</h6>
+                                            <h6 class="m-0 font-weight-bold " style="color: #694E4E">케이크 상품</h6>
                                         </div>
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
                                         <div class="col-md-6" th:if="${session.operator.storeId != null}">
-                                            <button type="button" class="btn btn-info btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-item/form(storeId=${storeId})}'|">
+                                            <button type="button" class="btn btn-icon-split float-right"
+                                                    th:onclick="|location.href='@{/operator/cake-item/form}'|" style="background-color: #B4C8EA; color: #fff">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
                                                 <th>상품번호</th>
@@ -67,6 +67,18 @@
                                                 <th>삭제</th>
                                             </tr>
                                             </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th>상품번호</th>
+                                                <th>사진</th>
+                                                <th>이름</th>
+                                                <th>설명</th>
+                                                <th>카테고리</th>
+                                                <th>가격</th>
+                                                <th>판매 여부</th>
+                                                <th>삭제</th>
+                                            </tr>
+                                            </tfoot>
                                             <tbody>
                                             <tr th:each="cakeItem : ${cakeItemResponseList}">
                                                 <td th:text="${cakeItem.id}"></td>
@@ -160,6 +172,7 @@
 
     <!-- Page level custom scripts -->
     <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
+
 
 </body>
 
