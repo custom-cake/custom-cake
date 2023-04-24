@@ -1,0 +1,84 @@
+PODS:
+  - Alamofire (5.6.4)
+  - KakaoSDK (2.14.0):
+    - KakaoSDKAuth (= 2.14.0)
+    - KakaoSDKCommon (= 2.14.0)
+    - KakaoSDKFriend (= 2.14.0)
+    - KakaoSDKNavi (= 2.14.0)
+    - KakaoSDKShare (= 2.14.0)
+    - KakaoSDKStory (= 2.14.0)
+    - KakaoSDKTalk (= 2.14.0)
+    - KakaoSDKTemplate (= 2.14.0)
+    - KakaoSDKUser (= 2.14.0)
+  - KakaoSDKAuth (2.14.0):
+    - KakaoSDKCommon (= 2.14.0)
+  - KakaoSDKCommon (2.14.0):
+    - KakaoSDKCommon/Common (= 2.14.0)
+    - KakaoSDKCommon/Network (= 2.14.0)
+  - KakaoSDKCommon/Common (2.14.0)
+  - KakaoSDKCommon/Network (2.14.0):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.14.0)
+  - KakaoSDKFriend (2.14.0):
+    - KakaoSDKUser (= 2.14.0)
+  - KakaoSDKNavi (2.14.0):
+    - KakaoSDKCommon/Common (= 2.14.0)
+  - KakaoSDKShare (2.14.0):
+    - KakaoSDKCommon (= 2.14.0)
+    - KakaoSDKTemplate (= 2.14.0)
+  - KakaoSDKStory (2.14.0):
+    - KakaoSDKUser (= 2.14.0)
+  - KakaoSDKTalk (2.14.0):
+    - KakaoSDKTemplate (= 2.14.0)
+    - KakaoSDKUser (= 2.14.0)
+  - KakaoSDKTemplate (2.14.0):
+    - KakaoSDKCommon/Common (= 2.14.0)
+  - KakaoSDKUser (2.14.0):
+    - KakaoSDKAuth (= 2.14.0)
+  - naveridlogin-sdk-ios (4.1.6)
+
+DEPENDENCIES:
+  - KakaoSDK
+  - KakaoSDKAuth
+  - KakaoSDKCommon
+  - KakaoSDKFriend
+  - KakaoSDKNavi
+  - KakaoSDKShare
+  - KakaoSDKStory
+  - KakaoSDKTalk
+  - KakaoSDKTemplate
+  - KakaoSDKUser
+  - naveridlogin-sdk-ios
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - KakaoSDK
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKFriend
+    - KakaoSDKNavi
+    - KakaoSDKShare
+    - KakaoSDKStory
+    - KakaoSDKTalk
+    - KakaoSDKTemplate
+    - KakaoSDKUser
+    - naveridlogin-sdk-ios
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  KakaoSDK: c294f30452701752c0b8a283e88ed97c36e80006
+  KakaoSDKAuth: 8fca87815de22062a23297983f327613b087b8bb
+  KakaoSDKCommon: 0ce638f7a2e49704943c0b74a087a9f8067bba1c
+  KakaoSDKFriend: 9b742a3a4d96ba9b8c20958476e3a871685fa607
+  KakaoSDKNavi: 5dbacc78b915ddb80359b3f041e7428a44e11a82
+  KakaoSDKShare: 342acc83d47a26c73855555ce070c6d55db37f83
+  KakaoSDKStory: 61472ba65d11945796635652a2e200487d279e91
+  KakaoSDKTalk: 6843127498cc01d4bda598e3da96e4c16070deb6
+  KakaoSDKTemplate: 37fe90573759d54843da54fa66b8e21023b41fea
+  KakaoSDKUser: 2ca18314ce72e6690f76cb1f6f9fbc771d31a803
+  naveridlogin-sdk-ios: cdd34e3585a3d5aaf37c1d84c1f41faba4a25d1a
+
+PODFILE CHECKSUM: 153419537b2f6cc4dec65db2a5f0a083771cb706
+
+COCOAPODS: 1.11.3
