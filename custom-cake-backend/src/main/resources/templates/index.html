@@ -11,9 +11,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-        <!-- End Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -378,24 +376,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
@@ -430,22 +411,7 @@
         //     }
         // }
 
-        // import { FirebaseChat } from "/static/bootstrap/js/firebase/init.js";
-
-        // function loadOperatorList() {
-        //     const firebaseChat = new FirebaseChat();
-        //     firebaseChat.loadOperatorList();
-        // }
     </script>
-    <!-- template 유저리스트 영역 -->
-    <script type="text/template" id="templateOperatorList">
-        <li id="li<%=targetOperatorUid %>" data-targetOperatorUid="<%=targetOperatorUid %>" data-storeName="<%=storeName %>" class="collection-item avatar list">
-            <span class="text"><%=storeName %></span>
-            <span class="small material-icons right hiddendiv done">done</span>
-            <span class="small material-icons right hiddendiv mood yellow-text">mood</span>
-        </li>
-    </script>
-
 </body>
 
 </html>

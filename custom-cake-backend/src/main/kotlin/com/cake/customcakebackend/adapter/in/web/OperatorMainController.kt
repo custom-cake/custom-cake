@@ -23,14 +23,14 @@ class OperatorMainController(
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
         model: Model
     ): String {
-//        operatorLoginResponse
-//            ?: let {  // Session 에 Operator 정보가 없는 경우
-//                logger.info("매장 정보 로드 실패: 운영자 정보 없음")
-//                return "redirect:/operator/login"
-//            }
-//        val storeList = storeManagementUseCase.storeInfo(operatorLoginResponse.id)
-//
-//        model.addAttribute("storeInfo", storeList.firstOrNull()?.toInfoResponse())
+        operatorLoginResponse
+            ?: let {  // Session 에 Operator 정보가 없는 경우
+                logger.info("매장 정보 로드 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
+        val storeList = storeManagementUseCase.storeInfo(operatorLoginResponse.id)
+
+        model.addAttribute("storeInfo", storeList.firstOrNull()?.toInfoResponse())
         return "dashboard"
     }
 

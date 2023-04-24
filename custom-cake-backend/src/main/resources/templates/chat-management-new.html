@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::fragment-header">
+    <title th:replace="fragments/header::f-title">
+        MANAGEMENT
+    </title>
+    <script src="../static/bootstrap/js/firebase/init.js"></script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar::fragment-sidebar"></div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div th:replace="fragments/topbar::fragment-topbar"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">채팅 관리 > 커스텀 주문</h1>
+                    </div>
+
+                    <!-- 케이크 옵션 1 -->
+                    <div class="row" >
+                        <!-- Task Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 font-weight-bold " style="color: #694E4E">신규 채팅</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>매장 이름</th>
+                                                <th>이메일</th>
+                                                <th>전화번호</th>
+<!--                                                <th>이름</th>-->
+<!--                                                <th>메시지</th>-->
+<!--                                                <th>날짜</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td th:text="${operatorObject.storeName}"></td>
+                                                <td th:text="${operatorObject.email}"></td>
+                                                <td th:text="${operatorObject.phone}"></td>
+<!--                                                    <ul>-->
+<!--                                                        &lt;!&ndash; ulChatRoomList &ndash;&gt;-->
+<!--                                                    </ul>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <div th:replace="fragments/footer::fragment-footer"></div>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
+
+    <!-- template 유저리스트 영역 -->
+    <script type="text/template" id="templateChatRoomList">
+        <li id="li<%=targetOperatorUid %>" data-targetOperatorUid="<%=targetOperatorUid %>" data-storeName="<%=storeName %>"
+            class="collection-item avatar list">
+            <img src="" alt="" class="circle">
+            <span class="title"><%=storeName %></span>
+            <span class="small material-icons right hiddendiv done">done</span>
+            <span class="small material-icons right hiddendiv mood yellow-text">mood</span>
+        </li>
+    </script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{/bootstrap/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
+
+
+</body>
+
+</html>

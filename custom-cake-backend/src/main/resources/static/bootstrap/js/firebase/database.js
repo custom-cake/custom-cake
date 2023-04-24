@@ -17,6 +17,7 @@ import {
 //             phone: user.phone
 //         })
 // }
+
 const db = getDatabase();
 
 window.getOperatorData = function() {
@@ -24,13 +25,15 @@ window.getOperatorData = function() {
     // onValue() : 경로의 데이터를 읽고 변경사항을 수신 대기할 수 있음.
     onValue(ref(db,'Operators'), (snapshot) => {
         if (snapshot.exists()) {
-            console.log(snapshot.val()["OPERATOR-1"]);
             console.log(snapshot.val()["OPERATOR-2"]);
+            console.log(snapshot.val()["OPERATOR-1"]);
+            document.getElementById("operatorObject").innerHTML = snapshot.val()["OPERATOR-1"];
+            return snapshot.val()["OPERATOR-1"]
         } else {
             console.log("No data available");
         }
     }, {
-        // 없으면 계속 listening 하고 있음
+        // onlyOnce: false => data 계속 listening
         onlyOnce: true
     });
 

@@ -11,9 +11,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -45,7 +43,8 @@
                                         <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
                                         <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=1)}'|" style="background-color: #B4C8EA; color: #fff">
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=1)}'|"
+                                                    style="background-color: #5b7eb9; color: #fff">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -89,8 +88,8 @@
                                                 </td>
                                                 <td th:text="|${option1.letteringLimit}자|" ></td>
                                                 <td th:text="|${option1.price}원|" ></td>
-                                                <td>
-                                                    <input type="hidden" th:text="${option1.isUsed} == true ? 'Y': 'N'" />
+                                                <td th:text="${option1.isUsed} ? '사용 가능': '사용 불가'"
+                                                    th:style="${option3.isUsed ? 'color: #2e59d9;': 'color: #dc3545;'}">
 <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
                                                 </td>
                                                 <td>
@@ -204,7 +203,7 @@
                                         </div>
                                         <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=2)}'|" style="background-color: #B4C8EA; color: #fff">
+                                                    th:onclick="|location.href='@{/operator/cake-option/form(storeId=${storeId},cakeOptionType=2)}'|" style="background-color: #5b7eb9; color: #fff">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -254,8 +253,9 @@
                                                     <p th:case="BLUEBERRY" th:text="블루베리크림"></p>
                                                 </td>
                                                 <td th:text="|${option2.price}원|" ></td>
-                                                <td>
-                                                    <input type="hidden" th:text="${option2.isUsed} == true ? 'Y': 'N'" />
+                                                <td th:text="${option2.isUsed} ? '사용 가능': '사용 불가'"
+                                                    th:style="${option2.isUsed ? 'color: #2e59d9;': 'color: #dc3545;'}">
+<!--                                                    <input type="hidden" th:text="${option2.isUsed} ? '사용 가능': '사용 불가'" />-->
                                                     <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
                                                 </td>
                                                 <td>
@@ -307,8 +307,9 @@
                                             <tr th:each="option3 : ${allCakeOptionMap.get(3)}">
                                                 <td th:text="${option3.name}"></td>
                                                 <td th:text="|${option3.price}원|" ></td>
-                                                <td>
-                                                    <input type="hidden" th:text="${option3.isUsed} == true ? 'Y': 'N'" />
+                                                <td th:text="${option3.isUsed} ? '사용 가능': '사용 불가'"
+                                                    th:style="${option3.isUsed ? 'color: #2e59d9;': 'color: #dc3545;'}">                                                <td>
+<!--                                                    <input type="hidden" th:text="${option3.isUsed} ? '사용 가능': '사용 불가'" />-->
                                                     <!--                                                    <input type="checkbox" data-toggle="toggle" th:checked="${option1.isUsed}" />-->
                                                 </td>
                                                 <td>
@@ -348,24 +349,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>

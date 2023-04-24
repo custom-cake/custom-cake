@@ -71,7 +71,7 @@
                                                 <td>
                                                     <img class="img-profile"
                                                          th:src="${cakeItem.image}"
-                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px; " />
+                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px;" />
                                                 </td>
                                                 <td th:text="${cakeItem.name}"></td>
                                                 <td th:text="${cakeItem.description}"></td>
@@ -86,8 +86,7 @@
                                                 <td th:text="|${cakeItem.price}원|" ></td>
                                                 <td th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'"
                                                     th:style="${cakeItem.isOnsale ? 'color: #2e59d9;': 'color: #dc3545;'}">
-<!--                                                    <input type="hidden" th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'"-->
-<!--                                                           th:style="${cakeItem.isOnsale == true ? 'color: #2e59d9;': 'color: #dc3545;'}"/>-->
+<!--                                                    <input type="hidden" th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'" />-->
                                                 </td>
                                                 <td>
                                                     <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId})}"
