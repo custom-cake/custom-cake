@@ -5,11 +5,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class CakeDesignOrder (
-    val id: Long,
+    val id: Long = 0,
     val userId: Long,
-    val cakeOption1: CakeOption1,
-    val cakeOption2: CakeOption2,
-    val cakeOption3: CakeOption3? = null,
+    val cakeItemId: Long,
+    val optionByCakeIdList: List<Long>,
     val requirements: String,
     val orderStatus: OrderStatus,
     val paymentAmount: Int,

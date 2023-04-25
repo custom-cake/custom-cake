@@ -3,29 +3,29 @@ package com.cake.customcakebackend.application.service
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreOptionSearchRequest
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.StoreGetResponse
 import com.cake.customcakebackend.application.port.`in`.StoreSearchUseCase
-import com.cake.customcakebackend.application.port.out.LoadAllRegionsUserPort
-import com.cake.customcakebackend.application.port.out.LoadStoresByNameUserPort
-import com.cake.customcakebackend.application.port.out.LoadStoresByOptionUserPort
+import com.cake.customcakebackend.application.port.out.LoadAllRegionsPort
+import com.cake.customcakebackend.application.port.out.LoadStoresByNamePort
+import com.cake.customcakebackend.application.port.out.LoadStoresByOptionPort
 import org.springframework.stereotype.Service
 
 @Service
 class StoreSearchService(
-    private val loadStoresByNameUserPort: LoadStoresByNameUserPort,
-    private val loadStoresByOptionUserPort: LoadStoresByOptionUserPort,
-    private val loadAllRegionsUserPort: LoadAllRegionsUserPort
+    private val loadStoresByNamePort: LoadStoresByNamePort,
+    private val loadStoresByOptionPort: LoadStoresByOptionPort,
+    private val loadAllRegionsPort: LoadAllRegionsPort
 ) : StoreSearchUseCase {
 
     override fun searchByName(query: String): List<StoreGetResponse> {
-        return loadStoresByNameUserPort.loadByName(query)
+        return loadStoresByNamePort.loadByName(query)
             .map { StoreGetResponse(it.id, it.name) }
     }
 
     override fun getAllRegionsName(): List<String> {
-        return loadAllRegionsUserPort.load()
+        return loadAllRegionsPort.load()
     }
 
     override fun searchByOption(request: StoreOptionSearchRequest): List<StoreGetResponse> {
-        return loadStoresByOptionUserPort.loadByOption(request)
+        return loadStoresByOptionPort.loadByOption(request)
             .map { StoreGetResponse(it.id, it.name) }
     }
 }
