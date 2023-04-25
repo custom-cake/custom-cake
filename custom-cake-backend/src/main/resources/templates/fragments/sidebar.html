@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
+
     <div id="sidebar" th:fragment="fragment-sidebar">
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar C89595: 약간 더 톤다운, F3C5C5: 밝음, F2B4B4: 덜 밝음-->
+        <ul class="navbar-nav sidebar sidebar-dark accordion " id="accordionSidebar"
+            style="background-color: #EEB0B0; height: 100%">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-birthday-cake"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Custom Cake</div>
             </a>
 
             <!-- Divider -->
@@ -20,7 +22,7 @@
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>대시보드</span></a>
             </li>
 
             <!-- Divider -->
@@ -41,28 +43,47 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseItemManagement"
+                   aria-expanded="true" aria-controls="collapseItemManagement">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>상품 관리</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseItemManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" th:href="@{/operator/cake-item(storeId=${storeId})}">케이크 상품</a>
-                        <a class="collapse-item" th:href="@{/operator/cake-option(storeId=${storeId})}">케이크 옵션</a>
+                        <a class="collapse-item" th:href="@{/operator/cake-item}">케이크 상품</a>
+                        <a class="collapse-item" th:href="@{/operator/cake-option}">케이크 옵션</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- 채팅 관리 -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                   aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseChatManagement"
+                   aria-expanded="true" aria-controls="collapseChatManagement">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>채팅 관리</span>
+                </a>
+                <div id="collapseChatManagement" class="collapse" aria-labelledby="headingChatManagement"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" th:href="@{/colors}">신규채팅</a>
+                        <a class="collapse-item" th:href="@{/borders}">채팅진행중</a>
+                        <a class="collapse-item" th:href="@{/animations}">결제완료</a>
+<!--                        <a class="collapse-item" th:href="@{/other}">주문취소</a>-->
+                    </div>
+                </div>
+            </li>
+
+            <!-- 주문 관리 -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrderManagement"
+                   aria-expanded="true" aria-controls="collapseOrderManagement">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>주문 관리</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseOrderManagement" class="collapse" aria-labelledby="headingOrderManagement"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
@@ -132,11 +153,10 @@
             </div>
 
             <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" th:src="@{/bootstrap/img/undraw_rocket.svg}" alt="..." />
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+<!--            <div class="sidebar-card d-none d-lg-flex">-->
+<!--                <img class="sidebar-card-illustration mb-2" th:src="@{/bootstrap/img/undraw_rocket.svg}" alt="..." />-->
+<!--                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>-->
+<!--            </div>-->
 
         </ul>
         <!-- End of Sidebar -->

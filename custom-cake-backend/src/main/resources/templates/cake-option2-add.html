@@ -23,7 +23,7 @@
 
             <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
             <div class="container-fluid" th:if="${session.operator.storeId != null}">
-                <form th:action="@{/operator/cake-option-2(storeId=${storeId})}" th:object="${cakeOption2AddRequest}" method="post" >
+                <form th:action="@{/operator/cake-option-2}" th:object="${cakeOption2AddRequest}" method="post" >
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>
@@ -36,9 +36,9 @@
                     <!-- Store Register Form -->
                     <div class="row">
                         <div class="col-xl-12 col-md-12 mb-5">
-                            <div class="card shadow mb-4 border-left-info shadow h-100">
+                            <div class="card shadow mb-4 border-left-dark shadow h-100">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">옵션 2 (케이크 시트/속크림/겉크림)</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
@@ -92,9 +92,9 @@
                 <!-- Content Row -->
                 <div class="row">
                     <div class="col-xl-12 col-md-12 mb-5">
-                        <div class="card shadow mb-4 border-left-info shadow h-auto" >
+                        <div class="card shadow mb-4 border-left-dark shadow h-auto" >
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">옵션 2 (케이크 시트/속크림/겉크림)</h6>
+                                <h6 class="m-0 font-weight-bold " style="color: #694E4E">옵션 2 (케이크 시트/속크림/겉크림)</h6>
                             </div>
                             <div class="card-body">
                                 <div>
