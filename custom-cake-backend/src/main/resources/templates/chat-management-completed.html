@@ -55,46 +55,14 @@
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                             <tr>
-                                                <th>상품번호</th>
-                                                <th>사진</th>
-                                                <th>이름</th>
-                                                <th>설명</th>
-                                                <th>카테고리</th>
-                                                <th>가격</th>
-                                                <th>판매 여부</th>
-                                                <th>삭제</th>
+                                                <th id="profile1" class="no-sort">프로필</th>
+                                                <th class="no-sort">이름</th>
+                                                <th class="no-sort">메시지</th>
+                                                <th class="no-sort">시간</th>
+                                                <!--                                                <th>날짜</th>-->
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr th:each="cakeItem : ${cakeItemResponseList}">
-                                                <td th:text="${cakeItem.id}"></td>
-                                                <td>
-                                                    <img class="img-profile"
-                                                         th:src="${cakeItem.image}"
-                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px;" />
-                                                </td>
-                                                <td th:text="${cakeItem.name}"></td>
-                                                <td th:text="${cakeItem.description}"></td>
-                                                <td th:switch="${cakeItem.category.toString()}">
-                                                    <p th:case="LUNCH_BOX_CAKE" th:text="도시락케이크"></p>
-                                                    <p th:case="DESIGN_CAKE" th:text="디자인케이크"></p>
-                                                    <p th:case="CHARACTER_CAKE" th:text="캐릭터케이크"></p>
-                                                    <p th:case="MACAROON_CAKE" th:text="마카롱케이크"></p>
-                                                    <p th:case="RICE_CAKE" th:text="떡앙금케이크"></p>
-                                                    <p th:case="PET_CAKE" th:text="반려동물케이크"></p>
-                                                </td>
-                                                <td th:text="|${cakeItem.price}원|" ></td>
-                                                <td th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'"
-                                                    th:style="${cakeItem.isOnsale ? 'color: #2e59d9;': 'color: #dc3545;'}">
-<!--                                                    <input type="hidden" th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'" />-->
-                                                </td>
-                                                <td>
-                                                    <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId})}"
-                                                          th:method="delete" >
-                                                        <button class="btn btn-secondary" type="submit">삭제</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                            <tbody id="ulChatRoomList">
                                             </tbody>
                                         </table>
                                     </div>
@@ -125,14 +93,13 @@
 
     <!-- template 채팅룸 리스트 영역 -->
     <script type="text/template" id="templateChatRoomList">
-        <tbody id="tbody<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
-        <tr>
+        <tr id="tr<%=targetChatRoomUid %>" data-targetChatRoomUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
             <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
             <td><span class="title"><%=roomUserName %></span></td>
             <td><span class="title"><%=lastMessage %></span></td>
-            <td><span class="title"><%=timestamp %></span></td>
+            <td><span class="title" data-timestamp="<%=timestamp %>"><%=timestamp %></span></td>
+            <!--                <span class="small material-icons right hiddendiv done">done</span>-->
         </tr>
-        </tbody>
     </script>
 
     <!-- Logout Modal-->

@@ -41,27 +41,21 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-<!--                                        <ul id="ulChatRoomList">-->
-<!--                                        </ul>-->
+                                        <span id="spTitle"></span>
+                                        <ul id="ulMessageList"></ul>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th id="profile1" class="no-sort">프로필</th>
-                                                    <th class="no-sort">이름</th>
-                                                    <th class="no-sort">메시지</th>
-                                                    <th class="no-sort">시간</th>
+                                                    <th>프로필</th>
+                                                    <th>이름</th>
+                                                    <th>메시지</th>
+                                                    <th>시간</th>
     <!--                                                <th>날짜</th>-->
                                                 </tr>
                                             </thead>
                                             <tbody id="ulChatRoomList">
-<!--                                                <tr>-->
-<!--                                                    <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>-->
-<!--                                                    <td><span class="title"><%=roomUserName %></span></td>-->
-<!--                                                    <td><span class="title"><%=lastMessage %></span></td>-->
-<!--                                                    <td><span class="title"><%=timestamp %></span></td>-->
-<!--                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -87,16 +81,24 @@
 
     <!-- template 채팅룸 리스트 영역 -->
     <script type="text/template" id="templateChatRoomList">
-        <tbody id="tbody<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
-            <tr>
+        <tr id="tr<%=targetChatRoomUid %>" data-targetChatRoomUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
                 <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
-                <td><span class="title"><%=roomUserName %></span></td>
-                <td><span class="title"><%=lastMessage %></span></td>
-                <td><span class="title"><%=timestamp %></span></td>
-            </tr>
-        </tbody>
+                <td><%=roomUserName %></td>
+                <td><%=lastMessage %></td>
+                <td><%=timestamp %></td>
+<!--                <span class="small material-icons right hiddendiv done">done</span>-->
+        </tr>
     </script>
 
+    <script type="text/template" id="templateMessageList">
+        <li id="li<%=memberUid %>" data-sender="<%=sender %>" data-senderType="<%=senderType %>"
+            class="collection-item avatar list">
+            <img src="" alt="" class="circle">
+            <span class="title"><%=sender %></span>
+            <span class="title"><%=message %></span>
+            <span class="title"><%=timestamp %></span>
+        </li>
+    </script>
 <!--    <script type="text/template" id="templateChatRoomList">-->
 <!--        <li id="li<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>"-->
 <!--            class="collection-item avatar list">-->
@@ -129,6 +131,7 @@
     <!-- Page level custom scripts -->
     <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
     <script>
+        // datable sorting 해제
         $('#dataTable').dataTable({
             "columnDefs": [
                 { "orderable": false, "targets": [0,1,2,3] }

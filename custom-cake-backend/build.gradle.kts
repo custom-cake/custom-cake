@@ -43,6 +43,7 @@ dependencies {
     testImplementation("org.springframework.batch:spring-batch-test")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
     implementation("org.webjars:bootstrap:5.1.3")
     implementation("org.webjars:jquery:3.6.2")
 

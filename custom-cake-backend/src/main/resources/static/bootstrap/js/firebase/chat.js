@@ -51,15 +51,6 @@ FirebaseChat.prototype.getChatRoomList  =  function(snapshot) {
     // this.ulChatRoomList.innerHTML = chatRoomList;
 }
 
-// <script type="text/template" id="templateUserList">
-//     <li id="li<%=targetUserUid %>" data-targetUserUid="<%=targetUserUid %>" data-username="<%=userName %>" class="collection-item avatar list">
-//         <img src="<%=profileImg ? profileImg : 'img/noprofile.png'  %>" alt="" class="circle">
-//             <span class="title"><%=userName %></span>
-//             <span class="small material-icons right hiddendiv done">done</span>
-//             <span class="small material-icons right hiddendiv mood yellow-text">mood</span>
-//     </li>
-// </script>
-
 /**
  * 채팅방 멤버 데이터 로딩
  * @param chatStatus
