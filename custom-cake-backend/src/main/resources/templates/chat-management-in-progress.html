@@ -7,7 +7,7 @@
     </title>
 </head>
 
-<body id="page-top">
+<body id="page-top" th:onload="|loadOperatorChatRoomList('${session.operator.id}', 'IN_PROGRESS')|">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -43,7 +43,7 @@
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
                                         <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-item/form}'|" style="background-color: #5b7eb9; color: #fff">
+                                                    th:onclick="|loadOperatorChatRoomList('${session.operator.id}', 'IN_PROGRESS')|" style="background-color: #5b7eb9; color: #fff">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -111,10 +111,8 @@
             <!-- Footer -->
             <div th:replace="fragments/footer::fragment-footer"></div>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -122,6 +120,18 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- template 채팅룸 리스트 영역 -->
+    <script type="text/template" id="templateChatRoomList">
+        <tbody id="tbody<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
+        <tr>
+            <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
+            <td><span class="title"><%=roomUserName %></span></td>
+            <td><span class="title"><%=lastMessage %></span></td>
+            <td><span class="title"><%=timestamp %></span></td>
+        </tr>
+        </tbody>
+    </script>
 
     <!-- Logout Modal-->
     <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>

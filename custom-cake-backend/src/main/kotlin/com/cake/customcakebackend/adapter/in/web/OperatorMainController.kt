@@ -64,7 +64,7 @@ class OperatorMainController(
         return "utilities-border"
     }
 
-    @GetMapping("/animations")
+    @GetMapping("/`animations`")
     fun animations(): String {
         return "utilities-animation"
     }

@@ -7,7 +7,7 @@
     </title>
 </head>
 
-<body id="page-top">
+<body id="page-top" th:onload="|loadOperatorChatRoomList('${session.operator.id}', 'COMPLETED')|">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -122,6 +122,18 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- template 채팅룸 리스트 영역 -->
+    <script type="text/template" id="templateChatRoomList">
+        <tbody id="tbody<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
+        <tr>
+            <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
+            <td><span class="title"><%=roomUserName %></span></td>
+            <td><span class="title"><%=lastMessage %></span></td>
+            <td><span class="title"><%=timestamp %></span></td>
+        </tr>
+        </tbody>
+    </script>
 
     <!-- Logout Modal-->
     <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>

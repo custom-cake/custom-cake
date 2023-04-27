@@ -2,11 +2,11 @@
 // <!-- firebase -->
 import { getMessaging, onMessage } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-messaging.js";
 import { database, FirebaseChat } from "./init.js";
+import { ref } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 
 FirebaseChat.prototype.init = function() {
-    this.ulChatRoomList = document.getElementById('ulChatRoomList');
+    // this.ulChatRoomList = document.getElementById('ulChatRoomList');
 }
-
 
 FirebaseChat.prototype.setLogin = function(user){
     //...생략
@@ -25,7 +25,8 @@ FirebaseChat.prototype.setLogin = function(user){
 FirebaseChat.prototype.loadChatRoomList = function(operatorId, chatStatus) {
     this.chatroomTemplate = document.getElementById('templateChatRoomList').innerHTML;
     // Database ref 에 대해 off() method를 호출하면 callback이 삭제된다.
-    ref(database,`MemberRooms/OPERATOR-${operatorId}`).off();
+    let memberRoomsRef = ref(database,`MemberRooms/OPERATOR-${operatorId}`);
+    memberRoomsRef.off();
     this.memberRoomsRef.orderByChild("timestamp").once('value', this.getChatRoomList.bind(this))
 }
 
@@ -47,7 +48,7 @@ FirebaseChat.prototype.getChatRoomList  =  function(snapshot) {
         }
     }
     snapshot.forEach(cbDisplayChatRoomList.bind(this));
-    this.ulChatRoomList.innerHTML = chatRoomList;
+    // this.ulChatRoomList.innerHTML = chatRoomList;
 }
 
 // <script type="text/template" id="templateUserList">

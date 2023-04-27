@@ -23,7 +23,7 @@ class CakeChatManagementController {
     fun chatPages(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam chatStatus: ChatStatus,
+        @RequestParam status: ChatStatus,
         model: Model
     ): String {
         operatorLoginResponse
@@ -32,7 +32,7 @@ class CakeChatManagementController {
                 return "redirect:/operator/login"
             }
 
-        return when (chatStatus) {
+        return when (status) {
             ChatStatus.NEW -> "chat-management-new"
             ChatStatus.IN_PROGRESS -> "chat-management-in-progress"
             ChatStatus.COMPLETED -> "chat-management-completed"

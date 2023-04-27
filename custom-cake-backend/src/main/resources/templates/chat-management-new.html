@@ -5,11 +5,9 @@
     <title th:replace="fragments/header::f-title">
         MANAGEMENT
     </title>
-    <script src="../static/bootstrap/js/firebase/init.js"></script>
 </head>
 
-<body id="page-top">
-
+<body id="page-top" th:onload="|loadOperatorChatRoomList('${session.operator.id}', 'NEW')|">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
@@ -31,9 +29,7 @@
                         <h1 class="h3 mb-0 text-gray-800">채팅 관리 > 커스텀 주문</h1>
                     </div>
 
-                    <!-- 케이크 옵션 1 -->
                     <div class="row" >
-                        <!-- Task Card Example -->
                         <div class="col-xl-12 col-md-12 mb-5">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -44,27 +40,28 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <div>
+<!--                                        <ul id="ulChatRoomList">-->
+<!--                                        </ul>-->
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                            <tr>
-                                                <th>매장 이름</th>
-                                                <th>이메일</th>
-                                                <th>전화번호</th>
-<!--                                                <th>이름</th>-->
-<!--                                                <th>메시지</th>-->
-<!--                                                <th>날짜</th>-->
-                                            </tr>
+                                                <tr>
+                                                    <th id="profile1" class="no-sort">프로필</th>
+                                                    <th class="no-sort">이름</th>
+                                                    <th class="no-sort">메시지</th>
+                                                    <th class="no-sort">시간</th>
+    <!--                                                <th>날짜</th>-->
+                                                </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td th:text="${operatorObject.storeName}"></td>
-                                                <td th:text="${operatorObject.email}"></td>
-                                                <td th:text="${operatorObject.phone}"></td>
-<!--                                                    <ul>-->
-<!--                                                        &lt;!&ndash; ulChatRoomList &ndash;&gt;-->
-<!--                                                    </ul>-->
-                                            </tr>
+                                            <tbody id="ulChatRoomList">
+<!--                                                <tr>-->
+<!--                                                    <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>-->
+<!--                                                    <td><span class="title"><%=roomUserName %></span></td>-->
+<!--                                                    <td><span class="title"><%=lastMessage %></span></td>-->
+<!--                                                    <td><span class="title"><%=timestamp %></span></td>-->
+<!--                                                </tr>-->
                                             </tbody>
                                         </table>
                                     </div>
@@ -88,19 +85,32 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- template 채팅룸 리스트 영역 -->
+    <script type="text/template" id="templateChatRoomList">
+        <tbody id="tbody<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
+            <tr>
+                <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
+                <td><span class="title"><%=roomUserName %></span></td>
+                <td><span class="title"><%=lastMessage %></span></td>
+                <td><span class="title"><%=timestamp %></span></td>
+            </tr>
+        </tbody>
+    </script>
+
+<!--    <script type="text/template" id="templateChatRoomList">-->
+<!--        <li id="li<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>"-->
+<!--            class="collection-item avatar list">-->
+<!--            <img src="" alt="" class="circle">-->
+<!--            <span class="title"><%=roomUserName %></span>-->
+<!--            <span class="title"><%=lastMessage %></span>-->
+<!--            <span class="title"><%=timestamp %></span>-->
+<!--            <span class="small material-icons right hiddendiv done">done</span>-->
+<!--            <span class="small material-icons right hiddendiv mood yellow-text">mood</span>-->
+<!--        </li>-->
+<!--    </script>-->
+
     <!-- Logout Modal-->
     <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
-
-    <!-- template 유저리스트 영역 -->
-    <script type="text/template" id="templateChatRoomList">
-        <li id="li<%=targetOperatorUid %>" data-targetOperatorUid="<%=targetOperatorUid %>" data-storeName="<%=storeName %>"
-            class="collection-item avatar list">
-            <img src="" alt="" class="circle">
-            <span class="title"><%=storeName %></span>
-            <span class="small material-icons right hiddendiv done">done</span>
-            <span class="small material-icons right hiddendiv mood yellow-text">mood</span>
-        </li>
-    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
@@ -118,8 +128,13 @@
 
     <!-- Page level custom scripts -->
     <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
-
-
+    <script>
+        $('#dataTable').dataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [0,1,2,3] }
+            ]
+        });
+    </script>
 </body>
 
 </html>

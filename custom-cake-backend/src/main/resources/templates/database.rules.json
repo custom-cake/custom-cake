@@ -1,6 +1,9 @@
 {
   "rules": {
-    ".read": "now < 1684594800000",
-    ".write": "now < 1684594800000"
+    ".read": "true",
+    ".write": "true",
+    "MemberRooms": {
+      ".indexOn": ["timestamp"]
+    }
   }
 }
