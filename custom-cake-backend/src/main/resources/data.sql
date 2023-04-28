@@ -107,4 +107,4 @@ VALUES (1, 1, 1, 1, '[1,4,9]','레터링 문구 Happy Birthday!로 부탁드립�
 
 INSERT IGNORE INTO review (id, user_id, store_id, order_type, order_id, order_options_info, content, score)
 VALUES (1, 1, 1, 'DESIGN', 1, '{\"option1\":\"원형, 1호, 1단, 레터링 10글자 제한\",\"option2\":\"초코시트, 우유생크림, 크림치즈\",\"option3\":\"아이스팩\"}',
-        '사장님 너무 친절하시고 좋아요!', 5)
+        '사장님 너무 친절하시고 좋아요!', 5);
