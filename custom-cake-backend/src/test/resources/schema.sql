@@ -300,6 +300,8 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
 --  	`cake_custom_sketch`	        JSON	                NULL,           -- 'JSON 데이터 구조를 정의해 프론트와 통신 필요',
                                                    `payment_amount`	            INT	UNSIGNED            NOT NULL,   --        ,"주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
                                                    `order_status`	                VARCHAR(10)	            NOT NULL,   -- ENUM("신규주문(채팅에서 주문완료된 주문이 신규주문으로 들어옴)"
+                                                   `pickup_datetime`	                DATETIME	            NULL,       -- 픽업 날짜
+                                                   `purchase_confirmation_date`	    DATETIME	            NULL,       -- 구매확정일
                                                    `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
                                                    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
@@ -311,12 +313,13 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
 CREATE TABLE IF NOT EXISTS `cake_design_order` (
                                                    `id`	                            BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                                    `user_id`	                        BIGINT UNSIGNED     	NOT NULL,
-                                                   `store_id`	                    BIGINT UNSIGNED	        NOT NULL,
+                                                   `store_id`	                        BIGINT UNSIGNED     	NOT NULL,
                                                    `cake_item_id`	                    BIGINT UNSIGNED     	NOT NULL,
                                                    `option_by_cake_id_list`            JSON                    NOT NULL,
                                                    `requirements`	                    VARCHAR(255)	        NULL,
                                                    `order_status`	                    VARCHAR(20)	            NOT NULL,   -- ENUM("신규주문","주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
                                                    `payment_amount`	                INT	UNSIGNED            NOT NULL,
+                                                   `pickup_datetime`	                DATETIME	            NULL,       -- 픽업 날짜
                                                    `purchase_confirmation_date`	    DATETIME	            NULL,       -- 구매확정일
                                                    `created_at`	                    TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
                                                    `modified_at`                       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL

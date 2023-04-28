@@ -3,6 +3,7 @@ package com.cake.customcakebackend.adapter.out.persistence.entity
 import com.cake.customcakebackend.common.OrderStatus
 import com.cake.customcakebackend.common.converter.JsonColumnConverter
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Table(name = "cake_design_order")
@@ -35,6 +36,8 @@ class CakeDesignOrderEntity (
 
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     val paymentAmount: Int,
+
+    val pickupDatetime: LocalDateTime,
 
     val purchaseConfirmationDate: LocalDate? = null
 

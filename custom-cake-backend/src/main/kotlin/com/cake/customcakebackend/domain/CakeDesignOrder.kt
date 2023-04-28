@@ -13,6 +13,7 @@ data class CakeDesignOrder (
     val requirements: String,
     val orderStatus: OrderStatus,
     val paymentAmount: Int,
+    val pickupDatetime: LocalDateTime,
     val purchaseConfirmationDate: LocalDate? = null,
     val createdAt: LocalDateTime,
     var modifiedAt: LocalDateTime
