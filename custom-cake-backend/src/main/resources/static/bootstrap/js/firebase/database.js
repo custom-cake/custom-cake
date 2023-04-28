@@ -133,43 +133,46 @@ window.openChatRoom = function (roomId, roomTitle) {
 window.loadMessageList = function (roomId) {
     // TODO limitToLast 로 최근 50개 메시지만 가져오기
     const ulMessageList = document.getElementById('ulMessageList');
-    if (roomId) {
+    const messageQuery = query(
+        ref(database,`Messages/${roomId}`),
+        // queryConstraints
+        limitToLast(50)
+
+    );
+    onValue(messageQuery, (snapshot) => {
+        if (snapshot.exists()) {
+            console.log("Message=",snapshot.val());
+            if (roomId) {
+                loadMessage(roomId, snapshot);
+            }
+        } else {
+            console.log("No data available.");
+        }
+    }, {
+        onlyOnce: false
+    });
+
+    const loadMessage = function (roomId, snapshot) {
         // message 화면 리셋
         ulMessageList.innerHTML = '';
         let messageTemplate = document.getElementById('templateMessageList').innerHTML;
-        console.log(roomId)
         let cbDisplayMessages = function(data) {
             let messageHtml = '';
             const val = data.val();
             messageHtml = _.template(messageTemplate)({
-                key: data.key,
-                memberUid: data.memberUid,
-                sender: data.sender,  // == userName
-                senderType: data.senderType,
+                key: val.key,
                 // profileImg : val.profileImg
-                message: data.message,
-                timestamp: timestampToTime(data.timestamp)
+                memberUid: val.memberUid,
+                sender: val.sender,  // == userName
+                senderType: val.senderType,
+                message: val.message,
+                timestamp: timestampToTime(val.timestamp)
             });
             ulMessageList.innerHTML += messageHtml;
             ulMessageList.scrollTop = ulMessageList.scrollHeight;
         }
+        snapshot.forEach((data) => { cbDisplayMessages(data) });
 
-        const messageQuery = query(
-            ref(database,`Messages/${roomId}`),
-            // queryConstraints
-            limitToLast(50)
-
-        );
-        onValue(messageQuery, (snapshot) => {
-            if (snapshot.exists()) {
-                console.log(snapshot.val());
-                cbDisplayMessages(snapshot);
-            } else {
-                console.log("No data available.");
-            }
-        }, {
-            onlyOnce: false
-        });
     }
 }
 
