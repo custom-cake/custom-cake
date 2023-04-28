@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.out.persistence.entity
 
 import com.cake.customcakebackend.common.OrderStatus
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Table(name = "cake_custom_order")
@@ -27,5 +28,7 @@ class CakeCustomOrderEntity (
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "String", length = 20, nullable = false)
     val orderStatus: OrderStatus,
+
+    val pickupDatetime: LocalDateTime,
 
 ) : BaseEntity()

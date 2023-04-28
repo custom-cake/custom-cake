@@ -45,6 +45,7 @@ class CakeOrderService(
             requirements = designCakeOrderRequest.requirements,
             orderStatus = OrderStatus.NEW,
             paymentAmount = designCakeOrderRequest.paymentAmount,
+            pickupDatetime = designCakeOrderRequest.pickupDatetime,
             createdAt = LocalDateTime.now(),
             modifiedAt = LocalDateTime.now()
         )
