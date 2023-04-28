@@ -19,4 +19,11 @@ class OptionByCakePersistenceAdapter(
             .fetch()
             .map { optionByCakeMapper.toDomain(it) }
 
+    override fun loadListByIdList(optionByCakeIdList: List<Long>, cakeItemId: Long): List<OptionByCake> =
+        jpaQueryFactory
+            .selectFrom(OPTION_BY_CAKE)
+            .where(OPTION_BY_CAKE.cakeItemId.eq(cakeItemId))
+            .where(OPTION_BY_CAKE.id.`in`(optionByCakeIdList))
+            .fetch()
+            .map { optionByCakeMapper.toDomain(it) }
 }

@@ -1,5 +1,6 @@
 package com.cake.customcakebackend.exception
 
-class StoreException {
+class CustomCakeException {
+    class BadRequestException(message: String) : Exception(message)
     class NotFound(message: String): RuntimeException(message)
 }

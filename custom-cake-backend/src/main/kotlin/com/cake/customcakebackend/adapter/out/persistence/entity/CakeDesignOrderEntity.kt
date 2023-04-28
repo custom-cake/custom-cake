@@ -16,6 +16,9 @@ class CakeDesignOrderEntity (
     @Column(name = "user_id", nullable = false)
     val userId: Long,
 
+    @Column(name = "store_id", nullable = false)
+    val storeId: Long,
+
     @Column(name = "cake_item_id", nullable = false)
     val cakeItemId: Long,
 
@@ -33,6 +36,6 @@ class CakeDesignOrderEntity (
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     val paymentAmount: Int,
 
-    val purchaseConfirmationDate: LocalDate
+    val purchaseConfirmationDate: LocalDate? = null
 
 ) : BaseEntity()
