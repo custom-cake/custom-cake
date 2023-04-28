@@ -17,7 +17,8 @@ class CakeDesignOrderMapper : Mapper<CakeDesignOrderEntity, CakeDesignOrder> {
             requirements = domain.requirements,
             orderStatus = domain.orderStatus,
             paymentAmount = domain.paymentAmount,
-            purchaseConfirmationDate = domain.purchaseConfirmationDate
+            purchaseConfirmationDate = domain.purchaseConfirmationDate,
+            pickupDatetime = domain.pickupDatetime
         )
 
     override fun toDomain(entity: CakeDesignOrderEntity): CakeDesignOrder =
@@ -30,6 +31,7 @@ class CakeDesignOrderMapper : Mapper<CakeDesignOrderEntity, CakeDesignOrder> {
             requirements = entity.requirements,
             orderStatus = entity.orderStatus,
             paymentAmount = entity.paymentAmount,
+            pickupDatetime = entity.pickupDatetime,
             purchaseConfirmationDate = entity.purchaseConfirmationDate,
             createdAt = entity.createdAt,
             modifiedAt = entity.modifiedAt
