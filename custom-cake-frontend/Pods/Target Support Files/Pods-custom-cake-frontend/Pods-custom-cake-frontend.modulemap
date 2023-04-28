@@ -1,0 +1,6 @@
+framework module Pods_custom_cake_frontend {
+  umbrella header "Pods-custom-cake-frontend-umbrella.h"
+
+  export *
+  module * { export * }
+}
