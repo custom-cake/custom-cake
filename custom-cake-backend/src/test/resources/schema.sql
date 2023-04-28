@@ -291,6 +291,7 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
 CREATE TABLE IF NOT EXISTS `cake_custom_order` (
                                                    `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                                    `user_id`	                    BIGINT UNSIGNED	        NOT NULL,
+                                                   `store_id`	                        BIGINT UNSIGNED     	NOT NULL,
                                                    `cake_custom_order_sheet_id`	BIGINT UNSIGNED	        NOT NULL,
 --  	`cake_option1_id`	            BIGINT UNSIGNED	        NOT NULL,
 --  	`cake_option2_id`	            BIGINT UNSIGNED	        NOT NULL,
@@ -310,6 +311,7 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
 CREATE TABLE IF NOT EXISTS `cake_design_order` (
                                                    `id`	                            BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                                    `user_id`	                        BIGINT UNSIGNED     	NOT NULL,
+                                                   `store_id`	                    BIGINT UNSIGNED	        NOT NULL,
                                                    `cake_item_id`	                    BIGINT UNSIGNED     	NOT NULL,
                                                    `option_by_cake_id_list`            JSON                    NOT NULL,
                                                    `requirements`	                    VARCHAR(255)	        NULL,
