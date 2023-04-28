@@ -11,6 +11,7 @@ class CakeDesignOrderMapper : Mapper<CakeDesignOrderEntity, CakeDesignOrder> {
         CakeDesignOrderEntity(
             id = domain.id,
             userId = domain.userId,
+            storeId = domain.storeId,
             cakeItemId = domain.cakeItemId,
             optionByCakeIdList = domain.optionByCakeIdList,
             requirements = domain.requirements,
@@ -23,6 +24,7 @@ class CakeDesignOrderMapper : Mapper<CakeDesignOrderEntity, CakeDesignOrder> {
         CakeDesignOrder(
             id = entity.id,
             userId = entity.userId,
+            storeId = entity.storeId,
             cakeItemId = entity.cakeItemId,
             optionByCakeIdList = entity.optionByCakeIdList,
             requirements = entity.requirements,

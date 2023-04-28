@@ -14,6 +14,9 @@ class CakeCustomOrderEntity (
     @Column(name = "user_id", nullable = false)
     val userId: Long,
 
+    @Column(name = "store_id", nullable = false)
+    val storeId: Long,
+
     // @OneToOne
     @Column(name = "cake_custom_order_sheet_id", nullable = false)
     val cakeCustomOrderSheetId: Long,

@@ -1,16 +1,13 @@
 package com.cake.customcakebackend.adapter.`in`.web.dto.request
 
-import com.cake.customcakebackend.common.OrderStatus
-import java.time.LocalDate
-
 data class DesignCakeOrderRequest(
     val userId: Long,
+    val storeId: Long,
     val cakeItemId: Long,
-    val cakeOption1: CakeOption1AddRequest,
-    val cakeOption2: CakeOption2AddRequest,
-    val cakeOption3: CakeOption3AddRequest? = null,
+    val optionByCake1Id: Long,
+    val optionByCake2Id: Long,
+    // TODO option3은 여러 개 선택 가능
+    val optionByCake3Id: Long? = null,
     val requirements: String,
-    val orderStatus: OrderStatus,
     val paymentAmount: Int,
-    val purchaseConfirmationDate: LocalDate
 )
