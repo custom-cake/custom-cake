@@ -9,11 +9,14 @@ import SwiftUI
 
 struct MenuItem: View {
     
+    //@ObservedObject var cakeItemAPI = CakeItemsAPI(cakeId: )
+    
     var data: MenuData
+    var storedata: StoreDataAPI
     
     var body: some View {
         NavigationLink (
-            destination: BasicOrderOption(storeName: "레이네 케이크", data: data)
+            destination: BasicOrderOption(cakeItemAPI: CakeItemsAPI(cakeId: data.id), storedata: storedata, data: data)
         ) {
             HStack {
                 // Image
@@ -61,10 +64,11 @@ struct MenuItem: View {
 }
 
 
-
+/*
 struct MenuItem_Previews: PreviewProvider {
     static var previews: some View {
         MenuItem(data: sharedMenus[0])
     }
 }
+ */
 

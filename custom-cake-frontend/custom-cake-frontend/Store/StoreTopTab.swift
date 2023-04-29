@@ -17,7 +17,7 @@ struct StoreTopTab: View {
     var body: some View {
             VStack {
                 animate()
-                StoreInfoView(InfoTabs: selectedPicker, menuItems: storeDataAPI.cakeItemList/*sharedMenus*/)
+                StoreInfoView(InfoTabs: selectedPicker, storeDataAPI: storeDataAPI, menuItems: storeDataAPI.cakeItemList/*sharedMenus*/)
             }
         }
         
