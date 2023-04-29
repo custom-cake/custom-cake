@@ -5,6 +5,7 @@
 //  Created by 황서진 on 2023/04/14.
 //
 
+import UIKit
 import SwiftUI
 
 struct PaymentComplete: View {
@@ -14,10 +15,31 @@ struct PaymentComplete: View {
     @State private var selectedDate = Date()
     @State var letteringText: String = " "
     
+    @State private var showingAlert = false
+    
     var data: MenuData
     
+    var storedata: StoreDataAPI
+    var selectedOption1: Option
+    var selectedOption2: Option
+    var selectedOption3: Option
+    var totalPrice: Int
+    
+    var dateFormatter: DateFormatter {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            //formatter.dateStyle = .long
+            return formatter
+        }
+    
+    var textDateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        //formatter.dateStyle = .long
+        return formatter
+    }
+    
     var body: some View {
-        ScrollView {
             VStack {
                 //Spacer()
                 
@@ -48,10 +70,11 @@ struct PaymentComplete: View {
                             .lineLimit(1)
                             .foregroundColor(Color.black)
                         
-                        Text("선택한 옵션 1 : 1호")
-                        Text("선택한 옵션 2 : 시트")
+                        Text(selectedOption1.value)
+                        Text(selectedOption2.value)
+                        Text(selectedOption3.value)
                         
-                        Text(String(data.price) + " 원")
+                        Text(String(totalPrice) + " 원")
                             .font(.title3)
                             .lineLimit(1)
                             .foregroundColor(Color.black)
@@ -60,7 +83,7 @@ struct PaymentComplete: View {
                     Spacer()
                     
                 }
-                .frame(width: 330, height: 150)
+                .frame(width: 330, height: 180)
                 .padding()
                 .background(Rectangle().fill(Color.white))
                 .cornerRadius(10)
@@ -76,11 +99,15 @@ struct PaymentComplete: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    DatePicker(selection: $selectedDate, in: Date()..., displayedComponents: .date) {
+                    DatePicker(selection: $selectedDate, in: Date()... /*, displayedComponents: .date*/) {
                         Text("픽업 날짜를 선택해 주세요")
+                        
+                        
                     }
                     
-                    Text(selectedDate.formatted(date: .numeric, time: .omitted))
+                    Spacer()
+                    
+                    Text(selectedDate, formatter: textDateFormatter)
                 }
                 .frame(height: 150)
                 .padding(10)
@@ -105,28 +132,23 @@ struct PaymentComplete: View {
                 
                 Divider()
                 
-                VStack {
-                    Text("결제 수단")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    TextField(
-                        "레터링글자",
-                        text: $letteringText
-                    )
-                    .cornerRadius(5)
-                    .textFieldStyle(.roundedBorder)
-                }
-                .frame(height: 150)
-                .padding(10)
-                
-                Divider()
+                Spacer()
                 
                 Button {
-                    self.presentation.wrappedValue.dismiss()
+                    Task {
+                        await BasicOrderAPI(orderdata: OrderData(id: 1,
+                                                      storeId: storedata.id,
+                                                      cakeItemId: data.id,
+                                                      optionByCake1Id: selectedOption1.id,
+                                                      optionByCake2Id: selectedOption2.id,
+                                                      optionByCake3Id: selectedOption3.id,
+                                                      requirements: letteringText,
+                                                      paymentAmount: totalPrice,
+                                                      pickupDatetime: dateFormatter.string(from:selectedDate)))
+                    }
+                    self.showingAlert.toggle()
                 } label : {
-                    Text(String(data.price) + " 원 결제하기")
+                    Text(String(totalPrice) + " 원 결제하기")
                         .foregroundColor(Color.white)
                 }
                 .frame(height: 50)
@@ -134,14 +156,23 @@ struct PaymentComplete: View {
                 .background(Color.black)
                 .cornerRadius(10)
                 .padding(10)
+                .disabled(letteringText.trimmingCharacters(in: .whitespaces) == "")
+                .alert("주문 완료되었습니다", isPresented: $showingAlert) {
+                            Button("확인") {
+                                NavigationUtil.popToRootView()
+                            }
+                        } message: {
+                            Text("메인 화면으로 돌아갑니다")
+                        }
             }
             .padding(10)
-        }
     }
 }
 
+/*
 struct PaymentComplete_Previews: PreviewProvider {
     static var previews: some View {
         PaymentComplete(data: sharedMenus[0])
     }
 }
+*/

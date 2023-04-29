@@ -10,12 +10,14 @@ import SwiftUI
 struct Main: View {
     @ObservedObject var storeDataAPI = StoreDataAPI()
     
+    @State var stack = NavigationPath()
+    
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $stack) {
             TabView {
                 Home()
                     .tabItem {
