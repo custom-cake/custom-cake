@@ -32,8 +32,11 @@ struct StoreInfoView: View {
                         .padding(20)
                     
                 case .customcake:
+                    CustomOrderOption(cakeItemAPI: CakeItemsAPI(cakeId: storeDataAPI.cakeItemList[0].id), storedata: storeDataAPI)
+                        .padding(20)
+                    /*
                     NavigationLink (
-                        destination: CustomOrderOption()
+                        destination:  //BasicOrderOption()
                     ) {
                         Text("커스텀 케이크 디자인")
                             .foregroundColor(Color.white)
@@ -43,6 +46,7 @@ struct StoreInfoView: View {
                     .background(Color.black)
                     .cornerRadius(5)
                     .padding(20)
+                     */
                     
                 case .review:
                     Text("리뷰")
