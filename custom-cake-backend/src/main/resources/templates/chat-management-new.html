@@ -7,7 +7,7 @@
     </title>
 </head>
 
-<body id="page-top" th:onload="|loadOperatorChatRoomList('${session.operator.id}', 'NEW')|">
+<body id="page-top" th:onload="|loadOperatorChatRoomList('${session.operator.id}', 'NEW'); init('${session.operator.id}');|">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
@@ -24,13 +24,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">채팅 관리 > 커스텀 주문</h1>
                     </div>
-
                     <div class="row" >
-                        <div class="col-xl-12 col-md-12 mb-5">
+                        <div id="left-div" class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <div class="row">
@@ -40,24 +38,55 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div>
-                                        <span id="spTitle"></span>
-                                        <ul id="ulMessageList"></ul>
-                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                                <tr>
-                                                    <th>프로필</th>
-                                                    <th>이름</th>
-                                                    <th>메시지</th>
-                                                    <th>시간</th>
-    <!--                                                <th>날짜</th>-->
-                                                </tr>
+                                            <tr>
+                                                <th>이름</th>
+                                                <th>메시지</th>
+                                                <th>시간</th>
+                                            </tr>
                                             </thead>
                                             <tbody id="ulChatRoomList">
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="right-div" class="col-xl-6 col-lg-6" hidden="hidden">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">채팅방</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chat_wrap">
+                                        <div class="header">
+                                            <span id="spTitle"></span>
+                                        </div>
+                                        <div class="chat">
+                                            <ul id="ulMessageList" style="padding-left: 0px;">
+                                                <!-- 동적 생성 -->
+                                            </ul>
+                                        </div>
+                                        <div class="input-div">
+                                            <textarea id="input-message" placeholder="메시지를 입력해주세요."></textarea>
+                                        </div>
+                                        <!-- format -->
+                                        <div class="chat format">
+                                            <ul>
+                                                <li>
+                                                    <div class="sender">
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="message">
+                                                        <span></span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,14 +108,26 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <script>
+        function removeHiddenAttr() {
+            $('#right-div').removeAttr('hidden');
+        }
+
+        // datable sorting 해제
+        $('#dataTable').dataTable({
+            "columnDefs": [
+                {"orderable": false, "targets": [0, 1, 2, 3]}
+            ]
+        });
+    </script>
+
     <!-- template 채팅룸 리스트 영역 -->
     <script type="text/template" id="templateChatRoomList">
-        <tr id="tr<%=targetChatRoomUid %>" data-targetChatRoomUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>">
-                <td><img src="" alt="프로필" class="img-thumbnail mt-1 mb-2 col-6"></td>
-                <td><%=roomUserName %></td>
-                <td><%=lastMessage %></td>
-                <td><%=timestamp %></td>
-<!--                <span class="small material-icons right hiddendiv done">done</span>-->
+        <tr id="tr<%=targetChatRoomUid %>" data-targetChatRoomUid="<%=targetChatRoomUid %>"
+            data-roomUserName="<%=roomUserName %>" onclick="removeHiddenAttr()">
+            <td><span class="title"><%=roomUserName %></span></td>
+            <td><span class="title"><%=lastMessage %></span></td>
+            <td><span class="title" data-timestamp="<%=timestamp %>"><%=timestamp %></span></td>
         </tr>
     </script>
 
@@ -99,17 +140,6 @@
             <span class="title"><%=timestamp %></span>
         </li>
     </script>
-<!--    <script type="text/template" id="templateChatRoomList">-->
-<!--        <li id="li<%=targetChatRoomUid %>" data-targetOperatorUid="<%=targetChatRoomUid %>" data-roomUserName="<%=roomUserName %>"-->
-<!--            class="collection-item avatar list">-->
-<!--            <img src="" alt="" class="circle">-->
-<!--            <span class="title"><%=roomUserName %></span>-->
-<!--            <span class="title"><%=lastMessage %></span>-->
-<!--            <span class="title"><%=timestamp %></span>-->
-<!--            <span class="small material-icons right hiddendiv done">done</span>-->
-<!--            <span class="small material-icons right hiddendiv mood yellow-text">mood</span>-->
-<!--        </li>-->
-<!--    </script>-->
 
     <!-- Logout Modal-->
     <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
@@ -130,14 +160,7 @@
 
     <!-- Page level custom scripts -->
     <script th:src="@{/bootstrap/js/demo/datatables-demo.js}"></script>
-    <script>
-        // datable sorting 해제
-        $('#dataTable').dataTable({
-            "columnDefs": [
-                { "orderable": false, "targets": [0,1,2,3] }
-            ]
-        });
-    </script>
+
 </body>
 
 </html>
