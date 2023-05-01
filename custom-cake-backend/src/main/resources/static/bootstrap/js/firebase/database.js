@@ -277,7 +277,7 @@ window.getUserData = function () {
  * @param roomId
  * @param message
  */
-window.saveMessageData = function (operatorId, storeName, userId, roomId, message) {
+window.sendMessage = function (operatorId, storeName, roomId, message) {
 
     /**
      *  메세지에 태그 입력시 변경하기
@@ -287,19 +287,14 @@ window.saveMessageData = function (operatorId, storeName, userId, roomId, messag
         tmp.innerHTML = html;
         return tmp.textContent || tmp.innerText || "";
     }
-    const messagesRef = ref(database, 'Messages');
     const convertMsg = convertMessage(message);
-    let messageRefKey = messagesRef.push().key; // 메세지 키값 구하기
+    let messageRefKey = ref(database, 'Messages').push().key; // 메세지 키값 구하기
     let multiUpdates = {};
 
-    const ulMessageList = document.getElementById('ulMessageList');
-
     // 이미 사용자가 메시지를 전송했으므로 메시지를 처음 입력하는 경우 없음 !
-    // if (ulMessageList.getElementsByTagName('li').length === 0){ // 메세지 처음 입력 하는 경우
     // RoomMembers 업데이트 할 필요 X
-    // multiUpdates[`RoomMembers/${roomId}/${userId}`] = true;
-    // }
 
+    const timestamp = database.ServerValue.TIMESTAMP  // 서버시간 등록하기
     // Messages 저장
     multiUpdates[`Messages/${roomId}/${messageRefKey}`] = {
         memberUid: `OPERATOR-${operatorId}`,
@@ -307,35 +302,22 @@ window.saveMessageData = function (operatorId, storeName, userId, roomId, messag
         senderType: "OPERATOR",
         message: convertMsg, // 태그 입력 방지
         // profileImg: user.photoURL ? user.photoURL : '',
-        timestamp: database.ServerValue.TIMESTAMP  //서버시간 등록하기
+        timestamp: timestamp
     }
 
-    messagesRef
-        .child(`${roomId}`)
-        .set({})
+    // messagesRef
+    //     .child(`${roomId}`)
+    //     .set({})
 
-
-    // MemberRooms 업데이트
-    /*
-    var roomUserListLength = this.roomUserlist.length;
-    if(this.roomUserlist && roomUserListLength > 0){
-        for(var i = 0; i < roomUserListLength ; i++){
-            multiUpdates['UserRooms/'+ this.roomUserlist[i] +'/'+ this.roomId] = {
-                roomId : this.roomId,
-                roomUserName : this.roomUserName.join(this.SPLIT_CHAR),
-                roomUserlist : this.roomUserlist.join(this.SPLIT_CHAR),
-                roomType : roomUserListLength > 2 ? this.MULTI : this.ONE_VS_ONE,
-                roomOneVSOneTarget : roomUserListLength == 2 && i == 0 ? this.roomUserlist[1] :  // 1대 1 대화이고 i 값이 0 이면
-                    roomUserListLength == 2 && i == 1 ? this.roomUserlist[0]   // 1대 1 대화 이고 i값이 1이면
-                        : '', // 나머지
-                lastMessage : convertMsg,
-                profileImg : user.photoURL ? user.photoURL : '',
-                timestamp: firebase.database.ServerValue.TIMESTAMP
-
-            };
-        }
+    // MemberRooms 저장
+    multiUpdates[`MemberRooms/OPERATOR-${operatorId}/${messageRefKey}`] = {
+        chatStatus: "IN_PROGRESS",  // 진행중
+        lastMessage: convertMsg, // 태그 입력 방지
+        // profileImg: user.photoURL ? user.photoURL : '',
+        timestamp: timestamp
     }
-    this.database.ref().update(multiUpdates);*/
 
+    // Messages, MemberRooms 업데이트
+    this.database.ref().update(multiUpdates);
 }
 
