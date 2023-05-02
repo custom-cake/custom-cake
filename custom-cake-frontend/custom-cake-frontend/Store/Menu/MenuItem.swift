@@ -9,8 +9,6 @@ import SwiftUI
 
 struct MenuItem: View {
     
-    //@ObservedObject var cakeItemAPI = CakeItemsAPI(cakeId: )
-    
     var data: MenuData
     var storedata: StoreDataAPI
     
