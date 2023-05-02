@@ -50,7 +50,7 @@
                 </a>
                 <div id="collapseItemManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Cake Components:</h6>
                         <a class="collapse-item" th:href="@{/operator/cake-item}">케이크 상품</a>
                         <a class="collapse-item" th:href="@{/operator/cake-option}">케이크 옵션</a>
                     </div>
@@ -67,10 +67,10 @@
                 <div id="collapseChatManagement" class="collapse" aria-labelledby="headingChatManagement"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" th:href="@{/colors}">신규채팅</a>
-                        <a class="collapse-item" th:href="@{/borders}">채팅진행중</a>
-                        <a class="collapse-item" th:href="@{/animations}">결제완료</a>
+                        <h6 class="collapse-header">Chatting Status:</h6>
+                        <a class="collapse-item" th:href="@{/operator/chat(status=${'NEW'})}">신규채팅</a>
+                        <a class="collapse-item" th:href="@{/operator/chat(status=${'IN_PROGRESS'})}">채팅진행중</a>
+                        <a class="collapse-item" th:href="@{/operator/chat(status=${'COMPLETED'})}">결제완료</a>
 <!--                        <a class="collapse-item" th:href="@{/other}">주문취소</a>-->
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div id="collapseOrderManagement" class="collapse" aria-labelledby="headingOrderManagement"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <h6 class="collapse-header">Order Status:</h6>
                         <a class="collapse-item" th:href="@{/colors}">신규주문</a>
                         <a class="collapse-item" th:href="@{/borders}">주문진행중</a>
                         <a class="collapse-item" th:href="@{/animations}">픽업완료</a>

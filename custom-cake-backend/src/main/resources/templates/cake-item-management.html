@@ -11,9 +11,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -45,7 +43,7 @@
                                         <!-- 매장이 있어야 케이크 상품 등록 가능 -->
                                         <div class="col-md-6" th:if="${session.operator.storeId != null}">
                                             <button type="button" class="btn btn-icon-split float-right"
-                                                    th:onclick="|location.href='@{/operator/cake-item/form}'|" style="background-color: #B4C8EA; color: #fff">
+                                                    th:onclick="|location.href='@{/operator/cake-item/form}'|" style="background-color: #5b7eb9; color: #fff">
                                                 <span class="text text-white"> 추가 </span>
                                                 <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                             </button>
@@ -67,25 +65,13 @@
                                                 <th>삭제</th>
                                             </tr>
                                             </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th>상품번호</th>
-                                                <th>사진</th>
-                                                <th>이름</th>
-                                                <th>설명</th>
-                                                <th>카테고리</th>
-                                                <th>가격</th>
-                                                <th>판매 여부</th>
-                                                <th>삭제</th>
-                                            </tr>
-                                            </tfoot>
                                             <tbody>
                                             <tr th:each="cakeItem : ${cakeItemResponseList}">
                                                 <td th:text="${cakeItem.id}"></td>
                                                 <td>
                                                     <img class="img-profile"
                                                          th:src="${cakeItem.image}"
-                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px;" />
+                                                         th:alt="${cakeItem.name}" style="max-width: 100px; max-height: 100px; " />
                                                 </td>
                                                 <td th:text="${cakeItem.name}"></td>
                                                 <td th:text="${cakeItem.description}"></td>
@@ -98,8 +84,10 @@
                                                     <p th:case="PET_CAKE" th:text="반려동물케이크"></p>
                                                 </td>
                                                 <td th:text="|${cakeItem.price}원|" ></td>
-                                                <td>
-                                                    <input type="hidden" th:text="${cakeItem.isOnsale} == true ? 'Y': 'N'" />
+                                                <td th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'"
+                                                    th:style="${cakeItem.isOnsale ? 'color: #2e59d9;': 'color: #dc3545;'}">
+<!--                                                    <input type="hidden" th:text="${cakeItem.isOnsale} ? '판매 가능': '판매 불가'"-->
+<!--                                                           th:style="${cakeItem.isOnsale == true ? 'color: #2e59d9;': 'color: #dc3545;'}"/>-->
                                                 </td>
                                                 <td>
                                                     <form th:action="@{/operator/cake-item/{cakeItemId}(cakeItemId=${cakeItem.id},storeId=${storeId})}"
@@ -137,24 +125,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">Ready to Leave?</h6>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>

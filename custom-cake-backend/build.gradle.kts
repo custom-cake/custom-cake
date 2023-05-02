@@ -43,6 +43,10 @@ dependencies {
     testImplementation("org.springframework.batch:spring-batch-test")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
+    implementation("org.webjars:bootstrap:5.1.3")
+    implementation("org.webjars:jquery:3.6.2")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -56,6 +60,13 @@ dependencies {
     implementation("org.hibernate:hibernate-core:5.6.8.Final")
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    // firebase messaging (for FCM)
+//    implementation("com.google.firebase:firebase-messaging:22.0.0")
+//    implementation("com.google.firebase:firebase-database:20.2.0")
+//    implementation("com.google.firebase:firebase-core:20.0.0")
+//    // https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+//    runtimeOnly("com.google.firebase:firebase-admin:8.1.0")
 
     // p6spy (운영 환경에서 사용하려면 성능 테스트 필수 !)
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
