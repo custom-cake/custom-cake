@@ -10,8 +10,10 @@ import SwiftUI
 struct StoreInfoView: View {
     
     @ObservedObject var storeNotificationAPI = StoreNotificationAPI()
+    //@ObservedObject var storeDataAPI = StoreDataAPI()
     
     var InfoTabs: storeInfo
+    var storeDataAPI : StoreDataAPI
     var menuItems: [MenuData]
     
     var body: some View {
@@ -19,8 +21,8 @@ struct StoreInfoView: View {
                 switch InfoTabs {
                 case .menu:
                     VStack {
-                        ForEach(menuItems) { menuItem in
-                            MenuItem(data: menuItem)
+                        ForEach(storeDataAPI.cakeItemList) { menuItem in
+                            MenuItem(data: menuItem, storedata: storeDataAPI)
                         }
                     }
                     .padding(20)
@@ -50,8 +52,10 @@ struct StoreInfoView: View {
     }
 }
 
+/*
 struct StoreInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        StoreInfoView(InfoTabs: .menu, menuItems: sharedMenus)
+        StoreInfoView(InfoTabs: .menu, storeDataAPI: StoreDataAPI(), menuItems: sharedMenus)
     }
 }
+*/

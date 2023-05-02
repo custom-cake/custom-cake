@@ -18,8 +18,8 @@ class StoreDataAPI: ObservableObject {
     @Published var reservationPerPeriodCount : Int = 0
     @Published var thumbnailImageUrl : String = ""
     @Published var reviewScore : Float = 5.0
-    @Published var cakeItemList = [MenuData]() //Array<Dictionary<String, Any>>
-    @Published var dayoffList =  [DayOffData]() //Array<Dictionary<String, Any?>>
+    @Published var cakeItemList = [MenuData]()
+    @Published var dayoffList =  [DayOffData]()
 
     
     init() {
