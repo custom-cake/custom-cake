@@ -5,6 +5,7 @@ import com.cake.customcakebackend.application.port.out.OptionByCakePort
 import com.cake.customcakebackend.domain.OptionByCake
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
+import kotlin.reflect.typeOf
 import com.cake.customcakebackend.adapter.out.persistence.entity.QOptionByCakeEntity.optionByCakeEntity as OPTION_BY_CAKE
 
 @Repository
@@ -34,8 +35,7 @@ class OptionByCakePersistenceAdapter(
             .select(OPTION_BY_CAKE.cakeOptionValue)
             .from(OPTION_BY_CAKE)
             .where(
-//                OPTION_BY_CAKE.id.`in`(optionByCakeIdList)
-                OPTION_BY_CAKE.id.`in`(listOf(1,4,7))
+                OPTION_BY_CAKE.id.`in`(optionByCakeIdList.map { it.toLong() })
             )
             .fetch()
     }

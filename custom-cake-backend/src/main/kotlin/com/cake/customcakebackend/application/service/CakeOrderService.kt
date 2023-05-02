@@ -62,7 +62,7 @@ class CakeOrderService(
 
         return CakeOrderListResponse(
             userId = userId,
-            designOrderList = designOrderList.map { it ->
+            designOrderList = designOrderList.map {
                 it.toResponse(
                     cakeItemPort.loadCakeItemName(it.cakeItemId),
                     optionByCakePort.loadListByIdList(it.optionByCakeIdList)
