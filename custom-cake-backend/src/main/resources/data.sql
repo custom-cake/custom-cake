@@ -99,10 +99,10 @@ VALUES (1, 1, '레이네 케이크 공지', '[4~5월 디자인케이크 클래�
 📌.레이네케이크 유화케이크 클래스는
   정형화된 케이크 기법이 아닌 다양한 요소와 그림들을 케이크 위에 자유롭게 표현하는 수업입니다.
   특히 자연물의 형태를 분석하고 그에 맞는 기법을 배워보는 수업입니다.');
-# 3, 2, 7
+
 INSERT IGNORE INTO cake_design_order (id, user_id, store_id, cake_item_id, option_by_cake_id_list, requirements, order_status,
                                       payment_amount, pickup_datetime, purchase_confirmation_date)
-VALUES (1, 1, 1, 1, '[1,4,9]','레터링 문구 Happy Birthday!로 부탁드립니다.', 'PICK_UP', 55000, '2023-04-11 15:00:00' ,'2023-04-11 15:02:00');
+VALUES (1, 1, 1, 1, '[1,4,7]','레터링 문구 Happy Birthday!로 부탁드립니다.', 'PICK_UP', 55000, '2023-04-11 15:00:00' ,'2023-04-11 15:02:00');
 
 
 INSERT IGNORE INTO review (id, user_id, store_id, order_type, order_id, order_options_info, content, score)
