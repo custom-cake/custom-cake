@@ -19,11 +19,19 @@ class CakeDesignOrderPersistenceAdapter(
         cakeDesignOrderRepository.save(cakeDesignOrderMapper.toEntity(cakeDesignOrder))
     }
 
-    override fun loadList(userId: Long): List<CakeDesignOrder> =
-        // 유저의 디자인 케이크 주문 내역 get
+    override fun loadListByUserId(userId: Long): List<CakeDesignOrder> =
+        // 유저의 디자인 케이크 주문 내역
         jpaQueryFactory
             .selectFrom(CAKE_DESIGN_ORDER)
             .where(CAKE_DESIGN_ORDER.userId.eq(userId))
+            .fetch()
+            .map { cakeDesignOrderMapper.toDomain(it) }
+
+    override fun loadListByStoreId(storeId: Long): List<CakeDesignOrder> =
+        // 매장의 디자인 케이크 주문 내역
+        jpaQueryFactory
+            .selectFrom(CAKE_DESIGN_ORDER)
+            .where(CAKE_DESIGN_ORDER.storeId.eq(storeId))
             .fetch()
             .map { cakeDesignOrderMapper.toDomain(it) }
 }

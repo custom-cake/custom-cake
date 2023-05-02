@@ -3,9 +3,6 @@ package com.cake.customcakebackend.adapter.`in`.web.dto.response
 import com.cake.customcakebackend.common.OrderStatus
 import com.cake.customcakebackend.domain.CakeCustomOrder
 import com.cake.customcakebackend.domain.CakeDesignOrder
-import com.cake.customcakebackend.domain.OptionByCake
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 data class CakeOrderListResponse(
     val userId: Long,
