@@ -1,4 +1,4 @@
-package com.cake.customcakebackend.adapter.`in`.web
+package com.cake.customcakebackend.adapter.`in`.web.mvc
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.OperatorLoginRequest
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse

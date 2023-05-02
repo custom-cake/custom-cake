@@ -1,9 +1,5 @@
 package com.cake.customcakebackend.adapter.out.persistence
 
-import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeItemEntity.cakeItemEntity
-import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeItemImageEntity.cakeItemImageEntity
-import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeOption1Entity
-import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeOption3Entity
 import com.cake.customcakebackend.adapter.out.persistence.mapper.CakeItemMapper
 import com.cake.customcakebackend.adapter.out.persistence.repository.CakeItemJpaRepository
 import com.cake.customcakebackend.application.port.out.CakeItemPort
@@ -12,6 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityNotFoundException
+import com.cake.customcakebackend.adapter.out.persistence.entity.QCakeItemEntity.cakeItemEntity as CAKEITEM
 
 @Repository
 class CakeItemPersistenceAdapter(
@@ -26,12 +23,22 @@ class CakeItemPersistenceAdapter(
         return cakeItemMapper.toDomain(cakeItemEntity)
     }
 
+    override fun loadCakeItemName(cakeItemId: Long): String {
+        return jpaQueryFactory
+            .select(CAKEITEM.name)
+            .from(CAKEITEM)
+            .where(CAKEITEM.id.eq(cakeItemId))
+            .fetchFirst()
+            ?.toString()
+            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
+    }
+
     override fun loadList(storeId: Long): List<CakeItem> {
         val cakeItemEntities = jpaQueryFactory
-            .selectFrom(cakeItemEntity)
+            .selectFrom(CAKEITEM)
             .where(
-                cakeItemEntity.storeId.eq(storeId),
-                cakeItemEntity.isDeleted.isFalse)
+                CAKEITEM.storeId.eq(storeId),
+                CAKEITEM.isDeleted.isFalse)
             .fetch()
 
         return cakeItemEntities.map { cakeItemMapper.toDomain(it) }
@@ -48,9 +55,9 @@ class CakeItemPersistenceAdapter(
     override fun delete(cakeItemId: Long) {
         // cake_item isDeleted 수정
         jpaQueryFactory
-            .update(cakeItemEntity)
-            .set(cakeItemEntity.isDeleted, true)
-            .where(cakeItemEntity.id.eq(cakeItemId))
+            .update(CAKEITEM)
+            .set(CAKEITEM.isDeleted, true)
+            .where(CAKEITEM.id.eq(cakeItemId))
             .execute()
     }
 }
