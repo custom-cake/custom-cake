@@ -1,10 +1,12 @@
 package com.cake.customcakebackend.application.service
 
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.DesignCakeOrderRequest
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.CakeOrderListResponse
+import com.cake.customcakebackend.adapter.`in`.web.dto.response.toResponse
 import com.cake.customcakebackend.application.port.`in`.DesignCakeOrderUseCase
 import com.cake.customcakebackend.application.port.out.CakeItemPort
 import com.cake.customcakebackend.application.port.out.OptionByCakePort
-import com.cake.customcakebackend.application.port.out.SaveCakeDesignOrderPort
+import com.cake.customcakebackend.application.port.out.CakeDesignOrderPort
 import com.cake.customcakebackend.common.OrderStatus
 import com.cake.customcakebackend.domain.CakeDesignOrder
 import com.cake.customcakebackend.exception.CustomCakeException
@@ -14,7 +16,8 @@ import java.time.LocalDateTime
 
 @Service
 class CakeOrderService(
-    private val saveCakeDesignOrderPort: SaveCakeDesignOrderPort,
+    private val cakeDesignOrderPort: CakeDesignOrderPort,
+    // TODO cakeCustomOrderPort
     private val cakeItemPort: CakeItemPort,
     private val optionByCakePort: OptionByCakePort
 ) : DesignCakeOrderUseCase {
@@ -50,6 +53,22 @@ class CakeOrderService(
             modifiedAt = LocalDateTime.now()
         )
 
-        saveCakeDesignOrderPort.save(cakeDesignOrderUser)
+        cakeDesignOrderPort.save(cakeDesignOrderUser)
+    }
+
+    override fun orderList(userId: Long): CakeOrderListResponse {
+        val designOrderList = cakeDesignOrderPort.loadList(userId)
+        // TODO get customOrderList
+
+        return CakeOrderListResponse(
+            userId = userId,
+            designOrderList = designOrderList.map {
+                it.toResponse(
+                    cakeItemPort.loadCakeItemName(it.cakeItemId),
+                    optionByCakePort.loadListByIdList(it.optionByCakeIdList)
+                )
+            },
+            customOrderList = listOf()
+        )
     }
 }

@@ -5,6 +5,7 @@ import com.cake.customcakebackend.domain.CakeItem
 interface CakeItemPort {
 
     fun loadInfo(cakeItemId: Long): CakeItem
+    fun loadCakeItemName(cakeItemId: Long): String
     fun loadList(storeId: Long): List<CakeItem>
     fun save(): Long
     fun modify(cakeItemId: Long): Long
