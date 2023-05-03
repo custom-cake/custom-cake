@@ -28,7 +28,8 @@ class CakeOption2Type {
         MILK("우유생크림"),
         STRAWBERRY("딸기생크림"),
         RASPBERRY("라즈베리크림"),
-        BLUEBERRY("블루베리크림");
+        BLUEBERRY("블루베리크림"),
+        OREO("오레오생크림");
         companion object {
             @JsonCreator
             fun set(type: String): CakeInnerCream? = CakeInnerCream.values().find { it.type == type }
@@ -47,7 +48,8 @@ class CakeOption2Type {
         MILK("우유생크림"),
         STRAWBERRY("딸기생크림"),
         RASPBERRY("라즈베리크림"),
-        BLUEBERRY("블루베리크림");
+        BLUEBERRY("블루베리크림"),
+        OREO("오레오생크림");
         companion object {
             @JsonCreator
             fun set(type: String): CakeOuterCream? = CakeOuterCream.values().find { it.type == type }
