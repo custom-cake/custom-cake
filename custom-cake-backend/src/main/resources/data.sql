@@ -106,7 +106,9 @@ VALUES (1, 1, 1, 3, '원형, 1호, 1단, 레터링 10글자 제한', 0, 1),
        (24, 4, 1, 7, '원형, 1호, 1단, 레터링 20자 제한', 11000, 1),
        (25, 4, 2, 5, 'BANILLA_SHEET, MILK, MILK', 0, 1),
        (26, 4, 2, 6, 'BANILLA_SHEET, MILK, CREAMCHEESE', 0, 1),
-       (27, 4, 2, 7, 'CHOCO_SHEET, CHOCO, OREO', 3000, 1)
+       (27, 4, 2, 7, 'CHOCO_SHEET, CHOCO, OREO', 3000, 1),
+       (28, 4, 3, 8, '제철과일', 6000, 1),
+       (29, 4, 3, 9, '아이스팩', 3000, 1)
 ;
 
 INSERT IGNORE INTO store_notification (id, store_id, title, content)
