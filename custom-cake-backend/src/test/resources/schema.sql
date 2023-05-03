@@ -72,15 +72,15 @@ CREATE TABLE IF NOT EXISTS `store_image` (
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
--- CREATE TABLE IF NOT EXISTS `address` (
---  	`id`	BIGINT UNSIGNED     NOT NULL AUTO_INCREMENT PRIMARY KEY,
---  	`store_id`	BIGINT UNSIGNED	NOT NULL,
---  	`zip_code`	CHAR(5)	NULL	DEFAULT UNIQUE,
---  	`base_address`	VARCHAR(100)	NULL	DEFAULT UNIQUE,
---      `detail_address`	VARCHAR(100)	NULL	DEFAULT UNIQUE
--- ) ENGINE = InnoDB
---   DEFAULT CHARSET = utf8mb4
---   COLLATE = utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `store_gallery` (
+                                               `id`	                        BIGINT UNSIGNED     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                               `store_id`	                    BIGINT UNSIGNED	    NOT NULL,
+                                               `image_url_list`	            JSON	            NULL,
+                                               `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
+                                               `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `dayoff` (
                                         `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
