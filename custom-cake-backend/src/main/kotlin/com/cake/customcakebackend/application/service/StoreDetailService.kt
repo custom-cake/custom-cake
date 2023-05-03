@@ -13,6 +13,7 @@ class StoreDetailService(
     private val cakeItemPort: CakeItemPort,
     private val optionByCakePort: OptionByCakePort,
     private val reviewPort: ReviewPort,
+    private val storeGalleryPort: StoreGalleryPort
 ) : StoreDetailUseCase {
     override fun storeDetailInfo(storeId: Long): StoreDetailInfoResponse {
         // 디자인 케이크 상품 리스트
@@ -51,6 +52,12 @@ class StoreDetailService(
         val nickNameAndReviewList = reviewPort.loadNickNameAndReviewList(storeId)
 
         return ReviewListResponse(storeId, nickNameAndReviewList.map { it.value.toResponse(it.key) })
+    }
+
+    override fun storeGalleryList(storeId: Long): GalleryListResponse {
+        val storeGallery = storeGalleryPort.load(storeId)
+
+        return storeGallery.toResponse()
     }
 
 }

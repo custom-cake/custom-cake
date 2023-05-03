@@ -3,6 +3,7 @@ package com.cake.customcakebackend.application.service
 import com.cake.customcakebackend.adapter.`in`.web.dto.request.StoreRegisterRequest
 import com.cake.customcakebackend.application.port.`in`.StoreManagementUseCase
 import com.cake.customcakebackend.application.port.out.DayoffPort
+import com.cake.customcakebackend.application.port.out.StoreGalleryPort
 import com.cake.customcakebackend.application.port.out.StorePort
 import com.cake.customcakebackend.common.DayOfWeekUnit
 import com.cake.customcakebackend.common.DayoffType
@@ -14,7 +15,8 @@ import java.time.LocalDateTime
 @Service
 class StoreManagementService(
     private val storePort: StorePort,
-    private val dayoffPort: DayoffPort
+    private val dayoffPort: DayoffPort,
+    private val storeGalleryPort: StoreGalleryPort
 ) : StoreManagementUseCase {
     override fun storeInfo(operatorId: Long): List<Store> =
         storePort.loadByOperatorId(operatorId)
@@ -66,6 +68,9 @@ class StoreManagementService(
             }
             ?: return
         dayoffPort.saveFixedDayoff(dayoffDomainList)
+
+        // save store gallery
+        storeGalleryPort.save(storeId)
     }
 
     override fun modifyStoreInfo() {

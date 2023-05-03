@@ -9,4 +9,5 @@ interface StoreDetailUseCase {
     fun storeNotificationList(storeId: Long): StoreNotificationListResponse
     fun storeNotificationDetailInfo(notificationId: Long): StoreNotificationResponse
     fun storeReviewList(storeId: Long): ReviewListResponse
+    fun storeGalleryList(storeId: Long): GalleryListResponse
 }

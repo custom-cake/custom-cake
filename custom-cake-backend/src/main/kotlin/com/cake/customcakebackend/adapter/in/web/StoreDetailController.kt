@@ -74,4 +74,10 @@ class StoreDetailController(
         @PathVariable storeId: Long
     ): ReviewListResponse =
         storeDetailUseCase.storeReviewList(storeId)
+
+    @GetMapping("/{storeId}/galleries")
+    fun getGalleryList(
+        @PathVariable storeId: Long
+    ): GalleryListResponse =
+        storeDetailUseCase.storeGalleryList(storeId)
 }
