@@ -87,9 +87,9 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Order Status:</h6>
-                        <a class="collapse-item" th:href="@{/colors}">신규주문</a>
-                        <a class="collapse-item" th:href="@{/borders}">주문진행중</a>
-                        <a class="collapse-item" th:href="@{/animations}">픽업완료</a>
+                        <a class="collapse-item" th:href="@{/operator/order(status=${'NEW'})}">신규주문</a>
+                        <a class="collapse-item" th:href="@{/operator/order(status=${'IN_PROGRESS'})}">주문진행중</a>
+                        <a class="collapse-item" th:href="@{/operator/order(status=${'PICK_UP'})}">픽업완료</a>
                         <a class="collapse-item" th:href="@{/other}">주문취소</a>
                     </div>
                 </div>

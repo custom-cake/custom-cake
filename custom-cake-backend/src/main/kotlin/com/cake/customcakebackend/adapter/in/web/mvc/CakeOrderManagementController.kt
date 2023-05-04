@@ -3,14 +3,13 @@ package com.cake.customcakebackend.adapter.`in`.web.mvc
 import com.cake.customcakebackend.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcakebackend.application.port.`in`.CakeOrderManagementUseCase
 import com.cake.customcakebackend.common.OrderStatus
+import com.cake.customcakebackend.common.OrderType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.SessionAttribute
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import javax.servlet.http.HttpServletRequest
 
 @Controller
@@ -34,7 +33,7 @@ class CakeOrderManagementController(
     fun cakeOrderList(
         httpServletRequest: HttpServletRequest,
         @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
-        @RequestParam orderStatus: OrderStatus,
+        @RequestParam status: OrderStatus,
         model: Model
     ): String {
         operatorLoginResponse
@@ -45,14 +44,14 @@ class CakeOrderManagementController(
 
         operatorLoginResponse.storeId
             ?.let {
-                val cakeOrderList = cakeOrderManagementUseCase.loadCakeOrderList(it, orderStatus)
+                val cakeOrderList = cakeOrderManagementUseCase.loadCakeOrderList(it, status)
                 model.addAttribute("cakeOrderList", cakeOrderList)
             }
             ?: let{
                 logger.info("주문 정보 로드 실패: 매장 정보 않음")
             }
 
-        return when (orderStatus) {
+        return when (status) {
             OrderStatus.NEW -> "order-management-new"
             OrderStatus.IN_PROGRESS -> "order-management-in-progress"
             OrderStatus.PICK_UP -> "order-management-pick-up"
@@ -60,5 +59,36 @@ class CakeOrderManagementController(
         }
     }
 
+    /**
+     *  method
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/05/04
+    **/
+    @PostMapping("/{orderId}")
+    fun approveCakeOrder(
+        httpServletRequest: HttpServletRequest,
+        @SessionAttribute("operator") operatorLoginResponse: OperatorLoginResponse?,
+        @PathVariable orderId: Long,
+        @RequestParam type: OrderType,
+        redirectAttributes: RedirectAttributes,
+    ): String {
+        operatorLoginResponse
+            ?: let {
+                logger.info("주문 승인 실패: 운영자 정보 없음")
+                return "redirect:/operator/login"
+            }
+
+        operatorLoginResponse.storeId
+            ?.let {
+                cakeOrderManagementUseCase.approveCakeOrder(type, orderId)
+            }
+            ?: let{
+                logger.info("주문 승인 실패: 매장 정보 않음")
+            }
+
+        return "redirect:/operator/order?status=NEW"
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.cake.customcakebackend.adapter.`in`.web.dto.response
 
 import com.cake.customcakebackend.common.OrderStatus
+import com.cake.customcakebackend.common.OrderType
 import com.cake.customcakebackend.domain.CakeCustomOrder
 import com.cake.customcakebackend.domain.CakeDesignOrder
 
@@ -14,12 +15,13 @@ data class CakeOrderManagementListResponse(
 // pickupDatetime 순 정렬
 data class DesignOrderManagementResponse(
     val orderId: Long,
+    val orderType: OrderType = OrderType.DESIGN,
     val userName: String,
     val userPhone: String,
     val cakeItemId: Long,
     val cakeItemName: String, 
     val cakeItemImage: String, 
-    val optionByCakeList: List<String>,
+    val optionByCakeInfo: List<String>,
     val requirements: String, 
     val orderStatus: OrderStatus, 
     val paymentAmount: Int, 
@@ -37,11 +39,11 @@ fun CakeDesignOrder.toResponse(
     cakeItemId = this.cakeItemId,
     cakeItemName = cakeItemNameAndImage.first,
     cakeItemImage = cakeItemNameAndImage.second,
-    optionByCakeList = optionByCakeList,
+    optionByCakeInfo = optionByCakeList,
     requirements = this.requirements,
     orderStatus = this.orderStatus,
     paymentAmount = this.paymentAmount,
-    pickupDatetime = this.pickupDatetime.toString(),
+    pickupDatetime = this.pickupDatetime.toString().replace('-', '/').replace('T', ' '),
 )
 
 data class CustomOrderManagementResponse(

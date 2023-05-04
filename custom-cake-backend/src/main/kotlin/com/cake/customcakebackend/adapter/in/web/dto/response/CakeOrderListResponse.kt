@@ -42,7 +42,7 @@ data class CustomOrderResponse(
     val storeId: Long,
 )
 
-fun CakeCustomOrder.toResponse(cakeItemName: String): CustomOrderResponse = CustomOrderResponse(
+fun CakeCustomOrder.toResponse(): CustomOrderResponse = CustomOrderResponse(
     orderId = this.id,
     storeId = this.storeId,
 //    cakeItemId = this.cakeItemId,
