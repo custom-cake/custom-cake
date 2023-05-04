@@ -74,6 +74,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.62")
+
     // querydsl library (version 명시 필요 - https://wangtak.tistory.com/m/44)
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")
     // "~~:jpa" : for using JPAAnnotationProcessor
