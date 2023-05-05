@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 @EnableJpaAuditing
 @EnableWebMvc
 @SpringBootApplication
-class CustomCakeBackendApplication
+class CustomCakeApplication
 
 fun main(args: Array<String>) {
-	runApplication<CustomCakeBackendApplication>(*args)
+	runApplication<CustomCakeApplication>(*args)
 }
