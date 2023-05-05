@@ -57,7 +57,7 @@ class CakeOrderService(
     }
 
     override fun orderList(userId: Long): CakeOrderListResponse {
-        val designOrderList = cakeDesignOrderPort.loadList(userId)
+        val designOrderList = cakeDesignOrderPort.loadListByUserId(userId)
         // TODO get customOrderList
 
         return CakeOrderListResponse(

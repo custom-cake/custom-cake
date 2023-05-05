@@ -39,10 +39,7 @@ out/
 ### profile
 src/main/resources/application-dev.yml
 src/main/resources/application-prod.yml
-<<<<<<< Updated upstream
-=======
 src/main/resources/application-local.yml
 src/main/resources/application.yml
->>>>>>> Stashed changes
 
 src/main/resources/templates/functions/node_modules/
