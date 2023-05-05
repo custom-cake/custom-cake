@@ -23,15 +23,24 @@ class CakeItemPersistenceAdapter(
         return cakeItemMapper.toDomain(cakeItemEntity)
     }
 
-    override fun loadCakeItemName(cakeItemId: Long): String {
-        return jpaQueryFactory
+    override fun loadCakeItemName(cakeItemId: Long): String =
+        jpaQueryFactory
             .select(CAKEITEM.name)
             .from(CAKEITEM)
             .where(CAKEITEM.id.eq(cakeItemId))
             .fetchFirst()
             ?.toString()
             ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
-    }
+
+    override fun loadCakeItemNameAndImage(cakeItemId: Long): Pair<String, String> =
+         jpaQueryFactory
+            .select(CAKEITEM.name, CAKEITEM.thumbnailImageUrl)
+            .from(CAKEITEM)
+            .where(CAKEITEM.id.eq(cakeItemId))
+            .fetch()
+            .map { it.get(0, String::class.java)!! to it.get(1, String::class.java)!! }
+            .firstOrNull()
+            ?: throw EntityNotFoundException("CakeItem id=$cakeItemId not found.")
 
     override fun loadList(storeId: Long): List<CakeItem> {
         val cakeItemEntities = jpaQueryFactory
