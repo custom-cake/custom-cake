@@ -42,15 +42,3 @@ logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution
   org.hibernate.type: trace  # logging SQL execution parameter
 
-cloud:
-  aws:
-    credentials:
-      accessKey: AKIARBPKTHTELRJTC5MS
-      secretKey: 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
-    s3:
-      bucket: customcake-image
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
-
