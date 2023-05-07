@@ -13,7 +13,7 @@
 
 
 ### 2. Swagger API
-- [local API URL](http://localhost:8080/swagger-ui/index.html)
+- [Dev Swagger API URL](http://43.201.13.139:8080/swagger-ui/index.html)
 
 ### 3. Package 구조
 - Hexagonal Architecture
@@ -30,7 +30,9 @@
 │               ├── adapter/
 │               │   ├── in/
 │               │   │   └── web/
-│               │   │       ├── Controller.kt
+│               │   │       ├── RestController.kt
+│               │   │       ├── mvc/
+│               │   │       │   └── Controller.kt
 │               │   │       └── dto/
 │               │   │           ├── request/
 │               │   │           └── response/
@@ -46,10 +48,14 @@
 │               │       ├── in/      # UseCase
 │               │       └── out/     # Port
 │               │   └── service/     # Service
+│               ├── common/
+│               │   ├── EnumClass.kt
+│               │   └── converter/
 │               ├── configuration/
 │               │   └── QuerydslConfiguration.kt
-│               └── domain/
-│                   └── User.kt
+│               ├── domain/
+│               │   └── User.kt
+│               └── exception/
 └── resources/
    ├── static/
    ├── templates/
