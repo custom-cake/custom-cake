@@ -2,10 +2,18 @@
 #### 레터링 케이크 디자인, 주문 플랫폼
 
 ### 1. [ERD](https://www.erdcloud.com/d/pGZqMrnzEYmW5H7uk)
-![img.png](./doc/image/erd_img.png)
+#### 1.1 운영자, 케이크 매장 관련 Entity
+![img.png](./doc/image/erd_store.png)
+
+#### 1.2 케이크 상품, 옵션 관련 Entity
+![img.png](./doc/image/erd_cake_item_and_option.png)
+
+#### 1.3 사용자, 케이크 기본 주문, 커스텀 주문 관련 Entity
+![img.png](./doc/image/erd_user_and_order.png)
+
 
 ### 2. Swagger API
-- [local API URL](http://localhost:8080/swagger-ui/index.html)
+- [Dev Swagger API URL](http://43.201.13.139:8080/swagger-ui/index.html)
 
 ### 3. Package 구조
 - Hexagonal Architecture
@@ -22,7 +30,9 @@
 │               ├── adapter/
 │               │   ├── in/
 │               │   │   └── web/
-│               │   │       ├── Controller.kt
+│               │   │       ├── RestController.kt
+│               │   │       ├── mvc/
+│               │   │       │   └── Controller.kt
 │               │   │       └── dto/
 │               │   │           ├── request/
 │               │   │           └── response/
@@ -38,10 +48,14 @@
 │               │       ├── in/      # UseCase
 │               │       └── out/     # Port
 │               │   └── service/     # Service
+│               ├── common/
+│               │   ├── EnumClass.kt
+│               │   └── converter/
 │               ├── configuration/
 │               │   └── QuerydslConfiguration.kt
-│               └── domain/
-│                   └── User.kt
+│               ├── domain/
+│               │   └── User.kt
+│               └── exception/
 └── resources/
    ├── static/
    ├── templates/
