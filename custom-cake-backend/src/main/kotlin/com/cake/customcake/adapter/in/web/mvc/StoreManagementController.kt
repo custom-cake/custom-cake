@@ -46,7 +46,7 @@ class StoreManagementController(
         val storeList = storeManagementUseCase.storeInfo(operatorLoginResponse.id)
 
         model.addAttribute("storeInfo", storeList.firstOrNull()?.toInfoResponse())
-        model.addAttribute("dayOfWeekList", DayOfWeekUnit.toList())  // DOW 리스트
+        model.addAttribute("dayOfWeekList", DayOfWeekUnit.values())  // DOW 리스트
         // TODO 지정 휴무일 내려주고, 등록할 수 있도록
         return "store-management"
     }
