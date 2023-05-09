@@ -15,4 +15,11 @@ data class CakeOption1(
     val isDeleted: Boolean,
     val createdAt: LocalDateTime,
     var modifiedAt: LocalDateTime
-) : CakeOption()
+) : CakeOption() {
+    override fun toResponse(): OptionResponse =  OptionResponse(
+        id = this.id,
+        type = 1,
+        value = "${cakeShape.type}, ${cakeSize.type}, ${cakeLayer.type}, 레터링 ${letteringLimit}자 제한",
+        price = this.price
+    )
+}

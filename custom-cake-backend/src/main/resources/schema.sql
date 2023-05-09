@@ -283,7 +283,6 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     FOREIGN KEY (cake_option1_id) REFERENCES cake_option1 (id),
     FOREIGN KEY (cake_option2_id) REFERENCES cake_option2 (id),
     FOREIGN KEY (cake_option3_id) REFERENCES cake_option3 (id)
-
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
