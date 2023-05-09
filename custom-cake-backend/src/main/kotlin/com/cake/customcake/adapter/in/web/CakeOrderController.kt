@@ -2,7 +2,10 @@ package com.cake.customcake.adapter.`in`.web
 
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
+import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
+import com.cake.customcake.application.port.`in`.CustomCakeOrderUseCase
 import com.cake.customcake.application.port.`in`.DesignCakeOrderUseCase
+import com.cake.customcake.domain.CakeOption
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -10,7 +13,8 @@ import org.springframework.web.bind.annotation.*
     path = ["/api/orders"]
 )
 class CakeOrderController(
-    private val designCakeOrderUseCase: DesignCakeOrderUseCase
+    private val designCakeOrderUseCase: DesignCakeOrderUseCase,
+    private val customCakeOrderUseCase: CustomCakeOrderUseCase
 ) {
 
     @PostMapping("/designs")
@@ -31,4 +35,19 @@ class CakeOrderController(
     fun orderList(@RequestParam userId: Long): CakeOrderListResponse {
         return designCakeOrderUseCase.orderList(userId)
     }
+
+
+    /**
+     * customCakeOptionList method
+     * : 커스텀 케이크 주문 시, 옵션 리스트
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/05/09
+    **/
+    @GetMapping("/customs/options")
+    fun customCakeOptionList(@RequestParam storeId: Long): CustomOrderOptionListResponse {
+        return customCakeOrderUseCase.loadAllCakeOptionList(storeId)
+    }
+
 }
