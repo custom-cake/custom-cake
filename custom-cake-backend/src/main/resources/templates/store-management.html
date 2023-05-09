@@ -11,9 +11,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
         <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -39,10 +37,10 @@
                         <!-- Task Card Example -->
                         <div class="col-xl-12 col-md-12 mb-5">
                             <!-- 매장 NOT NULL-->
-                            <div class="card shadow mb-4 border-left-info shadow h-auto" th:if="${storeInfo != null}">
+                            <div class="card shadow mb-4 border-left-dark shadow h-auto" th:if="${storeInfo != null}">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">매장 정보</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">매장 정보</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,43 +109,23 @@
                                                 </td>
                                                 <td th:text="${storeInfo.openTime.get(entry)}"></td>
                                             </tr>
+
                                         </table>
                                     </div>
-<!--                                    <div class="row no-gutters align-items-center">-->
-<!--                                        <div class="col mr-2">-->
-<!--                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks-->
-<!--                                            </div>-->
-<!--                                            <div class="row no-gutters align-items-center">-->
-<!--                                                <div class="col-auto">-->
-<!--                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>-->
-<!--                                                </div>-->
-<!--                                                <div class="col">-->
-<!--                                                    <div class="progress progress-sm mr-2">-->
-<!--                                                        <div class="progress-bar bg-info" role="progressbar"-->
-<!--                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"-->
-<!--                                                             aria-valuemax="100"></div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-auto">-->
-<!--                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                 </div>
                             </div>
                             <!-- 매장 NULL-->
-                            <div class="card shadow mb-4 border-left-info shadow h-auto" th:unless="${storeInfo != null}">
+                            <div class="card shadow mb-4 border-left-dark shadow h-auto" th:unless="${storeInfo != null}">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">매장 정보</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">매장 정보</h6>
                                 </div>
                                 <div class="card-body">
                                     <div>
                                         <p><b>매장을 등록해주세요 :)</b></p>
                                         <!-- RequestParam -->
                                         <button class="btn btn-info btn-icon-split"
-                                                th:onclick="|location.href='@{/operator/store/form(operatorId=${operatorId})}'|">
+                                                th:onclick="|location.href='@{/operator/store/form}'|">
                                             <span class="text text-white">매장 등록</span>
                                             <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
                                         </button>
@@ -177,24 +155,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>

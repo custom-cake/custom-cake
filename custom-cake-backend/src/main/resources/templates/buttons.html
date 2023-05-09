@@ -11,10 +11,7 @@
 
 <!-- Page Wrapper -->
 <div id="wrapper">
-
-    <!-- Sidebar -->
     <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-    <!-- End Sidebar -->
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -37,7 +34,7 @@
                             <!-- Circle Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Circle Buttons</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">Circle Buttons</h6>
                                 </div>
                                 <div class="card-body">
                                     <p>Use Font Awesome Icons (included with this theme package) along with the circle
@@ -105,7 +102,7 @@
                             <!-- Brand Buttons -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Brand Buttons</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">Brand Buttons</h6>
                                 </div>
                                 <div class="card-body">
                                     <p>Google and Facebook buttons are available featuring each company's respective
@@ -128,7 +125,7 @@
 
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Split Buttons with Icon</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">Split Buttons with Icon</h6>
                                 </div>
                                 <div class="card-body">
                                     <p>Works with any button colors, just use the <code>.btn-icon-split</code> class and
@@ -233,24 +230,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>

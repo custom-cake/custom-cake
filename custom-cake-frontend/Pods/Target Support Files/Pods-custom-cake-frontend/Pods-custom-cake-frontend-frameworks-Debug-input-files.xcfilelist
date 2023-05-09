@@ -1,0 +1,12 @@
+${PODS_ROOT}/Target Support Files/Pods-custom-cake-frontend/Pods-custom-cake-frontend-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKAuth/KakaoSDKAuth.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKCommon/KakaoSDKCommon.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKNavi/KakaoSDKNavi.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKShare/KakaoSDKShare.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKStory/KakaoSDKStory.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKTalk/KakaoSDKTalk.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKTemplate/KakaoSDKTemplate.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKUser/KakaoSDKUser.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/KakaoSDKFriend/KakaoSDKFriend.framework/KakaoSDKFriend
+${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin

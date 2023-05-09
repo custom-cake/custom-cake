@@ -10,9 +10,7 @@
 <body class="bg-gradient-primary">
 <!-- Page Wrapper -->
 <div id="wrapper">
-    <!-- Sidebar -->
     <div th:replace="fragments/sidebar::fragment-sidebar"></div>
-    <!-- End of Sidebar -->
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -22,8 +20,8 @@
             <!-- End of Topbar -->
 
             <!-- 매장이 있어야 케이크 옵션 등록 가능 -->
-            <div class="container-fluid" th:if="${hasStore == true}">
-                <form th:action="@{/operator/cake-option-3(operatorId=${operatorId},storeId=${storeId})}" th:object="${cakeOption3AddRequest}" method="post" >
+            <div class="container-fluid" th:if="${session.operator.storeId != null}">
+                <form th:action="@{/operator/cake-option-3}" th:object="${cakeOption3AddRequest}" method="post" >
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>
@@ -36,9 +34,9 @@
                     <!-- Store Register Form -->
                     <div class="row">
                         <div class="col-xl-12 col-md-12 mb-5">
-                            <div class="card shadow mb-4 border-left-info shadow h-100">
+                            <div class="card shadow mb-4 border-left-dark shadow h-100">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">옵션 3 (기타 옵션)</h6>
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">옵션 3 (기타 옵션)</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
@@ -67,7 +65,7 @@
             <!-- /.container-fluid -->
 
             <!-- Store is exist -->
-            <div class="container-fluid" th:unless="${hasStore == true}">
+            <div class="container-fluid" th:unless="${session.operator.storeId != null}">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">옵션 등록</h1>
@@ -75,9 +73,9 @@
                 <!-- Content Row -->
                 <div class="row">
                     <div class="col-xl-12 col-md-12 mb-5">
-                        <div class="card shadow mb-4 border-left-info shadow h-auto" >
+                        <div class="card shadow mb-4 border-left-dark shadow h-auto" >
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">옵션 3 (기타 옵션)</h6>
+                                <h6 class="m-0 font-weight-bold " style="color: #694E4E">옵션 3 (기타 옵션)</h6>
                             </div>
                             <div class="card-body">
                                 <div>
@@ -107,25 +105,8 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" th:href="@{/operator/login}">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
 
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
