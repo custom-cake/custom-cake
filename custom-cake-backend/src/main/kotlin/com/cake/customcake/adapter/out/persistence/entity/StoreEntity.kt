@@ -44,7 +44,7 @@ class StoreEntity(
     val reservationPerPeriodCount: Int,  // 예약 주기 별 케이크 예약 건수
 
     @Column(columnDefinition = "String", length = 255, nullable = false)
-    val thumbnailImageUrl: String,
+    var thumbnailImageUrl: String,
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 0", nullable = false)
     val viewCount: Int,
