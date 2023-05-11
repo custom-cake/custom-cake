@@ -269,7 +269,6 @@ CREATE TABLE IF NOT EXISTS `chat_message` (
 
 CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     `id`	                        BIGINT UNSIGNED         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-#     `chat_room_id`	                BIGINT UNSIGNED	        NOT NULL,
     `user_id`	                    BIGINT UNSIGNED	        NOT NULL,
     `store_id`	                    BIGINT UNSIGNED     	NOT NULL,
     `option1_id`	                BIGINT UNSIGNED	        NOT NULL,
@@ -283,10 +282,6 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
     `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
 
-    FOREIGN KEY (chat_room_id) REFERENCES chat_room (id),
-    FOREIGN KEY (cake_option1_id) REFERENCES cake_option1 (id),
-    FOREIGN KEY (cake_option2_id) REFERENCES cake_option2 (id),
-    FOREIGN KEY (cake_option3_id) REFERENCES cake_option3 (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
