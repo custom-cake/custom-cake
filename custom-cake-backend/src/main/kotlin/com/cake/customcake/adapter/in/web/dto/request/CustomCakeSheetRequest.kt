@@ -11,7 +11,8 @@ data class CustomCakeSheetRequest(
     val option3Id: Long? = null,
     val customCakeImage: String = "",  // 케이크 스케치 이미지
     val additionalImageList: List<String> = listOf(),  // 첨부 파일 리스트
-    val requirements: String,
+    val userRequirements: String,
+    val operatorRequirements: String,
     val specialNote: String,
     val paymentAmount: Int,
     val pickupDatetime: LocalDateTime  // 픽업 날짜

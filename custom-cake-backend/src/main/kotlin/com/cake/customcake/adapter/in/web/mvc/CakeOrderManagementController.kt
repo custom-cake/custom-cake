@@ -119,7 +119,7 @@ class CakeOrderManagementController(
             logger.info("주문서 승인 실패: 매장 정보 불일치")
             return "redirect:/operator/login"
         }
-
-        return "redirect:/operator/order?status=NEW"
+            
+        return "redirect:/operator/chat?status=IN_PROGRESS"
     }
 }

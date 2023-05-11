@@ -49,6 +49,7 @@ class CakeOrderController(
 
     /**
      * 커스텀 케이크 주문 생성
+     * - 사용자가 결제 버튼을 클릭한 경우
      *
      * @author jjaen
      * @version 1.0.0

@@ -98,8 +98,8 @@ class CakeOrderService(
                 option1Id = customCakeSheetRequest.option1Id,
                 option2Id = customCakeSheetRequest.option2Id,
                 option3IdList = listOfNotNull(customCakeSheetRequest.option3Id),
-                userRequirements = customCakeSheetRequest.requirements,
-                operatorRequirements = customCakeSheetRequest.requirements,
+                userRequirements = customCakeSheetRequest.userRequirements,
+                operatorRequirements = customCakeSheetRequest.operatorRequirements,
                 paymentAmount = customCakeSheetRequest.paymentAmount,  // 주문서 확정 시, 가격 저장
                 pickupDatetime = customCakeSheetRequest.pickupDatetime,
                 createdAt = LocalDateTime.now(),
