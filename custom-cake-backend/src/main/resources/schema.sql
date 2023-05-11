@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     `pickup_datetime`	            DATETIME	            NULL,           -- 픽업 날짜
     `payment_amount`	            INT	UNSIGNED            NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,
-    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL,
+    `modified_at`                   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP       NOT NULL
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
