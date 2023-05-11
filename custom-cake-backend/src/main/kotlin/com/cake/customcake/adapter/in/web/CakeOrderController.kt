@@ -1,7 +1,6 @@
 package com.cake.customcake.adapter.`in`.web
 
 import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeOrderRequest
-import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeSheetRequest
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
@@ -55,7 +54,7 @@ class CakeOrderController(
      * @version 1.0.0
      * 작성일 2023/05/09
     **/
-    @PostMapping("/customs/sheets")
+    @PostMapping("/customs")
     fun makeCustomCakeSheet(@RequestBody customCakeOrderRequest: CustomCakeOrderRequest) {
         customCakeOrderUseCase.makeCustomCakeSheetToOrder(customCakeOrderRequest)
     }
