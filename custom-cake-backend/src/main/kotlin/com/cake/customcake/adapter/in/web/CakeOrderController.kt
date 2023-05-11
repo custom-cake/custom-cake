@@ -1,11 +1,12 @@
 package com.cake.customcake.adapter.`in`.web
 
+import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeOrderRequest
+import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeSheetRequest
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
 import com.cake.customcake.application.port.`in`.CustomCakeOrderUseCase
 import com.cake.customcake.application.port.`in`.DesignCakeOrderUseCase
-import com.cake.customcake.domain.CakeOption
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -23,8 +24,7 @@ class CakeOrderController(
     }
 
     /**
-     * orderList method
-     * : 케이크 주문 내역 리스트
+     * 케이크 주문 내역 리스트
      * - /api/orders?userId=1
      *
      * @author jjaen
@@ -32,22 +32,30 @@ class CakeOrderController(
      * 작성일 2023/05/02
     **/
     @GetMapping("")
-    fun orderList(@RequestParam userId: Long): CakeOrderListResponse {
-        return designCakeOrderUseCase.orderList(userId)
-    }
+    fun orderList(@RequestParam userId: Long): CakeOrderListResponse =
+        designCakeOrderUseCase.orderList(userId)
 
 
     /**
-     * customCakeOptionList method
-     * : 커스텀 케이크 주문 시, 옵션 리스트
+     * 커스텀 케이크 주문 시, 옵션 리스트
      *
      * @author jjaen
      * @version 1.0.0
      * 작성일 2023/05/09
     **/
     @GetMapping("/customs/options")
-    fun customCakeOptionList(@RequestParam storeId: Long): CustomOrderOptionListResponse {
-        return customCakeOrderUseCase.loadAllCakeOptionList(storeId)
-    }
+    fun customCakeOptionList(@RequestParam storeId: Long): CustomOrderOptionListResponse =
+        customCakeOrderUseCase.loadAllCakeOptionList(storeId)
 
+    /**
+     * 커스텀 케이크 주문 생성
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/05/09
+    **/
+    @PostMapping("/customs/sheets")
+    fun makeCustomCakeSheet(@RequestBody customCakeOrderRequest: CustomCakeOrderRequest) {
+        customCakeOrderUseCase.makeCustomCakeSheetToOrder(customCakeOrderRequest)
+    }
 }

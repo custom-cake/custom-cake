@@ -5,12 +5,12 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class CakeCustomOrder (
-    val id: Long,
+    val id: Long = 0,
     val userId: Long,
     val storeId: Long,
-    val customCakeOrderSheetId: Long,
-    val paymentAmount: Int,
+    val cakeCustomOrderSheet: CakeCustomOrderSheet,
     val orderStatus: OrderStatus,
+    val paymentAmount: Int,
     val pickupDatetime: LocalDateTime,
     val purchaseConfirmationDate: LocalDate? = null,
     val createdAt: LocalDateTime,

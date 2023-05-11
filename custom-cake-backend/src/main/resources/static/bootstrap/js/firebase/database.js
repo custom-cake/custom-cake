@@ -18,6 +18,7 @@ function clearTextarea() {
     $('div.input-div textarea').val('');
 }
 
+// TODO storeId global variable ?
 window.init = function(operatorId) {
     const $divChat = $('div.chat');
     $divChat.animate({

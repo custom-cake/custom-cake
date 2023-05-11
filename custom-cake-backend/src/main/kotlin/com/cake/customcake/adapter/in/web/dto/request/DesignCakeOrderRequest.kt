@@ -11,6 +11,6 @@ data class DesignCakeOrderRequest(
     // TODO option3은 여러 개 선택 가능
     val optionByCake3Id: Long? = null,
     val requirements: String,
-    val paymentAmount: Int,  // 픽업 날짜
-    val pickupDatetime: LocalDateTime
+    val paymentAmount: Int,
+    val pickupDatetime: LocalDateTime  // 픽업 날짜
 )
