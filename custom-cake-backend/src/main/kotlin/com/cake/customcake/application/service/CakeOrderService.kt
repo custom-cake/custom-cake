@@ -109,7 +109,7 @@ class CakeOrderService(
     }
 
     @Transactional
-    override fun makeCustomCakeSheetToOrder(customCakeSheetRequest: CustomCakeOrderRequest) {
+    override fun orderCustomCake(customCakeSheetRequest: CustomCakeOrderRequest) {
         // 주문서 가져오기
         val sheet = cakeCustomOrderSheetPort.load(customCakeSheetRequest.cakeCustomSheetId)
 

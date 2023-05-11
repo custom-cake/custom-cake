@@ -55,7 +55,7 @@ class CakeOrderController(
      * 작성일 2023/05/09
     **/
     @PostMapping("/customs")
-    fun makeCustomCakeSheet(@RequestBody customCakeOrderRequest: CustomCakeOrderRequest) {
-        customCakeOrderUseCase.makeCustomCakeSheetToOrder(customCakeOrderRequest)
+    fun orderCustomCake(@RequestBody customCakeOrderRequest: CustomCakeOrderRequest) {
+        customCakeOrderUseCase.orderCustomCake(customCakeOrderRequest)
     }
 }

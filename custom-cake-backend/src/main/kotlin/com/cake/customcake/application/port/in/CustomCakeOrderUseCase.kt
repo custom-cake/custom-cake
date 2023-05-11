@@ -7,5 +7,5 @@ import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListRe
 interface CustomCakeOrderUseCase {
     fun loadAllCakeOptionList(storeId: Long): CustomOrderOptionListResponse
     fun makeCustomCakeSheet(customCakeSheetRequest: CustomCakeSheetRequest)
-    fun makeCustomCakeSheetToOrder(customCakeSheetRequest: CustomCakeOrderRequest)
+    fun orderCustomCake(customCakeSheetRequest: CustomCakeOrderRequest)
 }
