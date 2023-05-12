@@ -2,13 +2,17 @@ package com.cake.customcake.application.service
 
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
+import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.toResponse
+import com.cake.customcake.application.port.`in`.CustomCakeOrderUseCase
 import com.cake.customcake.application.port.`in`.DesignCakeOrderUseCase
 import com.cake.customcake.application.port.out.CakeItemPort
 import com.cake.customcake.application.port.out.OptionByCakePort
 import com.cake.customcake.application.port.out.CakeDesignOrderPort
+import com.cake.customcake.application.port.out.CakeOptionPort
 import com.cake.customcake.common.OrderStatus
 import com.cake.customcake.domain.CakeDesignOrder
+import com.cake.customcake.domain.CakeOption
 import com.cake.customcake.exception.CustomCakeException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,8 +23,9 @@ class CakeOrderService(
     private val cakeDesignOrderPort: CakeDesignOrderPort,
     // TODO cakeCustomOrderPort
     private val cakeItemPort: CakeItemPort,
-    private val optionByCakePort: OptionByCakePort
-) : DesignCakeOrderUseCase {
+    private val optionByCakePort: OptionByCakePort,
+    private val cakeOptionPort: CakeOptionPort
+) : DesignCakeOrderUseCase, CustomCakeOrderUseCase {
 
     @Transactional
     override fun order(designCakeOrderRequest: DesignCakeOrderRequest) {
@@ -71,4 +76,15 @@ class CakeOrderService(
             customOrderList = listOf()
         )
     }
+
+    override fun loadAllCakeOptionList(storeId: Long): CustomOrderOptionListResponse {
+        val cakeOptionList: List<CakeOption> = cakeOptionPort.loadAllCakeOptionList(storeId).values.flatten()
+
+        return CustomOrderOptionListResponse(
+            storeId = storeId,
+            options = cakeOptionList.map { option -> option.toResponse() }
+        )
+    }
+
+
 }
