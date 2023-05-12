@@ -71,4 +71,10 @@ class StorePersistenceAdapter(
         return storeQueryJpaRepository.searchByOption(request)
             .map(storeMapper::toDomain)
     }
+
+    override fun updateStoreImage(store: Store, url: String): Long {
+        val storeEntity = storeMapper.toEntity(store)
+        storeEntity.thumbnailImageUrl = url
+        return storeJpaRepository.save(storeEntity).id
+    }
 }
