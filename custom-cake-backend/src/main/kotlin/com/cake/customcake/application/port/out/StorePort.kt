@@ -8,4 +8,5 @@ interface StorePort {
     fun exist(operatorId: Long): Boolean
     fun validateStore(storeId: Long, operatorId: Long): Boolean
     fun save(store: Store): Long
+    fun updateStoreImage(store: Store, url: String): Long
 }
