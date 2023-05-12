@@ -3,6 +3,7 @@ package com.cake.customcake.application.service
 import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeSheetRequest
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
+import com.cake.customcake.adapter.`in`.web.dto.response.ApproveCustomSheetResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.toResponse
@@ -128,5 +129,6 @@ class CakeOrderService(
         )
     }
 
-
+    override fun checkApproveCustomSheet(storeId: Long, userId: Long): ApproveCustomSheetResponse =
+        ApproveCustomSheetResponse(approve = cakeCustomOrderSheetPort.hasSheet(storeId, userId))
 }

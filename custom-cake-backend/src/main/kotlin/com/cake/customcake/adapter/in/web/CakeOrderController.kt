@@ -2,6 +2,7 @@ package com.cake.customcake.adapter.`in`.web
 
 import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeOrderRequest
 import com.cake.customcake.adapter.`in`.web.dto.request.DesignCakeOrderRequest
+import com.cake.customcake.adapter.`in`.web.dto.response.ApproveCustomSheetResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CakeOrderListResponse
 import com.cake.customcake.adapter.`in`.web.dto.response.CustomOrderOptionListResponse
 import com.cake.customcake.application.port.`in`.CustomCakeOrderUseCase
@@ -58,4 +59,11 @@ class CakeOrderController(
     fun orderCustomCake(@RequestBody customCakeOrderRequest: CustomCakeOrderRequest) {
         customCakeOrderUseCase.orderCustomCake(customCakeOrderRequest)
     }
+
+    @GetMapping("/customs/status")
+    fun checkApproveCustomSheet(
+        @RequestParam storeId: Long,
+        @RequestParam userId: Long,
+    ): ApproveCustomSheetResponse =
+        customCakeOrderUseCase.checkApproveCustomSheet(storeId, userId)
 }
