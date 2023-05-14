@@ -87,6 +87,9 @@ dependencies {
 
     // swagger
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+    // web socket
+    implementation("org.springframework:spring-websocket:5.3.18")
 }
 
 // ✅ QClass를 Intellij가 사용할 수 있도록 경로에 추가

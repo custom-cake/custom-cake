@@ -31,7 +31,7 @@ class CakeDesignOrderPersistenceAdapter(
             .fetch()
             .map { cakeDesignOrderMapper.toDomain(it) }
 
-    override fun loadListByStoreId(storeId: Long, orderStatus: OrderStatus): List<CakeDesignOrder> =
+    override fun loadListByStoreIdAndOrderStatus(storeId: Long, orderStatus: OrderStatus): List<CakeDesignOrder> =
         // 매장의 디자인 케이크 주문 내역
         jpaQueryFactory
             .selectFrom(CAKE_DESIGN_ORDER)
