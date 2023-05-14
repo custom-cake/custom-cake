@@ -163,13 +163,9 @@ window.loadMessageList = function (roomId) {
         const chatLi = createMessageTag(LR_className, senderName, message);
 
         $('div.chat:not(.format) ul').append(chatLi);
-        // TODO 메시지 scroll 설정
+
         // 스크롤바 아래 고정
-        const $divChat = $('div.chat');
-        // $divChat.scrollTop($divChat.prop('scrollHeight'));
-        $divChat.animate({
-            scrollTop : $divChat.scrollHeight
-        }, 100);
+        $('#chat').clientHeight = 0;
     };
 
     const createMessageTag = function (LR_className, senderName, message) {
