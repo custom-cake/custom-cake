@@ -60,6 +60,13 @@ class CakeOrderController(
         customCakeOrderUseCase.orderCustomCake(customCakeOrderRequest)
     }
 
+    /**
+     * 주문서 승인 여부
+     *
+     * @author jjaen
+     * @version 1.0.0
+     * 작성일 2023/05/12
+    **/
     @GetMapping("/customs/status")
     fun checkApproveCustomSheet(
         @RequestParam storeId: Long,
