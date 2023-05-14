@@ -50,6 +50,7 @@ class CakeOrderController(
     /**
      * 커스텀 케이크 주문 생성
      * - 사용자가 결제 버튼을 클릭한 경우
+     * TODO client에서 결제 완료 버튼 틀릭 시, 채팅 status 변경
      *
      * @author jjaen
      * @version 1.0.0

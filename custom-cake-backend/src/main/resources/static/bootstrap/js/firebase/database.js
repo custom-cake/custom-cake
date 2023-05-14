@@ -45,10 +45,9 @@ window.getOperatorData = function () {
     // onValue() : 경로의 데이터를 읽고 변경사항을 수신 대기할 수 있음.
     onValue(ref(database, 'Operators'), (snapshot) => {
         if (snapshot.exists()) {
-            console.log(snapshot.val()["OPERATOR-1"]);
-            return snapshot.val()["OPERATOR-1"];
+            console.log("운영자 데이터 로딩 완료");
         } else {
-            console.log("운영자 데이터 없음");
+            console.log("운영자 데이터 로딩 실패");
         }
     }, {
         // onlyOnce: false => data 계속 listening
@@ -62,7 +61,6 @@ window.getOperatorData = function () {
  * @param chatStatus
  */
 window.loadOperatorChatRoomList = function (operatorId, chatStatus) {
-
     // MemberRooms : Member 별 채팅방 리스트
     const chatRoomRef = query(
         ref(database, `MemberRooms/OPERATOR-${operatorId}`),
@@ -75,7 +73,7 @@ window.loadOperatorChatRoomList = function (operatorId, chatStatus) {
             console.log("채팅방 리스트",snapshot.val());
             getChatRoomList(snapshot, chatStatus);
         } else {
-            console.log("No data available.");
+            console.log("채팅방 리스트 로딩 실패");
         }
     }, {
         onlyOnce: false
@@ -90,15 +88,17 @@ window.getChatRoomList = function (snapshot, chatStatus) {
     let arrChatRoomList = [];
     let cbDisplayChatRoomList = function (data) {
         const chatRoomId = data.key;
-        const chatRoom = data.val();
-        if (chatRoomId !== null && chatRoom.chatStatus === chatStatus) {
+        const chatRoomData = data.val();
+
+        if (chatRoomId !== null && chatRoomData.chatStatus === chatStatus) {
             arrChatRoomList.push(_.template(chatroomTemplate)({
                 targetChatRoomUid: chatRoomId,
-                lastMessage: chatRoom.lastMessage,
-                roomUserName: chatRoom.roomUserName,
-                roomUserID: chatRoom.roomUserID,
-                timestamp: timestampToTime(chatRoom.timestamp)
-            }));
+                lastMessage: chatRoomData.lastMessage,
+                roomUserName: chatRoomData.roomUserName,
+                roomUserID: chatRoomData.roomUserID,
+                customCakeInfoId: chatRoomData.customCakeInfoId,
+                timestamp: timestampToTime(chatRoomData.timestamp)
+            }))
         }
     }
     snapshot.forEach((data) => {
@@ -114,29 +114,71 @@ window.getChatRoomList = function (snapshot, chatStatus) {
     }
 }
 
-
 /**
  * 채팅방 클릭 시 이벤트
  * */
 window.onChatRoomClick = function (event) {
     const roomId = event.currentTarget.getAttribute('data-targetChatRoomUid');
     const roomUserName = event.currentTarget.getAttribute('data-roomUserName');
-    const roomTitle = roomUserName + '님';
+    const customCakeInfoId = event.currentTarget.getAttribute('data-customCakeInfoId');
+    const roomTitle = roomUserName + '님 주문서';
 
-    openChatRoom(roomId, roomTitle);
+    openChatRoom(roomId, roomTitle, customCakeInfoId);
 }
+
+/**
+ * 커스텀 주문서 정보 load
+ */
+function loadCustomOrderSheetInfo(customCakeInfoId) {
+    let customOrderSheet = document.getElementById('customOrderSheet');
+    let customOrderSheetTemplate = document.getElementById('templateCustomOrderSheet').innerHTML;
+
+    let cbDisplayCustomOrderSheet = function (data) {
+        customOrderSheet.innerHTML = _.template(customOrderSheetTemplate)({
+            userId: data.userId,
+            storeId: data.storeId,
+            option1Id: data.option1Id,
+            option1Value: data.option1Value,
+            option2Id: data.option2Id,
+            option2Value: data.option2Value,
+            option3Id: data.option3Id,
+            option3Value: data.option3Value,
+            designImage: data.designImage,
+            additionalImageList: data.additionalImageList,  // list
+            requirements: data.requirements,
+            pickupDatetime: data.pickupDatetime
+        })
+    }
+    // load customOrderSheet info
+    get(ref(database, `CustomCakeInfos/${customCakeInfoId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            // console.log("커스텀 주문서=", snapshot.val());
+            cbDisplayCustomOrderSheet(snapshot.val());
+        } else {
+            console.log("커스텀 주문서 데이터 로딩 실패");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
 
 /**
  * 채팅방 오픈 + message load
  */
-window.openChatRoom = function (roomId, roomTitle) {
-    currRoomId = roomId;
+window.openChatRoom = function (roomId, roomTitle, customCakeInfoId) {
+    // 채팅방 타이틀 생성
     const spTitle = document.getElementById('spTitle');
-    if (roomTitle) {
-        spTitle.innerHTML = roomTitle;
-    }
-    loadMessageList(roomId);  // message load
+    if (roomTitle) { spTitle.innerHTML = roomTitle; }
+
+    // TODO customCakeInfoId 주문서 template 생성
+    loadCustomOrderSheetInfo(customCakeInfoId);
+
+    // message load
+    currRoomId = roomId;
+    loadMessageList(currRoomId);
 }
+
 
 /**
  * 채팅방 message load
@@ -186,6 +228,7 @@ window.loadMessageList = function (roomId) {
         ref(database, `Messages/${roomId}`),
         // queryConstraints
         orderByChild('timestamp', 'desc'),
+        // TODO 채팅방 위로 올렸을 때, 이전 message를 보여주도록 해야 함
         limitToLast(50)
     );
     onValue(messageQuery, (snapshot) => {
@@ -194,7 +237,7 @@ window.loadMessageList = function (roomId) {
                 loadMessage(roomId, snapshot);
             }
         } else {
-            console.log("No data available.");
+            console.log("채팅방 메시지 로딩 실패");
         }
     }, {
         onlyOnce: false
@@ -255,13 +298,10 @@ window.sendMessage = function (message) {
         const messageRefKey = push(child(ref(database), `Messages/${currRoomId}`)).key; // 메세지 키값 구하기
         const timestamp = serverTimestamp();  // 서버시간 등록하기
 
-        // 네 안녕하세요~ 주문서 작성 부탁드릴게요!
-        console.log("운영자 id=",currOperatorId);  // 없음
-        console.log("채팅방 id=",currRoomId);
         get(ref(database, `MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const val = snapshot.val();
-                console.log("채팅방 데이터", val);
+                // console.log("채팅방 데이터", val);
 
                 // Messages 저장
                 multiUpdates[`Messages/${currRoomId}/${messageRefKey}`] = {
@@ -275,20 +315,20 @@ window.sendMessage = function (message) {
 
                 // MemberRooms 저장
                 multiUpdates[`MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`] = {
-                    chatStatus: "IN_PROGRESS",  // 진행중
+                    chatStatus: "IN_PROGRESS",  // TODO status 변경
                     lastMessage: convertMsg, // 태그 입력 방지
                     roomOperatorId: val.roomOperatorId,
                     roomOperatorName: val.roomOperatorName,
                     roomUserId: val.roomUserId,
                     roomUserName: val.roomUserName,
+                    customCakeInfoId: val.customCakeInfoId,
                     timestamp: timestamp
-                    // profileImg: user.photoURL ? user.photoURL : '',
                 }
 
                 // Messages, MemberRooms 업데이트
                 update(ref(database), multiUpdates);
             } else {
-                console.log("채팅방 데이터 없음");
+                console.log("채팅방 데이터 로딩 실패");
             }
         }).catch((error) => {
             console.error(error);
