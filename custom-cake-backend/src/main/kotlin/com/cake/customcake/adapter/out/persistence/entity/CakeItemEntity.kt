@@ -25,7 +25,7 @@ class CakeItemEntity(
     val description: String? = "",
 
     @Column(columnDefinition = "String", length = 255, nullable = false)
-    val thumbnailImageUrl: String,
+    var thumbnailImageUrl: String,
 
     @Column(columnDefinition = "TINYINT DEFAULT 1", nullable = false)
     val isOnsale: Boolean,

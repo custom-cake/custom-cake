@@ -1,6 +1,7 @@
 package com.cake.customcake.adapter.out.persistence
 
 import com.cake.customcake.adapter.out.persistence.mapper.CakeItemMapper
+import com.cake.customcake.adapter.out.persistence.repository.CakeItemImageRepository
 import com.cake.customcake.adapter.out.persistence.repository.CakeItemJpaRepository
 import com.cake.customcake.application.port.out.CakeItemPort
 import com.cake.customcake.domain.CakeItem
@@ -14,7 +15,8 @@ import com.cake.customcake.adapter.out.persistence.entity.QCakeItemEntity.cakeIt
 class CakeItemPersistenceAdapter(
     private val cakeItemMapper: CakeItemMapper,
     private val jpaQueryFactory: JPAQueryFactory,
-    private val cakeItemJpaRepository: CakeItemJpaRepository
+    private val cakeItemJpaRepository: CakeItemJpaRepository,
+    private val cakeItemImageRepository: CakeItemImageRepository
 ) : CakeItemPort {
     override fun loadInfo(cakeItemId: Long): CakeItem {
         val cakeItemEntity = cakeItemJpaRepository.findByIdOrNull(cakeItemId)
@@ -68,5 +70,11 @@ class CakeItemPersistenceAdapter(
             .set(CAKEITEM.isDeleted, true)
             .where(CAKEITEM.id.eq(cakeItemId))
             .execute()
+    }
+
+    override fun updateThumbnailImage(item: CakeItem, url: String): Long {
+        val entity = cakeItemMapper.toEntity(item)
+        entity.thumbnailImageUrl = url
+        return entity.id
     }
 }
