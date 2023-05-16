@@ -1,10 +1,7 @@
 package com.cake.customcake.application.service
 
 import com.cake.customcake.application.port.`in`.UploadImageUseCase
-import com.cake.customcake.application.port.out.CakeItemImagePort
-import com.cake.customcake.application.port.out.CakeItemPort
-import com.cake.customcake.application.port.out.StorePort
-import com.cake.customcake.application.port.out.UploadImagePort
+import com.cake.customcake.application.port.out.*
 import com.cake.customcake.common.ImageType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +14,9 @@ class ImageService(
     private val uploadImagePort: UploadImagePort,
     private val storePort: StorePort,
     private val itemPort: CakeItemPort,
-    private val itemImagePort: CakeItemImagePort
+    private val itemImagePort: CakeItemImagePort,
+    private val customOrderSheetPort: CakeCustomOrderSheetPort,
+    private val galleryPort: StoreGalleryPort
 ) : UploadImageUseCase {
 
     override fun upload(imageFile: MultipartFile, imageType: ImageType): String {
@@ -50,6 +49,30 @@ class ImageService(
             itemPort.updateThumbnailImage(item, url)
 
         itemImagePort.uploadImage(itemId, url, isThumbnail)
+        return url
+    }
+
+    @Transactional
+    override fun uploadCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String {
+        val bufferedImage = ImageIO.read(imageFile.inputStream)
+        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/" + uuid()
+        val customOrderSheet = customOrderSheetPort.load(customOrderSheetId) // checking
+
+        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+
+        customOrderSheetPort.updateImage(customOrderSheet, url)
+        return url
+    }
+
+    @Transactional
+    override fun uploadGalleryImage(imageFile: MultipartFile, storeId: Long): String {
+        val bufferedImage = ImageIO.read(imageFile.inputStream)
+        val fullFileName = ImageType.GALLERY.path + "store_${storeId}/" + uuid()
+        val gallery = galleryPort.load(storeId)
+
+        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+        galleryPort.addImage(gallery, url)
+
         return url
     }
 

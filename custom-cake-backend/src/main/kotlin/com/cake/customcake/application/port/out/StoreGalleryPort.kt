@@ -5,4 +5,5 @@ import com.cake.customcake.domain.StoreGallery
 interface StoreGalleryPort {
     fun load(storeId: Long): StoreGallery
     fun save(storeId: Long)
+    fun addImage(gallery: StoreGallery, url: String): Long
 }

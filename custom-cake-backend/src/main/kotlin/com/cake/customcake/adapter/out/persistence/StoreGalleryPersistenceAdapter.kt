@@ -35,4 +35,10 @@ class StoreGalleryPersistenceAdapter(
             )
         )
     }
+
+    override fun addImage(gallery: StoreGallery, url: String): Long {
+        val entity = storeGalleryJpaRepository.findById(gallery.id).get()
+        entity.imageUrlList = entity.imageUrlList + url
+        return entity.id
+    }
 }

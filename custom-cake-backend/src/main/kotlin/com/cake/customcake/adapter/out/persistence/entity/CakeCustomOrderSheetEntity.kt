@@ -24,7 +24,7 @@ class CakeCustomOrderSheetEntity (
     val storeId: Long,
 
     @Column(name = "cake_custom_image_url", nullable = false)
-    val cakeCustomImageUrl: String,
+    var cakeCustomImageUrl: String,
 
     @Column(name = "option1_id", nullable = false)
     val option1Id: Long,
