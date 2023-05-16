@@ -163,22 +163,20 @@
                                         </ul>
                                     </div>
                                     <div class="input-div">
-                                        <textarea id="input-message" placeholder="메시지를 입력해주세요.">
-
-                                        </textarea>
-                                            <form th:action="@{/image/upload(type=${'CHAT'})}" enctype="multipart/form-data" method="POST" >
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="file" class="form-control" id="image" name="image" onchange="checkFile(event)"/>
-                                                        </td>
-                                                        <td>
-                                                            <!-- TODO url return 받았으면 firebase에 image message upload 하는 method 호출 -->
-                                                            <input type="submit" class="form-control" id="submitImage" value="전송" disabled />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </form>
+                                        <textarea id="input-message" placeholder="메시지를 입력해주세요."></textarea>
+                                        <form th:action="@{/image/upload(type=${'CHAT'})}" enctype="multipart/form-data" method="POST"
+                                              onsubmit="submitForm(event)">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input type="file" class="form-control" id="image" name="image" onchange="checkFile(event)"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="submit" class="form-control" id="submitImage" value="전송" disabled />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
                                     </div>
                                     <!-- format -->
                                     <div class="chat format">
@@ -240,6 +238,25 @@
         } else {
             submitImage.disabled = true;
         }
+    }
+    function submitForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+            .then(response => response.text())
+            .then(result => {
+                // TODO firebase message image upload
+                uploadMessageImage(result);
+            })
+            .catch(e => {
+                // console.error(e);
+                console.error("파일 크기가 너무 크거나 업로드 할 수 없는 파일 형식입니다.");
+            });
     }
 </script>
 

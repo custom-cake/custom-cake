@@ -337,3 +337,12 @@ window.sendMessage = function (message) {
 
 }
 
+
+/**
+ * send message image
+ * : 채팅 시, 이미지 전송
+ */
+window.uploadMessageImage = function (url) {
+    console.log("uploadMessageImage", url);
+
+}
