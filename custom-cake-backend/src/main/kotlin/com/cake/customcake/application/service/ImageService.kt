@@ -9,6 +9,7 @@ import com.cake.customcake.common.ImageType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
+import java.util.UUID
 import javax.imageio.ImageIO
 
 @Service
@@ -28,7 +29,7 @@ class ImageService(
     @Transactional
     override fun uploadStoreImage(imageFile: MultipartFile, storeId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
-        val fullFileName = ImageType.STORE.path + "/" + imageFile.originalFilename
+        val fullFileName = ImageType.STORE.path + "/store_${storeId}/" + uuid()
 
         val store = storePort.loadByStoreId(storeId)
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
@@ -40,9 +41,9 @@ class ImageService(
     @Transactional
     override fun uploadProductImage(imageFile: MultipartFile, itemId: Long, isThumbnail: Boolean): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
-        val fullFileName = ImageType.PRODUCT.path + "/" + imageFile.originalFilename
-
         val item = itemPort.loadInfo(itemId)
+        val fullFileName = ImageType.PRODUCT.path + "/store_${item.storeId}/" + uuid()
+
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
 
         if (isThumbnail)
@@ -52,4 +53,6 @@ class ImageService(
 
         return url
     }
+
+    private fun uuid(): String = UUID.randomUUID().toString()
 }
