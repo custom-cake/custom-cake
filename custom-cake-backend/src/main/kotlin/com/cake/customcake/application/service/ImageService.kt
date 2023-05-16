@@ -30,11 +30,11 @@ class ImageService(
     override fun uploadStoreImage(imageFile: MultipartFile, storeId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
         val fullFileName = ImageType.STORE.path + "/store_${storeId}/" + uuid()
-
         val store = storePort.loadByStoreId(storeId)
-        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
-        storePort.updateStoreImage(store, url)
 
+        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+
+        storePort.updateStoreImage(store, url)
         return  url
     }
 
@@ -50,7 +50,6 @@ class ImageService(
             itemPort.updateThumbnailImage(item, url)
 
         itemImagePort.uploadImage(itemId, url, isThumbnail)
-
         return url
     }
 
