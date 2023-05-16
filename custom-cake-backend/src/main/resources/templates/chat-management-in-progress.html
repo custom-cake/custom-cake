@@ -170,10 +170,11 @@
                                                 <table>
                                                     <tr>
                                                         <td>
-                                                            <input type="file" class="form-control" id="image" name="image" />
+                                                            <input type="file" class="form-control" id="image" name="image" onchange="checkFile(event)"/>
                                                         </td>
                                                         <td>
-                                                            <input type="submit" class="form-control" value="Upload" />
+                                                            <!-- TODO url return 받았으면 firebase에 image message upload 하는 method 호출 -->
+                                                            <input type="submit" class="form-control" id="submitImage" value="전송" disabled />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -227,6 +228,19 @@
             {"orderable": false, "targets": [0, 1, 2, 3]}
         ]
     });
+</script>
+
+<script>
+    function checkFile(event) {
+        const fileInput = event.target;
+        const submitImage = document.getElementById('submitImage');
+
+        if (fileInput.files.length > 0) {
+            submitImage.disabled = false;
+        } else {
+            submitImage.disabled = true;
+        }
+    }
 </script>
 
 <!-- template 채팅룸 리스트 영역 -->
