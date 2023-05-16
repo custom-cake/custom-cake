@@ -1,6 +1,5 @@
 package com.cake.customcake.adapter.out.persistence
 
-import com.cake.customcake.adapter.out.persistence.entity.QCakeCustomOrderSheetEntity
 import com.cake.customcake.adapter.out.persistence.entity.QCakeCustomOrderSheetEntity.cakeCustomOrderSheetEntity as CUSTOM_ORDER_SHEET
 import com.cake.customcake.adapter.out.persistence.mapper.CakeCustomOrderSheetMapper
 import com.cake.customcake.adapter.out.persistence.repository.CakeCustomOrderSheetRepository
@@ -37,4 +36,10 @@ class CakeCustomOrderSheetPersistenceAdapter(
             .fetchOne()
              ?. let { true }
              ?: false
+
+    override fun updateImage(sheet: CakeCustomOrderSheet, url: String): Long {
+        val entity = cakeCustomOrderSheetMapper.toEntity(sheet)
+        entity.cakeCustomImageUrl = url
+        return entity.id
+    }
 }

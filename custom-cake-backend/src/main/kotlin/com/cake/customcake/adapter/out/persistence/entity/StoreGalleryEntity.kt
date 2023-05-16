@@ -15,5 +15,5 @@ class StoreGalleryEntity(
 
     @Convert(converter = JsonColumnConverter.ListConverter::class)
     @Column(name = "image_url_list", columnDefinition = "JSON")
-    val imageUrlList: List<String>
+    var imageUrlList: List<String>
 ) : BaseEntity()

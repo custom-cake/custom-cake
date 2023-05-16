@@ -7,4 +7,6 @@ interface UploadImageUseCase {
     fun upload(imageFile: MultipartFile, imageType: ImageType): String
     fun uploadStoreImage(imageFile: MultipartFile, storeId: Long): String
     fun uploadProductImage(imageFile: MultipartFile, itemId: Long, isThumbnail: Boolean): String
+    fun uploadCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String
+    fun uploadGalleryImage(imageFile: MultipartFile, storeId: Long): String
 }

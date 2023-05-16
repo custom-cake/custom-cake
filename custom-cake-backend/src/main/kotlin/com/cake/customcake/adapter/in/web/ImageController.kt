@@ -29,4 +29,14 @@ class ImageController(
     fun uploadProductImage(@RequestParam("image") image: MultipartFile, @RequestParam("isThumbnail") isThumbnail: Boolean, @PathVariable("itemId") itemId: Long): String {
         return uploadImageUseCase.uploadProductImage(image, itemId, isThumbnail)
     }
+
+    @PostMapping("/custom/{customOrderSheetId}")
+    fun uploadCustomCakeImage(@RequestParam("image") image: MultipartFile, @PathVariable("customOrderSheetId") customOrderSheetId: Long): String {
+        return uploadImageUseCase.uploadCustomCakeImage(image, customOrderSheetId)
+    }
+
+    @PostMapping("/gallery/{storeId}")
+    fun uploadGalleryImage(@RequestParam("image") image: MultipartFile, @PathVariable("storeId") storeId: Long): String {
+        return uploadImageUseCase.uploadGalleryImage(image, storeId)
+    }
 }
