@@ -5,4 +5,5 @@ enum class ImageType(val path: String) {
     PRODUCT("cake-item-image"),
     GALLERY("gallery"),
     CUSTOM_CAKE("cake-custom-image"),
+    CHAT("chatting")
 }

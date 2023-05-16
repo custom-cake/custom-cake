@@ -163,7 +163,21 @@
                                         </ul>
                                     </div>
                                     <div class="input-div">
-                                        <textarea id="input-message" placeholder="메시지를 입력해주세요."></textarea>
+                                        <textarea id="input-message" placeholder="메시지를 입력해주세요.">
+
+                                        </textarea>
+                                            <form th:action="@{/image/upload(type=${'CHAT'})}" enctype="multipart/form-data" method="POST" >
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="file" class="form-control" id="image" name="image" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="submit" class="form-control" value="Upload" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
                                     </div>
                                     <!-- format -->
                                     <div class="chat format">
