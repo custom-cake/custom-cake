@@ -1,4 +1,4 @@
-package com.cake.customcake.common.converter
+package com.cake.customcake.common
 
 enum class ImageType(val path: String) {
     STORE("store-image"),

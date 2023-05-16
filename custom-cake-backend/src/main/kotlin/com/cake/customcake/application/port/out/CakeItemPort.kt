@@ -11,5 +11,6 @@ interface CakeItemPort {
     fun save(): Long
     fun modify(cakeItemId: Long): Long
     fun delete(cakeItemId: Long)
+    fun updateThumbnailImage(item: CakeItem, url: String): Long
 
 }

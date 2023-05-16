@@ -17,6 +17,6 @@ class CakeItemImageEntity(
     val url: String,  // s3 image url
 
     @Column(columnDefinition = "TINYINT", nullable = false)
-    val isThumbnail: Boolean
+    var isThumbnail: Boolean
 
 ) : BaseEntity()

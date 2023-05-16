@@ -1,10 +1,11 @@
 package com.cake.customcake.application.service
 
 import com.cake.customcake.application.port.`in`.UploadImageUseCase
-import com.cake.customcake.application.port.`in`.UploadStoreImageUseCase
+import com.cake.customcake.application.port.out.CakeItemImagePort
+import com.cake.customcake.application.port.out.CakeItemPort
 import com.cake.customcake.application.port.out.StorePort
 import com.cake.customcake.application.port.out.UploadImagePort
-import com.cake.customcake.common.converter.ImageType
+import com.cake.customcake.common.ImageType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
@@ -13,8 +14,10 @@ import javax.imageio.ImageIO
 @Service
 class ImageService(
     private val uploadImagePort: UploadImagePort,
-    private val storePort: StorePort
-) : UploadImageUseCase, UploadStoreImageUseCase {
+    private val storePort: StorePort,
+    private val itemPort: CakeItemPort,
+    private val itemImagePort: CakeItemImagePort
+) : UploadImageUseCase {
 
     override fun upload(imageFile: MultipartFile, imageType: ImageType): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
@@ -31,6 +34,22 @@ class ImageService(
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
         storePort.updateStoreImage(store, url)
 
-        return uploadImagePort.uploadImage(bufferedImage, fullFileName)
+        return  url
+    }
+
+    @Transactional
+    override fun uploadProductImage(imageFile: MultipartFile, itemId: Long, isThumbnail: Boolean): String {
+        val bufferedImage = ImageIO.read(imageFile.inputStream)
+        val fullFileName = ImageType.PRODUCT.path + "/" + imageFile.originalFilename
+
+        val item = itemPort.loadInfo(itemId)
+        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+
+        if (isThumbnail)
+            itemPort.updateThumbnailImage(item, url)
+
+        itemImagePort.uploadImage(itemId, url, isThumbnail)
+
+        return url
     }
 }
