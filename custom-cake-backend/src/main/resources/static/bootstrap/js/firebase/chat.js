@@ -5,7 +5,7 @@ import {
     push, update,
     onValue, query,
     limitToLast, orderByChild, child,
-    serverTimestamp
+    serverTimestamp, DataSnapshot
 } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 import {database} from "./init.js";
 
@@ -13,6 +13,7 @@ import {database} from "./init.js";
 // 전역변수
 let currRoomId = '';
 let currOperatorId = 0;
+let sheetInfo = null;
 
 function clearTextarea() {
     $('div.input-div textarea').val('');
@@ -152,7 +153,7 @@ function loadCustomOrderSheetInfo(customCakeInfoId) {
     // load customOrderSheet info
     get(ref(database, `CustomCakeInfos/${customCakeInfoId}`)).then((snapshot) => {
         if (snapshot.exists()) {
-            // console.log("커스텀 주문서=", snapshot.val());
+            sheetInfo = snapshot.val();
             cbDisplayCustomOrderSheet(snapshot.val());
         } else {
             console.log("커스텀 주문서 데이터 로딩 실패");
@@ -161,7 +162,6 @@ function loadCustomOrderSheetInfo(customCakeInfoId) {
         console.error(error);
     });
 }
-
 
 /**
  * 채팅방 오픈 + message load
@@ -334,6 +334,51 @@ window.sendMessage = function (message) {
             console.error(error);
         });
     }
-
 }
 
+/**
+ * 주문서 승인 api 연결
+ */
+window.submitCakeOrderSheet = function (paymentAmount, otherRequirements) {
+    if (sheetInfo.userId === undefined) {
+        alert("주문서 정보가 없습니다.");
+    } else {
+        const price = parseInt(paymentAmount);
+        if (isNaN(price) || (price <= 0)) {
+            alert("최종 가격을 올바르게 입력해주세요.");
+        }
+        const request = {
+            userId: sheetInfo.userId,
+            storeId: sheetInfo.storeId,
+            option1Id: sheetInfo.option1Id,
+            option2Id: sheetInfo.option2Id,
+            option3Id: sheetInfo.option3Id,
+            customCakeImage: sheetInfo.designImage,
+            additionalImageList: sheetInfo.additionalImageList,  // list
+            userRequirements: sheetInfo.requirements,
+            otherRequirements: otherRequirements,
+            paymentAmount: price,
+            pickupDatetime: sheetInfo.pickupDatetime
+        };
+
+        fetch("/api/orders/customs/sheets", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("주문서 승인 성공")  // if success, return is true
+                }
+                else {
+                    console.log("주문서 승인 실패")
+                }
+
+            })
+            .catch(e => {
+                console.error("주문서 승인 에러", e);
+        });
+    }
+}

@@ -26,6 +26,9 @@ class CakeCustomOrderSheetEntity (
     @Column(name = "cake_custom_image_url", nullable = false)
     var cakeCustomImageUrl: String,
 
+    @Convert(converter = JsonColumnConverter.ListConverter::class)
+    var additionalImageList: List<String> = listOf(),
+
     @Column(name = "option1_id", nullable = false)
     val option1Id: Long,
 
@@ -40,7 +43,7 @@ class CakeCustomOrderSheetEntity (
     val userRequirements: String,
 
     @Column(columnDefinition = "String", length = 255)
-    val operatorRequirements: String,
+    val otherRequirements: String,
 
     @Column(columnDefinition = "INT UNSIGNED", nullable = false)
     val paymentAmount: Int,
