@@ -275,8 +275,9 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order_sheet` (
     `option2_id`	                BIGINT UNSIGNED	        NOT NULL,
     `option3_id_list`	            JSON	                NULL DEFAULT NULL,
     `cake_custom_image_url`	        VARCHAR(255)	        NULL,           -- url
+    `additional_image_list`         JSON                    NULL,
     `user_requirements`	            VARCHAR(255)	        NULL,
-    `operator_requirements`	        VARCHAR(255)	        NULL,
+    `other_requirements`	        VARCHAR(255)	        NULL,
     `pickup_datetime`	            DATETIME	            NULL,           -- 픽업 날짜
     `payment_amount`	            INT	UNSIGNED            NOT NULL,
     `created_at`	                TIMESTAMP DEFAULT CURRENT_TIMESTAMP                                   NOT NULL,

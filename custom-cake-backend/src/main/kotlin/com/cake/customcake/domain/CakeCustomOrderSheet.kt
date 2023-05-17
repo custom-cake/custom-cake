@@ -8,6 +8,7 @@ data class CakeCustomOrderSheet (
     val userId: Long,
     val storeId: Long,
     val cakeCustomImageUrl: String,  // s3 url
+    val additionalImageList: List<String>,
     val option1Id: Long,
     val option2Id: Long,
     // TODO option3은 여러 개 선택 가능

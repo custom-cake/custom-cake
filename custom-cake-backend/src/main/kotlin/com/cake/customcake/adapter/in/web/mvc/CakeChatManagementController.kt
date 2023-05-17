@@ -35,15 +35,13 @@ class CakeChatManagementController {
                 logger.info("채팅 화면 로드 실패: 운영자 정보 없음")
                 return "redirect:/operator/login"
             }
-        model.addAttribute("customCakeSheetRequest", CustomCakeSheetRequest())
 
-        return "chat-management-in-progress"
-//        return when (status) {
-//            ChatStatus.NEW -> "chat-management-new"
-//            ChatStatus.IN_PROGRESS -> "chat-management-in-progress"
-//            ChatStatus.COMPLETED -> "chat-management-completed"
-//            else -> "404"
-//        }
+        return when (status) {
+            ChatStatus.NEW -> "chat-management-new"
+            ChatStatus.IN_PROGRESS -> "chat-management-in-progress"
+            ChatStatus.COMPLETED -> "chat-management-completed"
+            else -> "404"
+        }
     }
 
 }

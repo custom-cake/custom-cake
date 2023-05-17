@@ -96,6 +96,7 @@ class CakeOrderService(
                 userId = customCakeSheetRequest.userId,
                 storeId = customCakeSheetRequest.storeId,
                 cakeCustomImageUrl = customCakeSheetRequest.customCakeImage,
+                additionalImageList = customCakeSheetRequest.additionalImageList,
                 option1Id = customCakeSheetRequest.option1Id,
                 option2Id = customCakeSheetRequest.option2Id,
                 option3IdList = listOfNotNull(customCakeSheetRequest.option3Id),
