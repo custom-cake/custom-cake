@@ -59,7 +59,7 @@ class OperatorLoginController(
             }
             session.setAttribute("operator", operator)
             logger.info(operator.toString())
-            return "redirect:/"
+            return "redirect:/operator/store"
     }
 
     @GetMapping("/logout")
