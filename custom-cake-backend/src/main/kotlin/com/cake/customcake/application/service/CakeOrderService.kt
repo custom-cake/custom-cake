@@ -130,6 +130,11 @@ class CakeOrderService(
         )
     }
 
-    override fun checkApproveCustomSheet(storeId: Long, userId: Long): ApproveCustomSheetResponse =
-        ApproveCustomSheetResponse(approve = cakeCustomOrderSheetPort.hasSheet(storeId, userId))
+    override fun checkApproveCustomSheet(storeId: Long, userId: Long): ApproveCustomSheetResponse {
+        val (approve, id) = cakeCustomOrderSheetPort.hasSheet(storeId, userId)
+        return ApproveCustomSheetResponse(
+            approve = approve,
+            cakeCustomSheetId = id
+        )
+    }
 }
