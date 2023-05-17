@@ -17,7 +17,7 @@ class CakeCustomOrderSheetMapper : Mapper<CakeCustomOrderSheetEntity, CakeCustom
             option2Id = domain.option2Id,
             option3IdList = domain.option3IdList,
             userRequirements = domain.userRequirements,
-            operatorRequirements = domain.operatorRequirements,
+            operatorRequirements = domain.otherRequirements,
             paymentAmount = domain.paymentAmount,
             pickupDatetime = domain.pickupDatetime
         )
@@ -32,7 +32,7 @@ class CakeCustomOrderSheetMapper : Mapper<CakeCustomOrderSheetEntity, CakeCustom
             option2Id = entity.option2Id,
             option3IdList = entity.option3IdList,
             userRequirements = entity.userRequirements,
-            operatorRequirements = entity.operatorRequirements,
+            otherRequirements = entity.operatorRequirements,
             paymentAmount = entity.paymentAmount,
             pickupDatetime = entity.pickupDatetime,
             createdAt = entity.createdAt,

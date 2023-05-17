@@ -1,7 +1,5 @@
 package com.cake.customcake.domain
 
-import com.cake.customcake.common.CakeCustomSketch
-import com.cake.customcake.common.OrderStatus
 import java.time.LocalDateTime
 
 data class CakeCustomOrderSheet (
@@ -15,7 +13,7 @@ data class CakeCustomOrderSheet (
     // TODO option3은 여러 개 선택 가능
     val option3IdList: List<Long> = listOf(),
     val userRequirements: String,
-    val operatorRequirements: String,
+    val otherRequirements: String,
     val paymentAmount: Int,
     val pickupDatetime: LocalDateTime,
     val createdAt: LocalDateTime,

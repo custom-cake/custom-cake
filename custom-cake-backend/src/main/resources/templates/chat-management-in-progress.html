@@ -239,31 +239,44 @@
 </script>
 
 <!-- template 커스텀 주문 영역 -->
+<!-- TODO 주문서 승인 API 연결 -->
 <script type="text/template" id="templateCustomOrderSheet">
-    <div class="d-flex justify-content-center p-2">
-        <div class="col-lg-6">
-            <h5 class="font-weight-bold " style="color: #694E4E">커스텀 디자인</h5>
-            <img src="<%=designImage %>" alt="" style="width: 15rem;">
-            </p>
+<!--    <form th:action="@{/operator/order/custom}" th:object="${customCakeSheetRequest}" method="post">-->
+        <div class="d-flex justify-content-center p-2">
+            <div class="col-lg-6">
+                <h5 class="font-weight-bold " style="color: #694E4E">커스텀 디자인</h5>
+                <img src="<%=designImage %>" alt="" style="width: 15rem;">
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <h5 class="font-weight-bold " style="color: #694E4E">첨부 사진</h5>
+                <% _.each(additionalImageList, function(image) { %>
+                <img src="<%= image %>" alt="" style="width: 10rem;">
+                <% }); %>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <h5 class="font-weight-bold " style="color: #694E4E">첨부 사진</h5>
-            <% _.each(additionalImageList, function(image) { %>
-            <img src="<%= image %>" alt="" style="width: 10rem;">
-            <% }); %>
+        <div class="d-flex justify-content-center p-2">
+            <div class="col-lg-6">
+                <h6 class="mb-0 font-weight-bold " style="color: #694E4E">1. 케이크 모양 및 크기</h6>
+                <b class="mt-0 mb-2"><%=option1Value %></b>
+                <h6 class="mb-0 font-weight-bold " style="color: #694E4E">2. 케이크 시트 및 맛</h6>
+                <b class="mt-0 mb-2"><%=option2Value %></b>
+                <h6 class="mb-0 font-weight-bold " style="color: #694E4E">3. 기타</h6>
+                <b class="mt-0 mb-2"><%=option3Value %></b>
+                <h6 class="mb-0 font-weight-bold " style="color: #694E4E">4. 요청사항</h6>
+                <b><%=requirements %></b>
+                <h6 class="mb-0 font-weight-bold " style="color: #694E4E">5. 픽업 날짜</h6>
+                <b><%=pickupDatetime %></b>
+            </div>
+            <div class="col-lg-6">
+                <textarea type="text" placeholder="추가 요구사항을 입력해주세요." style="width: 100%; height: 200px;"></textarea>
+                <button type="submit" class="btn btn-info btn-icon-split float-right mr-2">
+                    <span class="text text-white"> 승인 </span>
+                    <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                </button>
+            </div>
         </div>
-    </div>
-    <h6 class="mb-0 font-weight-bold " style="color: #694E4E">1. 케이크 모양 및 크기</h6>
-    <b class="mt-0 mb-2"><%=option1Value %></b>
-    <h6 class="mb-0 font-weight-bold " style="color: #694E4E">2. 케이크 시트 및 맛</h6>
-    <b class="mt-0 mb-2"><%=option2Value %></b>
-    <h6 class="mb-0 font-weight-bold " style="color: #694E4E">3. 기타</h6>
-    <b class="mt-0 mb-2"><%=option3Value %></b>
-    <h6 class="mb-0 font-weight-bold " style="color: #694E4E">--------요구사항--------</h6>
-    <b><%=requirements %></b>
-    <h6 class="mb-0 font-weight-bold " style="color: #694E4E">픽업 날짜</h6>
-    <b><%=pickupDatetime %></b>
-
+<!--    </form>-->
 </script>
 
 <!-- Logout Modal-->
