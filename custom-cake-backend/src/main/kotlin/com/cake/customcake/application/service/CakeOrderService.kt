@@ -96,11 +96,12 @@ class CakeOrderService(
                 userId = customCakeSheetRequest.userId,
                 storeId = customCakeSheetRequest.storeId,
                 cakeCustomImageUrl = customCakeSheetRequest.customCakeImage,
+                additionalImageList = customCakeSheetRequest.additionalImageList,
                 option1Id = customCakeSheetRequest.option1Id,
                 option2Id = customCakeSheetRequest.option2Id,
                 option3IdList = listOfNotNull(customCakeSheetRequest.option3Id),
                 userRequirements = customCakeSheetRequest.userRequirements,
-                operatorRequirements = customCakeSheetRequest.operatorRequirements,
+                otherRequirements = customCakeSheetRequest.otherRequirements,
                 paymentAmount = customCakeSheetRequest.paymentAmount,  // 주문서 확정 시, 가격 저장
                 pickupDatetime = customCakeSheetRequest.pickupDatetime,
                 createdAt = LocalDateTime.now(),
@@ -129,6 +130,11 @@ class CakeOrderService(
         )
     }
 
-    override fun checkApproveCustomSheet(storeId: Long, userId: Long): ApproveCustomSheetResponse =
-        ApproveCustomSheetResponse(approve = cakeCustomOrderSheetPort.hasSheet(storeId, userId))
+    override fun checkApproveCustomSheet(storeId: Long, userId: Long): ApproveCustomSheetResponse {
+        val (approve, id) = cakeCustomOrderSheetPort.hasSheet(storeId, userId)
+        return ApproveCustomSheetResponse(
+            approve = approve,
+            cakeCustomSheetId = id
+        )
+    }
 }

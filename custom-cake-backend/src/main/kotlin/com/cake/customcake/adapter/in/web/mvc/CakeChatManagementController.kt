@@ -1,5 +1,6 @@
 package com.cake.customcake.adapter.`in`.web.mvc
 
+import com.cake.customcake.adapter.`in`.web.dto.request.CustomCakeSheetRequest
 import com.cake.customcake.adapter.`in`.web.dto.response.OperatorLoginResponse
 import com.cake.customcake.common.ChatStatus
 import org.slf4j.Logger
@@ -19,6 +20,9 @@ import javax.servlet.http.HttpServletRequest
 class CakeChatManagementController {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
+    /**
+     * 채팅 페이지 로딩
+     */
     @GetMapping("/chat")
     fun chatPages(
         httpServletRequest: HttpServletRequest,

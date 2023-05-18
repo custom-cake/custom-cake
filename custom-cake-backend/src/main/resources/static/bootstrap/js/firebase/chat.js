@@ -5,14 +5,15 @@ import {
     push, update,
     onValue, query,
     limitToLast, orderByChild, child,
-    serverTimestamp
+    serverTimestamp, DataSnapshot
 } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 import {database} from "./init.js";
 
 
 // 전역변수
 let currRoomId = '';
-let currOperatorId = 0;
+let currOperatorId = 1;
+let sheetInfo = null;
 
 function clearTextarea() {
     $('div.input-div textarea').val('');
@@ -152,16 +153,15 @@ function loadCustomOrderSheetInfo(customCakeInfoId) {
     // load customOrderSheet info
     get(ref(database, `CustomCakeInfos/${customCakeInfoId}`)).then((snapshot) => {
         if (snapshot.exists()) {
-            // console.log("커스텀 주문서=", snapshot.val());
+            sheetInfo = snapshot.val();
             cbDisplayCustomOrderSheet(snapshot.val());
         } else {
-            console.log("커스텀 주문서 데이터 로딩 실패");
+            console.log("커스텀 주문서 데이터 로딩 실패", customCakeInfoId);
         }
     }).catch((error) => {
         console.error(error);
     });
 }
-
 
 /**
  * 채팅방 오픈 + message load
@@ -334,9 +334,7 @@ window.sendMessage = function (message) {
             console.error(error);
         });
     }
-
 }
-
 
 /**
  * send message image
@@ -344,5 +342,80 @@ window.sendMessage = function (message) {
  */
 window.uploadMessageImage = function (url) {
     console.log("uploadMessageImage", url);
+}
 
+/**
+ * 주문서 승인 api 연결
+ */
+window.submitCakeOrderSheet = function (paymentAmount, otherRequirements) {
+    if (sheetInfo.userId === undefined) {
+        alert("주문서 정보가 없습니다.");
+    } else {
+        const price = parseInt(paymentAmount);
+        if (isNaN(price) || (price <= 0)) {
+            alert("최종 가격을 올바르게 입력해주세요.");
+        }
+        const request = {
+            userId: sheetInfo.userId,
+            storeId: sheetInfo.storeId,
+            option1Id: sheetInfo.option1Id,
+            option2Id: sheetInfo.option2Id,
+            option3Id: sheetInfo.option3Id,
+            customCakeImage: sheetInfo.designImage,
+            additionalImageList: sheetInfo.additionalImageList,  // list
+            userRequirements: sheetInfo.requirements,
+            otherRequirements: otherRequirements,
+            paymentAmount: price,
+            pickupDatetime: sheetInfo.pickupDatetime
+        };
+
+        fetch("/api/orders/customs/sheets", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        }).then(response => {
+            if (response.ok) {
+                console.log("주문서 승인 성공")  // if success, return is true
+
+                // 채팅방 status 결제 완료로 변경
+                get(ref(database, `MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const val = snapshot.val();
+
+                        // MemberRooms 저장
+                        let updates = {};
+                        updates[`MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`] = {
+                            chatStatus: "COMPLETED",  // 결제 완료
+                            lastMessage: val.lastMessage,
+                            roomOperatorId: val.roomOperatorId,
+                            roomOperatorName: val.roomOperatorName,
+                            roomUserId: val.roomUserId,
+                            roomUserName: val.roomUserName,
+                            customCakeInfoId: val.customCakeInfoId,
+                            timestamp: val.timestamp
+                        }
+
+                        // Messages, MemberRooms 업데이트
+                        update(ref(database), updates);
+
+                        // 결제 완료 페이지 이동
+                        console.log("채팅방 status 결제 완료로 변경");
+                        location.href = '/operator/chat?status=COMPLETED';
+                    } else {
+                        console.log("채팅방 데이터 업데이트 실패");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            } else {
+                console.log("주문서 승인 실패")
+            }
+
+        })
+        .catch(e => {
+            console.error("주문서 승인 에러", e);
+        });
+    }
 }
