@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `cake_custom_order` (
                                                    `user_id`	                    BIGINT UNSIGNED	        NOT NULL,
                                                    `store_id`	                    BIGINT UNSIGNED     	NOT NULL,
                                                    `cake_custom_order_sheet_id`	BIGINT UNSIGNED         NOT NULL,
-                                                   `order_status`	                VARCHAR(10)	            NOT NULL,   -- ENUM("신규주문(채팅에서 주문완료된 주문이 신규주문으로 들어옴)"
+                                                   `order_status`	                VARCHAR(20)	            NOT NULL,   -- ENUM("신규주문(채팅에서 주문완료된 주문이 신규주문으로 들어옴)"
                                                    `payment_amount`	            INT	UNSIGNED            NOT NULL,   --        ,"주문진행중(결제완료된 주문을 승낙한 경우)","픽업완료","주문취소")
                                                    `pickup_datetime`	            DATETIME	            NULL,       -- 픽업 날짜
                                                    `purchase_confirmation_date`	DATETIME	            NULL,       -- 구매확정일

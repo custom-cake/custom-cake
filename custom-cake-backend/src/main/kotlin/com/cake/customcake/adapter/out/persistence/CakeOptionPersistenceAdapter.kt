@@ -1,8 +1,9 @@
 package com.cake.customcake.adapter.out.persistence
 
-import com.cake.customcake.adapter.out.persistence.entity.QCakeOption1Entity.cakeOption1Entity
-import com.cake.customcake.adapter.out.persistence.entity.QCakeOption2Entity.cakeOption2Entity
-import com.cake.customcake.adapter.out.persistence.entity.QCakeOption3Entity.cakeOption3Entity
+import com.cake.customcake.adapter.out.persistence.entity.CakeOptionEntity
+import com.cake.customcake.adapter.out.persistence.entity.QCakeOption1Entity.cakeOption1Entity as CAKE_OPTION_1
+import com.cake.customcake.adapter.out.persistence.entity.QCakeOption2Entity.cakeOption2Entity as CAKE_OPTION_2
+import com.cake.customcake.adapter.out.persistence.entity.QCakeOption3Entity.cakeOption3Entity as CAKE_OPTION_3
 import com.cake.customcake.adapter.out.persistence.mapper.CakeOptionMapper
 import com.cake.customcake.adapter.out.persistence.repository.CakeOptionJpaRepository
 import com.cake.customcake.application.port.out.CakeOptionPort
@@ -22,22 +23,22 @@ class CakeOptionPersistenceAdapter(
 
     override fun loadAllCakeOptionList(storeId: Long): Map<Int, List<CakeOption>> {
         val cakeOption1Entities = jpaQueryFactory
-            .selectFrom(cakeOption1Entity)
+            .selectFrom(CAKE_OPTION_1)
             .where(
-                cakeOption1Entity.storeId.eq(storeId),
-                cakeOption1Entity.isDeleted.isFalse)
+                CAKE_OPTION_1.storeId.eq(storeId),
+                CAKE_OPTION_1.isDeleted.isFalse)
             .fetch()
         val cakeOption2Entities = jpaQueryFactory
-            .selectFrom(cakeOption2Entity)
+            .selectFrom(CAKE_OPTION_2)
             .where(
-                cakeOption2Entity.storeId.eq(storeId),
-                cakeOption2Entity.isDeleted.isFalse)
+                CAKE_OPTION_2.storeId.eq(storeId),
+                CAKE_OPTION_2.isDeleted.isFalse)
             .fetch()
         val cakeOption3Entities = jpaQueryFactory
-            .selectFrom(cakeOption3Entity)
+            .selectFrom(CAKE_OPTION_3)
             .where(
-                cakeOption3Entity.storeId.eq(storeId),
-                cakeOption3Entity.isDeleted.isFalse)
+                CAKE_OPTION_3.storeId.eq(storeId),
+                CAKE_OPTION_3.isDeleted.isFalse)
             .fetch()
         val cakeOptionEntities = cakeOption1Entities.plus(cakeOption2Entities).plus(cakeOption3Entities)
 
@@ -64,26 +65,52 @@ class CakeOptionPersistenceAdapter(
         when (cakeOptionType) {
             1 -> {
                 jpaQueryFactory
-                    .update(cakeOption1Entity)
-                    .set(cakeOption1Entity.isDeleted, true)
-                    .where(cakeOption1Entity.id.eq(optionId))
+                    .update(CAKE_OPTION_1)
+                    .set(CAKE_OPTION_1.isDeleted, true)
+                    .where(CAKE_OPTION_1.id.eq(optionId))
                     .execute()
             }
             2 -> {
                 jpaQueryFactory
-                    .update(cakeOption2Entity)
-                    .set(cakeOption2Entity.isDeleted, true)
-                    .where(cakeOption2Entity.id.eq(optionId))
+                    .update(CAKE_OPTION_2)
+                    .set(CAKE_OPTION_2.isDeleted, true)
+                    .where(CAKE_OPTION_2.id.eq(optionId))
                     .execute()
             }
             3 -> {
                 jpaQueryFactory
-                    .update(cakeOption3Entity)
-                    .set(cakeOption3Entity.isDeleted, true)
-                    .where(cakeOption3Entity.id.eq(optionId))
+                    .update(CAKE_OPTION_3)
+                    .set(CAKE_OPTION_3.isDeleted, true)
+                    .where(CAKE_OPTION_3.id.eq(optionId))
                     .execute()
             }
             else -> {}
         }
+    }
+
+    override fun loadListByIdList(optionIdList: List<Long>): List<String> {
+        val cakeOption1Entity = jpaQueryFactory
+            .selectFrom(CAKE_OPTION_1)
+            .where(
+                CAKE_OPTION_1.id.eq(optionIdList[0]),
+                CAKE_OPTION_1.isDeleted.isFalse
+            )
+            .fetchFirst()
+        val cakeOption2Entity = jpaQueryFactory
+            .selectFrom(CAKE_OPTION_2)
+            .where(
+                CAKE_OPTION_2.id.eq(optionIdList[1]),
+                CAKE_OPTION_2.isDeleted.isFalse
+            )
+            .fetchFirst()
+        val cakeOption3Entity = jpaQueryFactory
+            .selectFrom(CAKE_OPTION_3)
+            .where(
+                CAKE_OPTION_3.id.eq(optionIdList[2]),
+                CAKE_OPTION_3.isDeleted.isFalse
+            )
+            .fetchFirst()
+        return listOfNotNull(cakeOption1Entity, cakeOption2Entity, cakeOption3Entity)
+            .map { cakeOptionMapper.toDomain(it).toResponse().value }
     }
 }

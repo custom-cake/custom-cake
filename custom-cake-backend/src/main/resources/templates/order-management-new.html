@@ -86,6 +86,57 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <!-- NEW: 주문 생성 순으로 정렬
+                                                     IN_PROGRESS, COMPLETED: 픽업 날짜 순으로 정렬 -->
+                                                <th>주문번호</th>
+                                                <th>픽업날짜</th>
+                                                <th>주문정보</th>  <!-- 주문 정보에 결제 금액? 일단 따로 -->
+                                                <th>요구사항</th>  <!-- 주문 정보에 결제 금액? 일단 따로 -->
+                                                <th>결제금액</th>
+                                                <th>주문자, 전화번호</th>
+                                                <th>주문승인</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="cakeOrder : ${cakeOrderList.customOrderList}">
+                                                <td th:text="|${cakeOrder.orderType}-${cakeOrder.orderId}|"></td>
+                                                <!--                                                <td th:text="|CUSTOM-${cakeOrder.orderId}|"></td>-->
+                                                <td th:text="${cakeOrder.pickupDatetime}"></td>
+                                                <td>
+                                                    <hr class="mb-1 mt-0">
+                                                    <span th:each="optionByCake: ${cakeOrder.optionInfo}" >
+                                                        <p class="m-0 p-0" th:text="${optionByCake}"></p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <p th:text="${cakeOrder.requirements}"></p>
+                                                    <p class="font-weight-bold mb-0" style="color: #694E4E">디자인 사진</p>
+                                                    <span>
+                                                        <img th:src="${cakeOrder.customCakeImage}" style="width: 10rem;"></span>
+                                                    <p class="font-weight-bold mb-0" style="color: #694E4E">첨부 사진</p>
+                                                    <span th:each="additionalImage: ${cakeOrder.additionalImageList}">
+                                                        <img th:src="${additionalImage}" style="width: 10rem;">
+                                                    </span>
+                                                </td>
+                                                <td th:text="${cakeOrder.paymentAmount}"></td>
+                                                <td>
+                                                    <p class="mb-1" th:text="${cakeOrder.userName}"></p>
+                                                    <hr class="mb-1 mt-0">
+                                                    <p th:text="${cakeOrder.userPhone}"></p>
+                                                </td>
+                                                <td>
+                                                    <form th:action="@{/operator/order/{orderId}(orderId=${cakeOrder.orderId},type=${cakeOrder.orderType})}" th:method="post" >
+                                                        <button class="btn btn-secondary" type="submit">승인</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
