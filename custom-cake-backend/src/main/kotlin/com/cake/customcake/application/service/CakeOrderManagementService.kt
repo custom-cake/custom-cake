@@ -49,7 +49,7 @@ class CakeOrderManagementService(
     override fun approveCakeOrder(type: OrderType, orderId: Long) {
         when (type) {
             OrderType.DESIGN -> cakeDesignOrderPort.approveCakeOrder(orderId)
-            OrderType.CUSTOM -> {}
+            OrderType.CUSTOM -> cakeCustomOrderPort.approveCakeOrder(orderId)
         }
     }
 }
