@@ -339,6 +339,10 @@ window.sendMessage = function (message) {
 /**
  * send message image
  * : 채팅 시, 이미지 전송
+ * TODO
+ * 1. Messages 에 image field 추가
+ * 2. image != null 일 경우, <img> tag 사용해서 채팅 메시지 그리기
+ * 3. firebase Messages 저장, MemberRooms 마지막 메시지 업데이트
  */
 window.uploadMessageImage = function (url) {
     console.log("uploadMessageImage", url);

@@ -250,7 +250,7 @@
         })
             .then(response => response.text())
             .then(result => {
-                // TODO firebase message image upload
+                // firebase message image upload
                 uploadMessageImage(result);
             })
             .catch(e => {
@@ -274,7 +274,8 @@
 <script type="text/template" id="templateMessageList">
     <li id="li<%=memberUid %>" data-sender="<%=sender %>" data-senderType="<%=senderType %>"
         class="collection-item avatar list">
-        <img src="" alt="" class="circle">
+        <!-- TODO if image field != null image 만 그리기 -->
+<!--        <img src="" alt="" class="circle">-->
         <span class="title"><%=key %></span>
         <span class="title"><%=sender %></span>
         <span class="title"><%=message %></span>
