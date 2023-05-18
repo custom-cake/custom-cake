@@ -114,7 +114,10 @@
                                                 </td>
                                                 <td>
                                                     <p th:text="${cakeOrder.requirements}"></p>
-                                                    <span><img th:src="${cakeOrder.customCakeImage}" style="width: 10rem;"></span>
+                                                    <p class="font-weight-bold mb-0" style="color: #694E4E">디자인 사진</p>
+                                                    <span>
+                                                        <img th:src="${cakeOrder.customCakeImage}" style="width: 10rem;"></span>
+                                                    <p class="font-weight-bold mb-0" style="color: #694E4E">첨부 사진</p>
                                                     <span th:each="additionalImage: ${cakeOrder.additionalImageList}">
                                                         <img th:src="${additionalImage}" style="width: 10rem;">
                                                     </span>
