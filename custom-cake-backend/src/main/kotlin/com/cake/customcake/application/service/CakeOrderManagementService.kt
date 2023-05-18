@@ -15,7 +15,8 @@ class CakeOrderManagementService(
     private val cakeCustomOrderPort: CakeCustomOrderPort,
     private val userPort: LoadUserPort,
     private val cakeItemPort: CakeItemPort,
-    private val optionByCakePort: OptionByCakePort
+    private val optionByCakePort: OptionByCakePort,
+    private val cakeOptionPort: CakeOptionPort
 ): CakeOrderManagementUseCase{
     override fun loadCakeOrderList(storeId: Long, orderStatus: OrderStatus): CakeOrderManagementListResponse {
         val designOrderList = cakeDesignOrderPort.loadListByStoreIdAndOrderStatus(storeId, orderStatus)
@@ -24,13 +25,23 @@ class CakeOrderManagementService(
         return CakeOrderManagementListResponse(
             designOrderList = designOrderList.map {
                 it.toResponse(
-                    userPort.loadUserNameAndPhone(it.userId),
-                    cakeItemPort.loadCakeItemNameAndImage(it.cakeItemId),
-                    optionByCakePort.loadListByIdList(it.optionByCakeIdList)
+                    userNameAndPhone = userPort.loadUserNameAndPhone(it.userId),
+                    cakeItemNameAndImage = cakeItemPort.loadCakeItemNameAndImage(it.cakeItemId),
+                    optionByCakeList = optionByCakePort.loadListByIdList(it.optionByCakeIdList)
                 )
             },
-            // TODO customOrderList
-            customOrderList = listOf()
+            customOrderList = customOrderList.map {
+                it.toResponse(
+                    userNameAndPhone = userPort.loadUserNameAndPhone(it.userId),
+                    optionList = cakeOptionPort.loadListByIdList(
+                        listOfNotNull(
+                            it.cakeCustomOrderSheet.option1Id,
+                            it.cakeCustomOrderSheet.option2Id,
+                            it.cakeCustomOrderSheet.option3IdList.first().toLong(),  // TODO list
+                        )
+                    )
+                )
+            }
         )
     }
 
