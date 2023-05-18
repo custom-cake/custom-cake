@@ -337,6 +337,18 @@ window.sendMessage = function (message) {
 }
 
 /**
+ * send message image
+ * : 채팅 시, 이미지 전송
+ * TODO
+ * 1. Messages 에 image field 추가
+ * 2. image != null 일 경우, <img> tag 사용해서 채팅 메시지 그리기
+ * 3. firebase Messages 저장, MemberRooms 마지막 메시지 업데이트
+ */
+window.uploadMessageImage = function (url) {
+    console.log("uploadMessageImage", url);
+}
+
+/**
  * 주문서 승인 api 연결
  */
 window.submitCakeOrderSheet = function (paymentAmount, otherRequirements) {
@@ -367,50 +379,47 @@ window.submitCakeOrderSheet = function (paymentAmount, otherRequirements) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(request)
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log("주문서 승인 성공")  // if success, return is true
+        }).then(response => {
+            if (response.ok) {
+                console.log("주문서 승인 성공")  // if success, return is true
 
-                    // 채팅방 status 결제 완료로 변경
-                    get(ref(database, `MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`)).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            const val = snapshot.val();
+                // 채팅방 status 결제 완료로 변경
+                get(ref(database, `MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const val = snapshot.val();
 
-                            // MemberRooms 저장
-                            let updates = {};
-                            updates[`MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`] = {
-                                chatStatus: "COMPLETED",  // 결제 완료
-                                lastMessage: val.lastMessage,
-                                roomOperatorId: val.roomOperatorId,
-                                roomOperatorName: val.roomOperatorName,
-                                roomUserId: val.roomUserId,
-                                roomUserName: val.roomUserName,
-                                customCakeInfoId: val.customCakeInfoId,
-                                timestamp: val.timestamp
-                            }
-
-                            // Messages, MemberRooms 업데이트
-                            update(ref(database), updates);
-
-                            // 결제 완료 페이지 이동
-                            console.log("채팅방 status 결제 완료로 변경");
-                            location.href = '/operator/chat?status=COMPLETED';
-                        } else {
-                            console.log("채팅방 데이터 업데이트 실패");
+                        // MemberRooms 저장
+                        let updates = {};
+                        updates[`MemberRooms/OPERATOR-${currOperatorId}/${currRoomId}`] = {
+                            chatStatus: "COMPLETED",  // 결제 완료
+                            lastMessage: val.lastMessage,
+                            roomOperatorId: val.roomOperatorId,
+                            roomOperatorName: val.roomOperatorName,
+                            roomUserId: val.roomUserId,
+                            roomUserName: val.roomUserName,
+                            customCakeInfoId: val.customCakeInfoId,
+                            timestamp: val.timestamp
                         }
-                    }).catch((error) => {
-                        console.error(error);
-                    });
-                }
-                else {
-                    console.log("주문서 승인 실패")
-                }
 
-            })
-            .catch(e => {
-                console.error("주문서 승인 에러", e);
+                        // Messages, MemberRooms 업데이트
+                        update(ref(database), updates);
+
+                        // 결제 완료 페이지 이동
+                        console.log("채팅방 status 결제 완료로 변경");
+                        location.href = '/operator/chat?status=COMPLETED';
+                    } else {
+                        console.log("채팅방 데이터 업데이트 실패");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            } else {
+                console.log("주문서 승인 실패")
+            }
+
+        })
+        .catch(e => {
+            console.error("주문서 승인 에러", e);
         });
     }
-
 }
