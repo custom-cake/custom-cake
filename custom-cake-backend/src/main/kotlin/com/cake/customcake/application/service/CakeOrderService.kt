@@ -66,7 +66,7 @@ class CakeOrderService(
 
     override fun orderList(userId: Long): CakeOrderListResponse {
         val designOrderList = cakeDesignOrderPort.loadListByUserId(userId)
-        // TODO get customOrderList
+        val customOrderList = cakeCustomOrderPort.loadListByUserId(userId)
 
         return CakeOrderListResponse(
             userId = userId,
@@ -77,6 +77,11 @@ class CakeOrderService(
                 )
             },
             customOrderList = listOf()
+//            customOrderList.map {
+//                it.toResponse(
+//                    // TODO
+//                )
+//            }
         )
     }
 

@@ -1,5 +1,6 @@
 package com.cake.customcake.application.port.out
 
+import com.cake.customcake.adapter.out.persistence.entity.CakeOptionEntity
 import com.cake.customcake.domain.CakeOption
 
 interface CakeOptionPort {
@@ -9,4 +10,5 @@ interface CakeOptionPort {
     fun save(cakeOptionType: Int, cakeOption: CakeOption): Pair<Int, Long>  // type, id
     fun modify(): Pair<Long, Long>  // type, id
     fun delete(cakeOptionType: Int, optionId: Long)
+    fun loadListByIdList(optionIdList: List<Long>): List<String>
 }
