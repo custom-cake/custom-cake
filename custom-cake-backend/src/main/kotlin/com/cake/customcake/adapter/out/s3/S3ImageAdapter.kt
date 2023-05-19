@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component
 import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.*
 import javax.imageio.ImageIO
 
 @Component
@@ -13,7 +14,13 @@ class S3ImageAdapter(
 ) : UploadImagePort {
     override fun uploadImage(image: BufferedImage, fullFileName: String): String {
         val out = ByteArrayOutputStream()
-        ImageIO.write(image, "jpeg", out)
+
+        val imageType = when (fullFileName.substringAfterLast('.', "").lowercase(Locale.getDefault())) {
+            "png" -> "png"
+            else -> "jpeg"  // Default is "jpeg"
+        }
+
+        ImageIO.write(image, imageType, out)
         val inputStream = ByteArrayInputStream(out.toByteArray())
 
         return s3Adapter.upload(inputStream, fullFileName)
