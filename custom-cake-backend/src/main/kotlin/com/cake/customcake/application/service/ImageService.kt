@@ -15,7 +15,6 @@ class ImageService(
     private val storePort: StorePort,
     private val itemPort: CakeItemPort,
     private val itemImagePort: CakeItemImagePort,
-    private val customOrderSheetPort: CakeCustomOrderSheetPort,
     private val galleryPort: StoreGalleryPort
 ) : UploadImageUseCase {
 
@@ -59,32 +58,16 @@ class ImageService(
     }
 
     @Transactional
-    override fun uploadCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String {
+    override fun uploadCustomCakeImage(imageFile: MultipartFile, storeId: Long, userId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
 
         val originalFilename = imageFile.originalFilename
         val extension = originalFilename?.substringAfterLast('.', "") ?: ""
-        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/" + createFileName(extension)
-        val customOrderSheet = customOrderSheetPort.load(customOrderSheetId) // checking
+        val fullFileName = ImageType.CUSTOM_CAKE.path + "/store_${storeId}/user_${userId}/" + createFileName(extension)
 
-        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+        // TODO : check user, store ids
 
-        customOrderSheetPort.updateImage(customOrderSheet, url)
-        return url
-    }
-
-    override fun uploadAdditionalCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String {
-        val bufferedImage = ImageIO.read(imageFile.inputStream)
-
-        val originalFilename = imageFile.originalFilename
-        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
-        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/additional/" + createFileName(extension)
-        val customOrderSheet = customOrderSheetPort.load(customOrderSheetId) // checking
-
-        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
-
-        customOrderSheetPort.addAdditionalImage(customOrderSheet, url)
-        return url
+        return uploadImagePort.uploadImage(bufferedImage, fullFileName)
     }
 
     @Transactional

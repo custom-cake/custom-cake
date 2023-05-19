@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 class ImageController(
     private val uploadImageUseCase: UploadImageUseCase
 ) {
@@ -30,9 +30,9 @@ class ImageController(
         return uploadImageUseCase.uploadProductImage(image, itemId, isThumbnail)
     }
 
-    @PostMapping("/custom/{customOrderSheetId}")
-    fun uploadCustomCakeImage(@RequestParam("image") image: MultipartFile, @PathVariable("customOrderSheetId") customOrderSheetId: Long): String {
-        return uploadImageUseCase.uploadCustomCakeImage(image, customOrderSheetId)
+    @PostMapping("/custom/{storeId}/{userId}")
+    fun uploadCustomCakeImage(@RequestParam("image") image: MultipartFile, @PathVariable("storeId") storeId: Long, @PathVariable("userId") userId: Long): String {
+        return uploadImageUseCase.uploadCustomCakeImage(image, storeId, userId)
     }
 
     @PostMapping("/custom/additional/{customOrderSheetId}")
