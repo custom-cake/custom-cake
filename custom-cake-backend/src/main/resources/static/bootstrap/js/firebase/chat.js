@@ -12,7 +12,7 @@ import {database} from "./init.js";
 
 // 전역변수
 let currRoomId = '';
-let currOperatorId = 1;
+let currOperatorId = 0;
 let sheetInfo = null;
 
 function clearTextarea() {
@@ -62,6 +62,8 @@ window.getOperatorData = function () {
  * @param chatStatus
  */
 window.loadOperatorChatRoomList = function (operatorId, chatStatus) {
+    currOperatorId = operatorId;
+
     // MemberRooms : Member 별 채팅방 리스트
     const chatRoomRef = query(
         ref(database, `MemberRooms/OPERATOR-${operatorId}`),
@@ -71,7 +73,7 @@ window.loadOperatorChatRoomList = function (operatorId, chatStatus) {
 
     onValue(chatRoomRef, (snapshot) => {
         if (snapshot.exists()) {
-            console.log("채팅방 리스트",snapshot.val());
+            // console.log("채팅방 리스트",snapshot.val());
             getChatRoomList(snapshot, chatStatus);
         } else {
             console.log("채팅방 리스트 로딩 실패");
