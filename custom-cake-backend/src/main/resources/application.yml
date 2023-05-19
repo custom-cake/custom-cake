@@ -42,3 +42,6 @@ logging.level:
   org.hibernate.SQL: debug  # logging hibernate SQL execution
   org.hibernate.type: trace  # logging SQL execution parameter
 
+spring.servlet.multipart.maxFileSize: 100MB
+spring.servlet.multipart.maxRequestSize: 100MB
+
