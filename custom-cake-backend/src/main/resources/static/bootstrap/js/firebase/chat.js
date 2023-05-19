@@ -72,6 +72,7 @@ window.loadOperatorChatRoomList = function (operatorId, chatStatus) {
     );
 
     onValue(chatRoomRef, (snapshot) => {
+        console.log("currOperatorId=", currOperatorId);
         if (snapshot.exists()) {
             // console.log("채팅방 리스트",snapshot.val());
             getChatRoomList(snapshot, chatStatus);
