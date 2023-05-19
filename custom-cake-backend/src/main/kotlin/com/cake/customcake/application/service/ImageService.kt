@@ -102,5 +102,5 @@ class ImageService(
         return url
     }
 
-    private fun createFileName(extension: String): String = UUID.randomUUID().toString() + "." + extension;
+    private fun createFileName(extension: String): String = UUID.randomUUID().toString() + "." + extension
 }
