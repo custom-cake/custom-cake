@@ -15,6 +15,6 @@ data class DesignCakeOrderRequest(
     val requirements: String,
     @Range(min = 0)
     val paymentAmount: Int,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
     val pickupDatetime: LocalDateTime  // 픽업 날짜
 )

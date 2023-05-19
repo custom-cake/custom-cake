@@ -17,6 +17,6 @@ data class CustomCakeSheetRequest(
     val otherRequirements: String = "",  // 특이사항 (주문서 승인 시, 운영자 측 작성)
     @Range(min = 0)
     val paymentAmount: Int,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
     val pickupDatetime: LocalDateTime  // 픽업 날짜
 )
