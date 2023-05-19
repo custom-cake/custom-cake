@@ -35,6 +35,11 @@ class ImageController(
         return uploadImageUseCase.uploadCustomCakeImage(image, customOrderSheetId)
     }
 
+    @PostMapping("/custom/additional/{customOrderSheetId}")
+    fun uploadAdditionalCustomCakeImage(@RequestParam("image") image: MultipartFile, @PathVariable("customOrderSheetId") customOrderSheetId: Long): String {
+        return uploadAdditionalCustomCakeImage(image, customOrderSheetId)
+    }
+
     @PostMapping("/gallery/{storeId}")
     fun uploadGalleryImage(@RequestParam("image") image: MultipartFile, @PathVariable("storeId") storeId: Long): String {
         return uploadImageUseCase.uploadGalleryImage(image, storeId)

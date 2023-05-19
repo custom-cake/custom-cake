@@ -47,4 +47,10 @@ class CakeCustomOrderSheetPersistenceAdapter(
         entity.cakeCustomImageUrl = url
         return entity.id
     }
+
+    override fun addAdditionalImage(sheet: CakeCustomOrderSheet, url: String): Long {
+        val entity = cakeCustomOrderSheetMapper.toEntity(sheet)
+        entity.additionalImageList = entity.additionalImageList + url
+        return entity.id
+    }
 }

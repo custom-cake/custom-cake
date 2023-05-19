@@ -28,7 +28,10 @@ class ImageService(
     @Transactional
     override fun uploadStoreImage(imageFile: MultipartFile, storeId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
-        val fullFileName = ImageType.STORE.path + "/store_${storeId}/" + uuid()
+
+        val originalFilename = imageFile.originalFilename
+        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
+        val fullFileName = ImageType.STORE.path + "/store_${storeId}/" + createFileName(extension)
         val store = storePort.loadByStoreId(storeId)
 
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
@@ -41,7 +44,10 @@ class ImageService(
     override fun uploadProductImage(imageFile: MultipartFile, itemId: Long, isThumbnail: Boolean): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
         val item = itemPort.loadInfo(itemId)
-        val fullFileName = ImageType.PRODUCT.path + "/store_${item.storeId}/" + uuid()
+
+        val originalFilename = imageFile.originalFilename
+        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
+        val fullFileName = ImageType.PRODUCT.path + "/store_${item.storeId}/" + createFileName(extension)
 
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
 
@@ -55,7 +61,10 @@ class ImageService(
     @Transactional
     override fun uploadCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
-        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/" + uuid()
+
+        val originalFilename = imageFile.originalFilename
+        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
+        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/" + createFileName(extension)
         val customOrderSheet = customOrderSheetPort.load(customOrderSheetId) // checking
 
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
@@ -64,10 +73,27 @@ class ImageService(
         return url
     }
 
+    override fun uploadAdditionalCustomCakeImage(imageFile: MultipartFile, customOrderSheetId: Long): String {
+        val bufferedImage = ImageIO.read(imageFile.inputStream)
+
+        val originalFilename = imageFile.originalFilename
+        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
+        val fullFileName = ImageType.CUSTOM_CAKE.path + "cake_custom_order_sheet_${customOrderSheetId}/additional/" + createFileName(extension)
+        val customOrderSheet = customOrderSheetPort.load(customOrderSheetId) // checking
+
+        val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
+
+        customOrderSheetPort.addAdditionalImage(customOrderSheet, url)
+        return url
+    }
+
     @Transactional
     override fun uploadGalleryImage(imageFile: MultipartFile, storeId: Long): String {
         val bufferedImage = ImageIO.read(imageFile.inputStream)
-        val fullFileName = ImageType.GALLERY.path + "store_${storeId}/" + uuid()
+
+        val originalFilename = imageFile.originalFilename
+        val extension = originalFilename?.substringAfterLast('.', "") ?: ""
+        val fullFileName = ImageType.GALLERY.path + "store_${storeId}/" + createFileName(extension)
         val gallery = galleryPort.load(storeId)
 
         val url = uploadImagePort.uploadImage(bufferedImage, fullFileName)
@@ -76,5 +102,5 @@ class ImageService(
         return url
     }
 
-    private fun uuid(): String = UUID.randomUUID().toString()
+    private fun createFileName(extension: String): String = UUID.randomUUID().toString() + "." + extension;
 }

@@ -7,4 +7,5 @@ interface CakeCustomOrderSheetPort {
     fun save(cakeCustomOrderSheet: CakeCustomOrderSheet)
     fun hasSheet(storeId: Long, userId: Long): Pair<Boolean, Long?>
     fun updateImage(sheet: CakeCustomOrderSheet, url: String): Long
+    fun addAdditionalImage(sheet: CakeCustomOrderSheet, url: String): Long
 }
