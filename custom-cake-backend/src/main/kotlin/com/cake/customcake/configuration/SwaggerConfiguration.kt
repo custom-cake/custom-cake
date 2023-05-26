@@ -18,7 +18,7 @@ class SwaggerConfiguration {
     @Bean
     fun api(): Docket {
         return Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo()).select()
-            .apis(RequestHandlerSelectors.basePackage("com.cake.customcakebackend.adapter.in.web"))
+            .apis(RequestHandlerSelectors.basePackage("com.cake.customcake.adapter.in.web"))
             .paths(PathSelectors.any())  // ant("/user/**")
             .build()
             .useDefaultResponseMessages(true)  // 200 이외의 response code 사용 여부
