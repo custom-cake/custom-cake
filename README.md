@@ -28,12 +28,30 @@
 - [Dev Swagger API URL](http://43.201.13.139:8080/swagger-ui/index.html)
 
 ### 3. Package 구조
-- Hexagonal Architecture
 
+#### 3.1. frontend 구조
+```
+└── custom-cake-frontend
+    ├── API/
+    ├── Assets.xcassets/
+    ├── Chat/
+    ├── Data/
+    ├── Login/
+    ├── Main/
+    │   ├── Map/
+    │   └── Stores/
+    ├── Orders/
+    │   ├── BasicOrder/
+    │   └── CustomOrder/
+    ├── Profile/
+    ├── Search/
+    └── Store/
+```
 [//]: # (  [1. 스프링 코드로 이해하는 핵사고날 아키텍처]&#40;https://nahwasa.com/entry/%ED%97%A5%EC%82%AC%EA%B3%A0%EB%82%A0-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%ED%97%A5%EC%82%AC%EA%B3%A0%EB%82%A0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90-%EC%BD%94%EB%93%9C-%EA%B5%AC%EC%A1%B0&#41;)
 [//]: # ()
 [//]: # (  [2. 클린 아키텍처 with Spring Boot]&#40;https://wlswoo.tistory.com/67&#41;)
-
+#### 3.2. backend 구조 
+- Hexagonal Architecture
 ```
 ├── kotlin
 │   └── com
