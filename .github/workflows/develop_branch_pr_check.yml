@@ -5,6 +5,7 @@ on:
     branches: [ develop ]
     paths:
       - 'custom-cake-backend/**'
+      - '.github/**'
 
 env:
   BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
