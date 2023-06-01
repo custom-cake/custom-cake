@@ -27,7 +27,7 @@ class CakeCustomOrderSheetPersistenceAdapter(
         cakeCustomOrderSheetRepository.save(cakeCustomOrderSheetMapper.toEntity(cakeCustomOrderSheet))
     }
 
-    override fun hasSheet(storeId: Long, userId: Long): Pair<Boolean, Long?> {
+    override fun hasSheet(storeId: Long, userId: Long): CakeCustomOrderSheet? {
         val orderSheetEntity = jpaQueryFactory
             .select(CUSTOM_ORDER_SHEET)
             .from(CUSTOM_ORDER_SHEET)
@@ -38,8 +38,7 @@ class CakeCustomOrderSheetPersistenceAdapter(
             .fetchOne()
 
         return orderSheetEntity
-             ?. let { (true to it.id) }
-             ?: let { (false to null) }
+             ?. let { cakeCustomOrderSheetMapper.toDomain(it) }
     }
 
     override fun updateImage(sheet: CakeCustomOrderSheet, url: String): Long {
