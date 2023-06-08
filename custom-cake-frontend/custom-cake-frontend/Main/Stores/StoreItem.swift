@@ -9,14 +9,14 @@ import SwiftUI
 
 struct StoreItem: View {
     
-    @ObservedObject var storeDataAPI = StoreDataAPI()
+    //@ObservedObject var storeDataAPI = StoreDataAPI()
     
-    var data: StoreData
+    @ObservedObject var data: StoreDataAPI //StoreData
     
     var body: some View {
         HStack {
             // Image
-            AsyncImage(url: URL(string: storeDataAPI.thumbnailImageUrl/*data.thumbnailImageUrl*/))  { image in
+            AsyncImage(url: URL(string: data/*storeDataAPI*/.thumbnailImageUrl/*data.thumbnailImageUrl*/))  { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -29,13 +29,13 @@ struct StoreItem: View {
             .padding(.trailing, 5)
             
             VStack(alignment: .leading, spacing: 10) {
-                Text(storeDataAPI.name/*data.name*/)
+                Text(/*storeDataAPI.name*/data.name)
                     .font(.title3)
                     .fontWeight(.bold)
                     .lineLimit(1)
                     .foregroundColor(Color.black)
                 
-                Text(storeDataAPI.description/*data.description*/ ?? " ")
+                Text(/*storeDataAPI.description*/data.description ?? " ")
                     .font(.system(size: 15))
                     .lineLimit(1)
                     .foregroundColor(Color.black)
@@ -51,11 +51,11 @@ struct StoreItem: View {
                 }
                  */
                 HStack {
-                    ForEach(0..<Int(floor(storeDataAPI.reviewScore/*data.reviewScore*/))) {_ in
+                    ForEach(0..<Int(floor(/*storeDataAPI.reviewScore*/data.reviewScore))) {_ in
                         Image(systemName: "star.fill")
                             .foregroundColor(Color.black)
                     }
-                    ForEach(0..<5-Int(floor(storeDataAPI.reviewScore/*data.reviewScore*/))) {_ in
+                    ForEach(0..<5-Int(floor(/*storeDataAPI.reviewScore*/data.reviewScore))) {_ in
                         Image(systemName: "star")
                             .foregroundColor(Color.black)
                     }
@@ -75,8 +75,10 @@ struct StoreItem: View {
     }
 }
 
+/*
 struct StoreItem_Previews: PreviewProvider {
     static var previews: some View {
         StoreItem(data: sharedStores[0])
     }
 }
+*/

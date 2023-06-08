@@ -12,11 +12,27 @@ import CoreLocation
 
 struct MapView : UIViewRepresentable {
     
+    @ObservedObject var searchDataAPI: SearchDataAPI
+    
     let locationManager = CLLocationManager()
     
+    //let markerCoordinate: CLLocationCoordinate2D // 마커의 위치
+    //let centerCoordinate: CLLocationCoordinate2D // 지도의 중심 위치
+    
+    /*
+    init(markerCoordinate: CLLocationCoordinate2D, centerCoordinate: CLLocationCoordinate2D) {
+
+        self.markerCoordinate = markerCoordinate
+        self.centerCoordinate = centerCoordinate
+
+    }
+     */
     
     func makeUIView(context: Context) -> MKMapView {
-        
+        /*
+        self.markerCoordinate = /*markerCoordinate*/CLLocationCoordinate2D(latitude: Double(searchDataAPI.y)!, longitude: Double(searchDataAPI.x)!)//markerCoordinate = markerCoordinate
+        self.centerCoordinate = CLLocationCoordinate2D(latitude: Double(searchDataAPI.y)!, longitude: Double(searchDataAPI.x)!) //centerCoordinate = centerCoordinate
+        */
         let mkMapView = MKMapView()
         
         mkMapView.delegate = context.coordinator
@@ -34,9 +50,14 @@ struct MapView : UIViewRepresentable {
         
         let regionRadius : CLLocationDistance = 200
         
-        let coordinateRegion = MKCoordinateRegion(center: mkMapView.userLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+        let coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: Double(searchDataAPI.searchDatas[0].y)!, longitude: Double(searchDataAPI.searchDatas[0].x)!)/*self.centerCoordinate*//*center: mkMapView.userLocation.coordinate*/, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         
         mkMapView.setRegion(coordinateRegion, animated: true)
+        
+        // 마커 추가
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: Double(searchDataAPI.searchDatas[0].y)!, longitude: Double(searchDataAPI.searchDatas[0].x)!)//self.markerCoordinate
+        mkMapView.addAnnotation(annotation)
         
         return mkMapView
     }

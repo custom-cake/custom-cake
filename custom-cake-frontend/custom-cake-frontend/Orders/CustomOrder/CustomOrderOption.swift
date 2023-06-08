@@ -9,9 +9,10 @@ import SwiftUI
 
 struct CustomOrderOption: View {
     
+    @StateObject var model = DrawingViewModel(userId: 2, storeId: 1)
     @ObservedObject var cakeItemAPI : CakeItemsAPI
     
-    var storedata: StoreDataAPI
+    @ObservedObject var storedata: StoreDataAPI
     
     @State var selectedOption1 = Option(id: 1, type: 1, value: "원형, 1호, 1단, 레터링 10글자 제한", price : 0)
     @State var selectedOption2 = Option(id: 3, type: 2, value: "바닐라시트, 우유생크림, 크림치즈", price : 0)
@@ -79,7 +80,8 @@ struct CustomOrderOption: View {
                      */
                     ForEach(cakeItemAPI.options) { option in
                         if option.type == 1 {
-                            OptionView1(whetherOption1Selected: $whetherOption1Selected, selectedOption1: $selectedOption1, option: option)
+                            CustomOptionView1(whetherOption1Selected: $whetherOption1Selected, selectedOption1: $selectedOption1, option: option)
+                                .environmentObject(model)
                                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                         }
                     }
@@ -102,7 +104,8 @@ struct CustomOrderOption: View {
                      */
                     ForEach(cakeItemAPI.options) { option in
                         if option.type == 2 {
-                            OptionView2(whetherOption2Selected: $whetherOption2Selected, selectedOption2: $selectedOption2, option: option)
+                            CustomOptionView2(whetherOption2Selected: $whetherOption2Selected, selectedOption2: $selectedOption2, option: option)
+                                .environmentObject(model)
                                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                         }
                     }
@@ -125,7 +128,8 @@ struct CustomOrderOption: View {
                      */
                     ForEach(cakeItemAPI.options) { option in
                         if option.type == 3 {
-                            OptionView3(whetherOption3Selected: $whetherOption3Selected, selectedOption3: $selectedOption3, option: option)
+                            CustomOptionView3(whetherOption3Selected: $whetherOption3Selected, selectedOption3: $selectedOption3, option: option)
+                                .environmentObject(model)
                                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                         }
                     }
@@ -162,10 +166,11 @@ struct CustomOrderOption: View {
                  */
                 
                 NavigationLink (
-                    destination: CustomOrderDesign(storedata: storedata, selectedOption1: selectedOption1, selectedOption2: selectedOption2, selectedOption3: selectedOption3)
+                    destination: CustomOrderDesign(modifying: false, accepted: false, price: "\(selectedOption1.price + selectedOption2.price + selectedOption3.price)", cakeOrderSheetId: nil, storedata: storedata, selectedOption1: selectedOption1, selectedOption2: selectedOption2, selectedOption3: selectedOption3)
+                        .environmentObject(model)
                     /*PaymentComplete(data: data, storedata: storedata, selectedOption1: selectedOption1, selectedOption2: selectedOption2, selectedOption3: selectedOption3, totalPrice: data.price + selectedOption1.price + selectedOption2.price + selectedOption3.price)*/
                 ) {
-                    Text("디자인 케이크 커스텀 주문하기")
+                    Text("\(selectedOption1.price + selectedOption2.price + selectedOption3.price) +α 원 디자인 케이크 커스텀 주문하기")
                         .foregroundColor(Color.white)
                 }
                 .frame(height: 50)

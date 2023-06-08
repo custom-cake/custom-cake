@@ -11,11 +11,28 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 
 import NaverThirdPartyLogin
+import Firebase
+import FirebaseCore
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 @main
 struct custom_cake_frontendApp: App {
+    
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     init() {
+        
+        // Firebase
+                //FirebaseApp.configure()
+        
         // Kakao SDK 초기화
                 KakaoSDK.initSDK(appKey: "kakaoe3cff36cf0a5ff8a68dc23709267b740")
         

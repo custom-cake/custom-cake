@@ -21,9 +21,10 @@ class StoreDataAPI: ObservableObject {
     @Published var cakeItemList = [MenuData]()
     @Published var dayoffList =  [DayOffData]()
 
+    //43.201.13.139
     
-    init() {
-            guard let url = URL(string: "http://localhost:8080/api/stores/1") else {
+    init(storeId: StoreData.ID) {
+            guard let url = URL(string: "http://43.201.13.139:8080/api/stores/\(storeId)"/*"http://localhost:8080/api/stores/1"*/) else {
                 return
             }
             

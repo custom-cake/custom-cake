@@ -1,19 +1,19 @@
 //
-//  BasicOrderData.swift
+//  PayAPI.swift
 //  custom-cake-frontend
 //
-//  Created by 황서진 on 2023/04/28.
+//  Created by 황서진 on 2023/05/19.
 //
 
 import Foundation
 
-func BasicOrderAPI(orderdata: OrderData) async {
-            guard let url = URL(string: "http://43.201.13.139:8080/api/orders/designs") else {
+func PayAPI(payData: PayData) async {
+            guard let url = URL(string: "http://43.201.13.139:8080/api/orders/customs") else {
                 return
             }
 
             
-            guard let encoded = try? JSONEncoder().encode(orderdata) else {
+            guard let encoded = try? JSONEncoder().encode(payData) else {
                 print("Failed to encode order")
                 return
             }

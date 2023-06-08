@@ -9,12 +9,20 @@ import SwiftUI
 
 struct StoreInfoView: View {
     
-    @ObservedObject var storeNotificationAPI = StoreNotificationAPI()
+    @ObservedObject var storeNotificationAPI: StoreNotificationAPI
     //@ObservedObject var storeDataAPI = StoreDataAPI()
+    @ObservedObject var storeGalleryAPI: StoreGalleryAPI
     
     var InfoTabs: storeInfo
-    var storeDataAPI : StoreDataAPI
+    @ObservedObject var storeDataAPI : StoreDataAPI //StoreData
     var menuItems: [MenuData]
+    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    
+    var imageUrlList = [
+        "https://custom-cake.s3.ap-northeast-2.amazonaws.com/gallery/store_1/reine_cake_image_1.jpeg",
+        "https://custom-cake.s3.ap-northeast-2.amazonaws.com/gallery/store_1/reine_cake_image_2.jpeg",
+        "https://custom-cake.s3.ap-northeast-2.amazonaws.com/gallery/store_1/reine_cake_image_3.jpeg"
+    ]
     
     var body: some View {
             ScrollView(.vertical, showsIndicators: false) {
@@ -29,6 +37,35 @@ struct StoreInfoView: View {
                     
                 case .info:
                     Text(storeNotificationAPI.content/*sharedInfos[0].content*/)
+                        .padding(20)
+                    
+                case .gallery:
+                    LazyVGrid(columns: columns) {
+                        ForEach(imageUrlList) { imageUrl in
+                            AsyncImage(url: URL(string: imageUrl)){ image in
+                                image
+                                    .resizable()
+                            } placeholder: {
+                                
+                            }
+                            .cornerRadius(10)
+                            .frame(width: 180, height: 180)
+                            //.padding()
+                            }
+                        /*
+                        ForEach(storeGalleryAPI.imageUrlList) { imageUrl in
+                            AsyncImage(url: URL(string: imageUrl)){ image in
+                                     image
+                                         .resizable()
+                                 } placeholder: {
+                                     
+                                 }
+                                .cornerRadius(15)
+                                .frame(width: 150, height: 150)
+                                .padding()
+                            }
+                         */
+                          }
                         .padding(20)
                     
                 case .customcake:
@@ -47,10 +84,12 @@ struct StoreInfoView: View {
                     .cornerRadius(5)
                     .padding(20)
                      */
-                    
+                
+                /*
                 case .review:
                     Text("리뷰")
                         .padding(20)
+                 */
              }
         }
     }
@@ -63,3 +102,10 @@ struct StoreInfoView_Previews: PreviewProvider {
     }
 }
 */
+
+extension String: Identifiable {
+    public typealias ID = Int
+    public var id: Int {
+        return hash
+    }
+}
