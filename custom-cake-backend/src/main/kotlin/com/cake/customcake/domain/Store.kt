@@ -12,6 +12,8 @@ data class Store(
     val zipCode: String,
     val baseAddress: String,
     val detailAddress: String? = "",
+    val x: String = "",
+    val y: String = "",
     val region: TempStoreRegion,
     val phone: String? = "",
     val name: String,  // 매장 이름

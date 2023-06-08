@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS `store` (
     `base_address`	                VARCHAR(100)	        NOT NULL,
     `detail_address`	            VARCHAR(100)            NULL,
     `region`                        VARCHAR(10)             NOT NULL,
+    `x`                             VARCHAR(20)             NOT NULL,
+    `y`                             VARCHAR(20)             NOT NULL,
 	`phone`	                        VARCHAR(20)     	    NOT NULL,
 	`name`                      	VARCHAR(50)     	    NOT NULL,
 	`description`	                TEXT	                NULL,
