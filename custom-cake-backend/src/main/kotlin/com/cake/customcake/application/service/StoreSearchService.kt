@@ -17,7 +17,7 @@ class StoreSearchService(
 
     override fun searchByName(query: String): List<StoreGetResponse> {
         return loadStoresByNamePort.loadByName(query)
-            .map { StoreGetResponse(it.id, it.name) }
+            .map { StoreGetResponse(it.id, it.name, it.x, it.y) }
     }
 
     override fun getAllRegionsName(): List<String> {
@@ -26,6 +26,6 @@ class StoreSearchService(
 
     override fun searchByOption(request: StoreOptionSearchRequest): List<StoreGetResponse> {
         return loadStoresByOptionPort.loadByOption(request)
-            .map { StoreGetResponse(it.id, it.name) }
+            .map { StoreGetResponse(it.id, it.name, it.x, it.y) }
     }
 }

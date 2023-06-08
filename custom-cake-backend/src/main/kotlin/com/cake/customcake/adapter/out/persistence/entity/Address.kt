@@ -17,5 +17,10 @@ class Address(
     val detailAddress: String? = "",
     @Convert(converter = TempStoreRegionConverter::class)
     @Column(columnDefinition = "String", length = 10, nullable = false)
-    val region: TempStoreRegion
+    val region: TempStoreRegion,
+
+    @Column(columnDefinition = "String", length = 20, nullable = false)
+    val x: String,
+    @Column(columnDefinition = "String", length = 20, nullable = false)
+    val y: String
 )
