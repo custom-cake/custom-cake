@@ -20,6 +20,16 @@ struct StoreMain: View {
                 // Thumbnail Image
                 AsyncImage(url: URL(string: /*storeDataAPI*/data.thumbnailImageUrl
                                         /*"https://custom-cake.s3.ap-northeast-2.amazonaws.com/store-image/store_1/reine_cake_thumbnail_image.png"*/))
+                { image in
+                        // 로드된 이미지를 표시합니다.
+                        image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                        // 로딩 중일 때 표시될 뷰입니다.
+                        ProgressView()
+                }
+                .frame(width: .infinity/*350*/, height: .infinity/*350*/) // 이미지의 크기를 조절합니다.
                 
                 // Store Name
                 Text(/*storeDataAPI*/data.name/*data.name*/)

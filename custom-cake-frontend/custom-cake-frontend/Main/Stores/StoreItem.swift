@@ -50,17 +50,32 @@ struct StoreItem: View {
                     }
                 }
                  */
+                // Review Star
                 HStack {
-                    ForEach(0..<Int(floor(/*storeDataAPI.reviewScore*/data.reviewScore))) {_ in
+                    ForEach([0, 1, 2, 3, 4], id: \.self) { num in
+                        if num < Int(data.reviewScore) {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(Color.black)
+                        } else {
+                            Image(systemName: "star")
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
+                /*
+                HStack {
+                    ForEach(0..<Int(/*storeDataAPI.reviewScore*/data.reviewScore)) {_ in
                         Image(systemName: "star.fill")
                             .foregroundColor(Color.black)
                     }
-                    ForEach(0..<5-Int(floor(/*storeDataAPI.reviewScore*/data.reviewScore))) {_ in
+                    ForEach(0..<5-Int(/*storeDataAPI.reviewScore*/data.reviewScore)) {_ in
                         Image(systemName: "star")
                             .foregroundColor(Color.black)
                     }
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
+*/
                 
             }
             

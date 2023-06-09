@@ -49,7 +49,7 @@ struct StoreInfoView: View {
                                 
                             }
                             .cornerRadius(10)
-                            .frame(width: 180, height: 180)
+                            .frame(width: 170, height: 170)
                             //.padding()
                             }
                         /*
