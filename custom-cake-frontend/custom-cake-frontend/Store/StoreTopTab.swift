@@ -9,21 +9,23 @@ import SwiftUI
 
 struct StoreTopTab: View {
     
-    @ObservedObject var storeDataAPI = StoreDataAPI()
-    @ObservedObject var storeNotificationAPI = StoreNotificationAPI()
+    //@ObservedObject var storeDataAPI = StoreDataAPI()
+    //@ObservedObject var storeNotificationAPI = StoreNotificationAPI()
     @State private var selectedPicker: storeInfo = .menu
     @Namespace private var animation
+    
+    @ObservedObject var data: StoreDataAPI //StoreData
     
     var body: some View {
             VStack {
                 animate()
-                StoreInfoView(InfoTabs: selectedPicker, storeDataAPI: storeDataAPI, menuItems: storeDataAPI.cakeItemList/*sharedMenus*/)
+                StoreInfoView(storeNotificationAPI: StoreNotificationAPI(storeId: data.id), storeGalleryAPI: StoreGalleryAPI(storeId: data.id), InfoTabs: selectedPicker, storeDataAPI: /*storeDataAPI*/data, menuItems: /*storeDataAPI*/data.cakeItemList/*sharedMenus*/)
             }
         }
         
     @ViewBuilder
     private func animate() -> some View {
-        HStack {
+        HStack(spacing: 10) {
             ForEach(storeInfo.allCases, id: \.self) { item in
                 VStack {
                     Text(item.rawValue)
@@ -48,8 +50,10 @@ struct StoreTopTab: View {
     }
 }
 
+/*
 struct StoreTopTab_Previews: PreviewProvider {
     static var previews: some View {
         StoreTopTab()
     }
 }
+*/

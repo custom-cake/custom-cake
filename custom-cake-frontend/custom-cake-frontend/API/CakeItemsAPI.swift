@@ -15,7 +15,7 @@ class CakeItemsAPI: ObservableObject {
     //@Published var classifiedOption3 = [Option]()
     
     init(cakeId: CakeData.ID) {
-            guard let url = URL(string: "http://localhost:8080/api/stores/cake-items/\(cakeId)") else {
+            guard let url = URL(string: "http://43.201.13.139:8080/api/stores/cake-items/\(cakeId)") else {
                 return
             }
             

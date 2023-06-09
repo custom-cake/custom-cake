@@ -10,7 +10,7 @@ import SwiftUI
 struct MenuItem: View {
     
     var data: MenuData
-    var storedata: StoreDataAPI
+    @ObservedObject var storedata: StoreDataAPI
     
     var body: some View {
         NavigationLink (

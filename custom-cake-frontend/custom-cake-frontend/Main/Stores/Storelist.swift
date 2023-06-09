@@ -9,10 +9,13 @@ import SwiftUI
 
 struct Storelist: View {
     
-    @ObservedObject var storeDataAPI = StoreDataAPI()
+    //@ObservedObject var storeDataAPI = StoreDataAPI()
+    //@EnvironmentObject var searchDataAPI: SearchDataAPI
+    //@EnvironmentObject var searchDataAPI: SearchDataAPI
+    
     @State var translation: CGSize = .zero
     
-    var stores : [StoreData]
+    @ObservedObject var store/*s*/ : StoreDataAPI //StoreData //[StoreData]
 
     
     var body: some View {
@@ -32,12 +35,20 @@ struct Storelist: View {
                     .cornerRadius(5)
                      */
                     
+                    /*
                     ForEach(stores) { store in
                         NavigationLink (
                             destination: StoreMain(data: store)
                         ) {
                             StoreItem(data: store)
                         }
+                    }
+                    .padding(10)
+                     */
+                    NavigationLink (
+                        destination: StoreMain(data: store)
+                    ) {
+                        StoreItem(data: store)
                     }
                     .padding(10)
                     
@@ -51,8 +62,10 @@ struct Storelist: View {
     }
 }
 
+/*
 struct Storelist_Previews: PreviewProvider {
     static var previews: some View {
-        Storelist(stores: sharedStores)
+        Storelist(store: sharedStores)
     }
 }
+*/

@@ -19,7 +19,7 @@ struct PaymentComplete: View {
     
     var data: MenuData
     
-    var storedata: StoreDataAPI
+    @ObservedObject var storedata: StoreDataAPI
     var selectedOption1: Option
     var selectedOption2: Option
     var selectedOption3: Option
@@ -27,7 +27,7 @@ struct PaymentComplete: View {
     
     var dateFormatter: DateFormatter {
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             //formatter.dateStyle = .long
             return formatter
         }
