@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CustomOrderOption: View {
     
-    @StateObject var model = DrawingViewModel(userId: 2, storeId: 1)
+    //@StateObject var model = DrawingViewModel(userId: 2, storeId: 1)
     @ObservedObject var cakeItemAPI : CakeItemsAPI
     
     @ObservedObject var storedata: StoreDataAPI
+    
+    @ObservedObject var model: DrawingViewModel
     
     @State var selectedOption1 = Option(id: 1, type: 1, value: "원형, 1호, 1단, 레터링 10글자 제한", price : 0)
     @State var selectedOption2 = Option(id: 3, type: 2, value: "바닐라시트, 우유생크림, 크림치즈", price : 0)

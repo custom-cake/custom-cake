@@ -69,7 +69,7 @@ struct StoreInfoView: View {
                         .padding(20)
                     
                 case .customcake:
-                    CustomOrderOption(cakeItemAPI: CakeItemsAPI(cakeId: storeDataAPI.cakeItemList[0].id), storedata: storeDataAPI)
+                    CustomOrderOption(cakeItemAPI: CakeItemsAPI(cakeId: storeDataAPI.cakeItemList[0].id), storedata: storeDataAPI, model: DrawingViewModel(userId: 2, storeId: storeDataAPI.id))
                         .padding(20)
                     /*
                     NavigationLink (
