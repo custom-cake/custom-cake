@@ -1,0 +1,139 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+# github repository Actions page name
+name: CI/CD develop env
+
+# event trigger
+on:
+  push:
+    branches: [ "develop" ]
+    paths: 
+    - "custom-cake-backend/**"
+    - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+jobs:
+  ci_cd:
+    runs-on: ubuntu-latest
+    steps:
+      # jdk setting
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'  # https://github.com/actions/setup-java (temurin 권장)
+
+      # gradle caching -> build 시간 20~30% 향상
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # create firebase init setting file
+      - name: Make firebase init.hs
+        if: contains(github.ref, 'develop')
+        run: |
+          cd ./custom-cake-backend/src/main/resources/static/bootstrap/js/firebase
+          touch ./init.js
+          echo "${{ secrets.FIREBASE_INIT_FILE }}" > ./init.js
+        shell: bash
+
+      # create application-dev.yml
+      - name: Make application-dev.yml
+        if: contains(github.ref, 'develop')
+        run: |
+          cd ./custom-cake-backend/src/main/resources
+          touch ./application-dev.yml
+          echo "${{ secrets.YML_DEV }}" > ./application-dev.yml
+        shell: bash
+
+      # gradlew 실행 권한 부여
+      - name: Grant execute permission for gradlew
+        working-directory: custom-cake-backend
+        run: chmod +x gradlew
+
+      # gradle build
+      - name: Build with Gradle
+        working-directory: custom-cake-backend
+        run: ./gradlew build -x test
+        #uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        #with:
+        #  arguments: build
+
+      # Docker login
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Docker Build and Push to develop        
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./custom-cake-backend
+          file: ./custom-cake-backend/Dockerfile-dev
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
+
+      # deploy to develop
+      - name: Deploy to dev
+        uses: appleboy/ssh-action@master
+        id: deploy-dev
+        if: contains(github.ref, 'develop')
+        with:
+          host: ${{ secrets.EC2_HOST_DEV }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          port: 22
+          # key: ${{ secrets.PRIVATE_KEY }}
+          script: "docker-compose pull && docker-compose down && docker-compose up -d"
+
+  # time
+  current-time:
+    needs: ci_cd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Current Time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH:mm:ss
+          utcOffset: "+09:00"  # KST
+
+      - name: Print Current Time
+        run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}"
+        shell: bash
+
+  # slack alarm
+  action-slack:
+    if: ${{ always() }}
+    needs: ci_cd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Alarm
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ needs.ci_cd.result }}
+          author_name: 백엔드 CI/CD to dev
+          fields: repo,message,commit,author,job,took  # ref: refs/heads/develop
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CICD }}  # requied env
+        # if: always()  # even if the job fails or is canceled.

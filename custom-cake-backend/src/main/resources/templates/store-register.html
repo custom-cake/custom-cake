@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::fragment-header">
+    <title>
+        REGISTER
+    </title>
+</head>
+
+<body class="bg-gradient-primary">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar::fragment-sidebar"></div>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <div th:replace="fragments/topbar::fragment-topbar"></div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content, Store is not exist -->
+                <div class="container-fluid" th:if="${session.operator.storeId == null}">
+                    <form th:action="@{/operator/store}" th:object="${storeRegisterRequest}" method="post" >
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">매장 등록</h1>
+    <!--                        <a th:href="@{/}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">-->
+    <!--                            <i class="fas fa-download fa-sm text-white-50"></i> 저장</a>-->
+                            <!-- 매장 정보 저장 Button -->
+                            <button type="submit" class="btn btn-info btn-icon-split">
+                                <span class="text text-white"> 저장 </span>
+                                <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                            </button>
+                        </div>
+                        <!-- Store Register Form -->
+                        <div class="row">
+                            <!-- Task Card Example -->
+                            <div class="col-xl-12 col-md-12 mb-5">
+                                <div class="card shadow mb-4 border-left-dark shadow h-100"> <!--h-auto-->
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold " style="color: #694E4E">매장 정보</h6>
+                                    </div>
+                                    <div class="card-body">
+                                            <table class="table table-bordered table-hover">
+                                                <tbody>
+                                                <tr>
+                                                    <td>사업자등록번호 | 대표자명</td>
+                                                    <td>
+                                                        <div class="list-inline-item">
+                                                            <input type="text" id="businessRegistrationNo" class="form-control"
+                                                                   th:field="*{businessRegistrationNo}" placeholder="000-00-00000" onblur="validateBRN()">
+<!--                                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('businessRegistrationNo')}"-->
+<!--                                                                 th:errors="*{businessRegistrationNo}"></div>-->
+                                                        </div>
+                                                        <div class="list-inline-item">
+                                                            <input type="text" id="representativeName" class="form-control" th:field="*{representativeName}">
+<!--                                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('representativeName')}"-->
+<!--                                                                 th:errors="*{representativeName}"></div>-->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>우편번호, 주소</td>
+                                                    <td>
+                                                        <div class="list-inline-item">
+                                                            <input type="text" id="zipCode" class="form-control" th:field="*{zipCode}"
+                                                                   onblur="validateZipcode()" />
+<!--                                                            <div class="alert alert-warning" th:if="${#fields.hasErrors('zipCode')}"-->
+<!--                                                                 th:errors="*{zipCode}"></div>-->
+                                                        </div>
+                                                        <div class="list-inline-item">
+                                                            <input type="text" id="baseAddress" class="form-control" th:field="*{baseAddress}">
+<!--                                                            <div class="alert alert-warning " th:if="${#fields.hasErrors('baseAddress')}"-->
+<!--                                                                 th:errors="*{baseAddress}"></div>-->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>상세주소</td>
+                                                    <td>
+                                                        <input type="text" id="detailAddress" class="form-control" th:field="*{detailAddress}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>매장 번호</td>
+                                                    <td>
+                                                        <input type="text" id="phone" class="form-control" th:field="*{phone}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>매장명</td>
+                                                    <td>
+                                                        <input type="text" id="name" class="form-control" th:field="*{name}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>매장 설명</td>
+                                                    <td>
+                                                        <input type="text" id="description" class="form-control" style="height: 300px;" th:field="*{description}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                <td>예약 주기</td>
+                                                <td>
+                                                        <input type="text" id="reservationPeriod" class="form-control" th:field="*{reservationPeriod}"
+                                                               th:value="*{reservationPeriod}" th:placeholder="${storeRegisterRequest.reservationPeriod == 0 ? '분 단위로 입력하세요.' : ''}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>예약 주기당 케이크 예약 건수</td>
+                                                    <td>
+                                                        <input type="text" id="reservationPerPeriodCount" class="form-control" th:field="*{reservationPerPeriodCount}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- TODO s3 image upload -->
+                                                    <td>매장 이미지</td>
+                                                    <td>
+                                                        <input type="text" id="thumbnailImageUrl" class="form-control" th:field="*{thumbnailImageUrl}">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+<!--                                        <input type="text" id="openTime" class="form-control" th:field="*{openTime}">-->
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th>요일</th>
+                                                    <th>고정 휴뮤일</th>
+                                                    <th>운영 시간</th>
+                                                </tr>
+                                                <tr th:each="entry,iter : ${dayOfWeekList}">
+                                                    <td th:text="${entry}"></td>
+                                                    <td>
+                                                        <div class="form-check-inline">
+                                                            <input type="checkbox" class="form-check-input" th:field="${storeRegisterRequest.fixedDayOffList}"
+                                                                   th:value="${entry}" th:id="|fixedDay${iter.index}|"  th:onchange="|toggleOpenTime(this, ${iter.index})|" />
+                                                            <label class="form-check-label" th:for="|fixedDay${iter.index}|"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check-inline">
+                                                            <input type="text" th:field="${storeRegisterRequest.openTime}" th:id="|openTime${iter.index}|"
+                                                                   value="" th:onblur="|validateOpenTime(${iter.index})|" />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Store Register Form -->
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Store is exist -->
+                <div class="container-fluid" th:unless="${session.operator.storeId == null}">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">매장 등록</h1>
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Task Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-5">
+
+                                <!-- 매장 NULL-->
+                            <div class="card shadow mb-4 border-left-dark shadow h-auto" th:unless="${storeInfo != null}">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold " style="color: #694E4E">매장 등록</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <p><b>매장이 이미 존재합니다!</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+
+            <!-- Footer -->
+            <div th:replace="fragments/footer::fragment-footer"></div>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div th:replace="fragments/logout-modal::fragment-logoutmodal"></div>
+
+
+
+<!--&lt;!&ndash;        <div class="card o-hidden border-0 shadow-lg my-5">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card-body p-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash; Nested Row within Card Body &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="col-lg-7">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="p-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <form th:action="@{/operator/store}"  th:object="${storeRegisterRequest}" method="post" >&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="form-group row">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="col-sm-6 mb-3 mb-sm-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label>사업자 등록번호</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <input type="text" class="form-control form-control-user" id="businessNo"&ndash;&gt;-->
+<!--&lt;!&ndash;                                               th:field="*{businessRegistrationNo}" placeholder="사업자 등록번호">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="col-sm-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label>대표자명</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <input type="text" class="form-control form-control-user"&ndash;&gt;-->
+<!--&lt;!&ndash;                                               th:field="*{representativeName}" placeholder="">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <label>우편번호</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"&ndash;&gt;-->
+<!--&lt;!&ndash;                                        placeholder="Email Address">&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="form-group row">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="col-sm-6 mb-3 mb-sm-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <input type="password" class="form-control form-control-user"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            id="exampleInputPassword" placeholder="Password">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="col-sm-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <input type="password" class="form-control form-control-user"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            id="exampleRepeatPassword" placeholder="Repeat Password">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a href="login.html" class="btn btn-primary btn-user btn-block">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    Register Account&ndash;&gt;-->
+<!--&lt;!&ndash;                                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <hr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a href="dashboard.html" class="btn btn-google btn-user btn-block">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i class="fab fa-google fa-fw"></i> Register with Google&ndash;&gt;-->
+<!--&lt;!&ndash;                                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a href="dashboard.html" class="btn btn-facebook btn-user btn-block">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook&ndash;&gt;-->
+<!--&lt;!&ndash;                                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <hr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="small" href="forgot-password.html">Forgot Password?</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="small" href="login.html">Already have an account? Login!</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--    </div>-->
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/bootstrap/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/bootstrap/js/sb-admin-2.min.js}"></script>
+
+    <script>
+        function validateBRN() {
+            let input = document.getElementById("businessRegistrationNo").value;
+            let pattern = /[0-9]{3}-[0-9]{2}-[0-9]{5}/;
+            if (!pattern.test(input)) {
+                alert("Please enter a valid business registration number (000-00-00000)");
+            }
+        }
+        function validateZipcode() {
+            let input = document.getElementById("zipCode").value;
+            let pattern = /[0-9]{5}/;
+            if (!pattern.test(input)) {
+                alert("Please enter a valid zipcode (00000)");
+            }
+        }
+
+        // openTime
+        function validateOpenTime(index) {
+            let input = document.getElementById("openTime"+index).value;
+            let pattern = /[0-9]{2}:[0-9]{2}~[0-9]{2}:[0-9]{2}/;
+            if (!pattern.test(input)) {
+                alert("Please enter a valid openTime (00:00~00:00)");
+            }
+        }
+
+        function toggleOpenTime(checkbox, index) {
+            let openTime = document.getElementById("openTime"+index);
+            openTime.disabled = checkbox.checked;
+        }
+
+    </script>
+
+</body>
+
+</html>
